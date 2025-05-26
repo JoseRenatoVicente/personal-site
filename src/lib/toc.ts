@@ -52,7 +52,13 @@ export const generateTableOfContents = (htmlAst: Node) => {
     if (text.length > 0) {
       const id = (node.properties as NodeProperties).id || `error-missing-id`
       const level = (node.tagName as string).substr(1, 1)
-      toc.push({ level: level, id: id, heading: text, parentIndex: -1, items: [] })
+      toc.push({
+        level: level,
+        id: id,
+        heading: text,
+        parentIndex: -1,
+        items: [],
+      })
     }
   })
 
@@ -77,7 +83,14 @@ export const generateTableOfContents = (htmlAst: Node) => {
   // make final tree
   const tocTree = toc.filter(({ parentIndex }) => parentIndex === -1)
 
-  const removeProps = ({ id, heading, items }: TOC): IToC => (items.length > 0 ? { id, heading, items: (items as TOC[]).map((item) => removeProps(item)) } : { id, heading })
+  const removeProps = ({ id, heading, items }: TOC): IToC =>
+    items.length > 0
+      ? {
+          id,
+          heading,
+          items: (items as TOC[]).map((item) => removeProps(item)),
+        }
+      : { id, heading }
 
   return tocTree.map((node) => removeProps(node))
 }

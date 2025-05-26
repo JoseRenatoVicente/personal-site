@@ -10,8 +10,5 @@ interface HeaderPageProps {
 }
 
 export const HeaderPage = ({ settings }: HeaderPageProps) => {
-
-  return (
-    <HeaderBase {...settings} />
-  )
+  return <HeaderBase {...settings} />
 }

@@ -40,7 +40,6 @@ export const Layout = ({ settings, header, children, isHome, previewPosts, bodyC
 
   errorClass = errorClass || ``
 
-
   return (
     <>
       <DocumentHead className={bodyClass} />

@@ -1,31 +1,30 @@
-import { getAllTags, GhostSettings, getAllSettings, GhostPostsOrPages, getPostsByTag, getTagBySlug } from '@lib/ghost';
-import { getSeoMetadata } from '@components/meta/seo';
-import { Layout } from '@components/Layout';
-import Link from 'next/link';
-import { HeaderIndex } from '@components/HeaderIndex';
-import { Subscribe } from '@components/Subscribe';
-import { PostView } from '@components/PostView';
-import { notFound } from 'next/navigation';
+import { getAllTags, GhostSettings, getAllSettings, GhostPostsOrPages, getPostsByTag, getTagBySlug } from '@lib/ghost'
+import { getSeoMetadata } from '@components/meta/seo'
+import { Layout } from '@components/Layout'
+import Link from 'next/link'
+import { HeaderIndex } from '@components/HeaderIndex'
+import { Subscribe } from '@components/Subscribe'
+import { PostView } from '@components/PostView'
+import { notFound } from 'next/navigation'
 
-export const dynamic = "force-static";
+export const dynamic = 'force-static'
 
 export async function generateStaticParams() {
   const tags = await getAllTags()
-  return tags.map(tag => ({ slug: [tag.slug] }))
+  return tags.map((tag) => ({ slug: [tag.slug] }))
 }
-
 
 export async function generateMetadata({ params }: PostsTagPageProps) {
   const resolved = await params
   if (!resolved?.slug) notFound()
 
   const slug = resolved.slug[resolved.slug.length - 1]
-  let tag;
+  let tag
 
   try {
-    tag = await getTagBySlug(slug);
+    tag = await getTagBySlug(slug)
   } catch (e) {
-    notFound();
+    notFound()
   }
   if (!tag) notFound()
 
@@ -34,7 +33,7 @@ export async function generateMetadata({ params }: PostsTagPageProps) {
   return getSeoMetadata({
     title: tag.name,
     description: tag.description ?? undefined,
-    settings
+    settings,
   })
 }
 interface PostsTagPageProps {
@@ -48,10 +47,10 @@ export default async function PostsByTagPage({ params }: PostsTagPageProps) {
   const slug = resolved.slug[resolved.slug.length - 1]
   const tag = await getTagBySlug(slug)
   if (!tag) notFound()
-  const settings: GhostSettings = await getAllSettings();
-  const tags = await getAllTags();
-  const selectedTag = tag.slug;
-  const posts: GhostPostsOrPages = await getPostsByTag(selectedTag);
+  const settings: GhostSettings = await getAllSettings()
+  const tags = await getAllTags()
+  const selectedTag = tag.slug
+  const posts: GhostPostsOrPages = await getPostsByTag(selectedTag)
 
   return (
     <Layout settings={settings} bodyClass="tags-page" header={<HeaderIndex settings={settings} />}>
@@ -74,14 +73,11 @@ export default async function PostsByTagPage({ params }: PostsTagPageProps) {
               <div className="flex justify-between items-center mb-8">
                 <h2 className="text-2xl font-bold">Artigos da Tag: {selectedTag}</h2>
                 <div className="flex flex-wrap gap-2">
-                  <Link href="/posts" className={`badge text-xs badge-outline`} prefetch={false}>Todos</Link>
-                  {tags.map(tag => (
-                    <Link
-                      key={tag.slug}
-                      href={`/posts/${tag.slug}`}
-                      className={`badge text-xs ${selectedTag === tag.slug ? 'badge-primary' : 'badge-outline'}`}
-                      prefetch={false}
-                    >
+                  <Link href="/posts" className={`badge text-xs badge-outline`} prefetch={false}>
+                    Todos
+                  </Link>
+                  {tags.map((tag) => (
+                    <Link key={tag.slug} href={`/posts/${tag.slug}`} className={`badge text-xs ${selectedTag === tag.slug ? 'badge-primary' : 'badge-outline'}`} prefetch={false}>
                       {tag.name}
                     </Link>
                   ))}
@@ -111,5 +107,5 @@ export default async function PostsByTagPage({ params }: PostsTagPageProps) {
         </div>
       </section>
     </Layout>
-  );
+  )
 }

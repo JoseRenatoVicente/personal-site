@@ -6,14 +6,10 @@ import { getLang, get } from '@utils/use-lang'
 import { HeaderBase } from './HeaderBase'
 
 interface HeaderPostProps {
-  settings: GhostSettings,
+  settings: GhostSettings
   title?: string
 }
 
-
 export const HeaderPost = ({ settings, title }: HeaderPostProps) => {
-
-  return (
-      <HeaderBase {... settings } />
-    )
+  return <HeaderBase {...settings} />
 }

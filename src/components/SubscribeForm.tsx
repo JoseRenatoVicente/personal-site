@@ -8,19 +8,12 @@ export const SubscribeForm = ({ settings }: { settings: GhostSettings }) => {
   return (
     <form className="space-y-3" data-members-form="subscribe">
       <div>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          className="input w-full"
-          data-members-email
-          placeholder={text(`YOUR_EMAIL`)}
-          autoComplete="false"
-        />
-      </div><button
-        type="submit" className="btn btn-primary w-full">{text(`SUBSCRIBE`)}</button>
-      <p className="text-xs text-muted-foreground">Nunca compartilharemos seu e-mail. Você pode cancelar a qualquer momento.
-      </p>
+        <input id="email" name="email" type="email" className="input w-full" data-members-email placeholder={text(`YOUR_EMAIL`)} autoComplete="false" />
+      </div>
+      <button type="submit" className="btn btn-primary w-full">
+        {text(`SUBSCRIBE`)}
+      </button>
+      <p className="text-xs text-muted-foreground">Nunca compartilharemos seu e-mail. Você pode cancelar a qualquer momento.</p>
     </form>
   )
 }

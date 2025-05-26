@@ -1,21 +1,28 @@
 import { notFound } from 'next/navigation'
 import { Post } from '@components/Post'
 import { Page } from '@components/Page'
-import { getPostBySlug, getPageBySlug, getAllPosts, getAllPages, getAllSettings, getAllPostSlugs, getPostsByTag, getTagBySlug, GhostPostOrPage, GhostPostsOrPages } from '@lib/ghost'
+import {
+  getPostBySlug,
+  getPageBySlug,
+  getAllPosts,
+  getAllPages,
+  getAllSettings,
+  getAllPostSlugs,
+  getPostsByTag,
+  getTagBySlug,
+  GhostPostOrPage,
+  GhostPostsOrPages,
+} from '@lib/ghost'
 import { collections } from '@lib/collections'
 import { seoImage } from '@components/meta/seoImage'
 import { processEnv } from '@lib/processEnv'
 import { BodyClass } from '@components/helpers/BodyClass'
 
-export default async function PostOrPage({
-  params
-}: {
-  params?: Promise<{ slug: string[] }>
-}) {
-  const resolvedParams = params ? await params : undefined;
-  if (!resolvedParams?.slug || !Array.isArray(resolvedParams.slug)) notFound();
-  const slug = resolvedParams.slug[resolvedParams.slug.length - 1];
-  const settings = await getAllSettings();
+export default async function PostOrPage({ params }: { params?: Promise<{ slug: string[] }> }) {
+  const resolvedParams = params ? await params : undefined
+  if (!resolvedParams?.slug || !Array.isArray(resolvedParams.slug)) notFound()
+  const slug = resolvedParams.slug[resolvedParams.slug.length - 1]
+  const settings = await getAllSettings()
 
   const post = await getPostBySlug(slug)
   let page: GhostPostOrPage | null = null
@@ -30,13 +37,37 @@ export default async function PostOrPage({
 
   if (!post && !page) notFound()
 
-  let previewPosts: GhostPostsOrPages = Object.assign([], { meta: { pagination: { page: 1, limit: 3, pages: 1, total: 0, next: null, prev: null } } })
+  let previewPosts: GhostPostsOrPages = Object.assign([], {
+    meta: {
+      pagination: {
+        page: 1,
+        limit: 3,
+        pages: 1,
+        total: 0,
+        next: null,
+        prev: null,
+      },
+    },
+  })
   let prevPost: GhostPostOrPage | undefined = undefined
   let nextPost: GhostPostOrPage | undefined = undefined
 
   if (isPost && post?.id && post?.slug) {
     const tagSlug = post?.primary_tag?.slug
-    previewPosts = (tagSlug && (await getPostsByTag(tagSlug, 3, post?.id))) || Object.assign([], { meta: { pagination: { page: 1, limit: 3, pages: 1, total: 0, next: null, prev: null } } })
+    previewPosts =
+      (tagSlug && (await getPostsByTag(tagSlug, 3, post?.id))) ||
+      Object.assign([], {
+        meta: {
+          pagination: {
+            page: 1,
+            limit: 3,
+            pages: 1,
+            total: 0,
+            next: null,
+            prev: null,
+          },
+        },
+      })
     const postSlugs = await getAllPostSlugs()
     const index = postSlugs.indexOf(post?.slug)
     const prevSlug = index > 0 ? postSlugs[index - 1] : null
@@ -52,7 +83,19 @@ export default async function PostOrPage({
   const bodyClass = BodyClass({ isPost, page: page || undefined, tags })
 
   if (isPost && post) {
-    return <Post cmsData={{ settings, post, seoImage: image, previewPosts, prevPost, nextPost, bodyClass }} />
+    return (
+      <Post
+        cmsData={{
+          settings,
+          post,
+          seoImage: image,
+          previewPosts,
+          prevPost,
+          nextPost,
+          bodyClass,
+        }}
+      />
+    )
   } else if (page) {
     return <Page cmsData={{ settings, page, seoImage: image, bodyClass }} />
   } else {
@@ -73,6 +116,8 @@ export async function generateStaticParams() {
     const { slug, url } = post
     return { slug: [slug] }
   })
-  const pageRoutes = pages.map((page: GhostPostOrPage) => ({ slug: [page.slug] }))
+  const pageRoutes = pages.map((page: GhostPostOrPage) => ({
+    slug: [page.slug],
+  }))
   return [...postRoutes, ...pageRoutes]
 }

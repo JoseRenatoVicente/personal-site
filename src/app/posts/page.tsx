@@ -1,52 +1,46 @@
-import { getAllTags, GhostSettings, getAllSettings, GhostPostsOrPages, getAllPosts, getPostsByTag } from '@lib/ghost';
-import { getSeoMetadata } from '@components/meta/seo';
-import { Layout } from '@components/Layout';
-import Link from 'next/link';
-import { HeaderIndex } from '@components/HeaderIndex';
-import { Subscribe } from '@components/Subscribe';
-import { PostView } from '@components/PostView';
+import { getAllTags, GhostSettings, getAllSettings, GhostPostsOrPages, getAllPosts, getPostsByTag } from '@lib/ghost'
+import { getSeoMetadata } from '@components/meta/seo'
+import { Layout } from '@components/Layout'
+import Link from 'next/link'
+import { HeaderIndex } from '@components/HeaderIndex'
+import { Subscribe } from '@components/Subscribe'
+import { PostView } from '@components/PostView'
 
-export const dynamic = "force-static";
+export const dynamic = 'force-static'
 
 export const metadata = getSeoMetadata({
   title: 'Artigos',
   description: 'Navegue por todas as tags do blog',
-  settings: await getAllSettings()
-});
+  settings: await getAllSettings(),
+})
 
-export default async function PostsPage({
-  searchParams
-}: {
-  searchParams?: Promise<{ tag?: string; q?: string }>
-}) {
-  const settings: GhostSettings = await getAllSettings();
-  const tags = await getAllTags();
+export default async function PostsPage({ searchParams }: { searchParams?: Promise<{ tag?: string; q?: string }> }) {
+  const settings: GhostSettings = await getAllSettings()
+  const tags = await getAllTags()
 
-  let tag = null, q = '';
+  let tag = null,
+    q = ''
   if (searchParams) {
-    const params = await searchParams;
-    tag = params.tag || null;
-    q = params.q || '';
+    const params = await searchParams
+    tag = params.tag || null
+    q = params.q || ''
   }
-  const selectedTag = tag;
-  const searchQuery = q;
+  const selectedTag = tag
+  const searchQuery = q
 
-  let posts: GhostPostsOrPages;
+  let posts: GhostPostsOrPages
   if (selectedTag) {
-    posts = await getPostsByTag(selectedTag);
+    posts = await getPostsByTag(selectedTag)
   } else {
-    posts = await getAllPosts({ limit: 6 });
+    posts = await getAllPosts({ limit: 6 })
   }
 
   if (searchQuery) {
-    const q = searchQuery.toLowerCase();
+    const q = searchQuery.toLowerCase()
     posts = Object.assign(
-      posts.filter((post) =>
-        (post.title && post.title.toLowerCase().includes(q)) ||
-        (post.excerpt && post.excerpt.toLowerCase().includes(q))
-      ),
-      { meta: posts.meta }
-    );
+      posts.filter((post) => (post.title && post.title.toLowerCase().includes(q)) || (post.excerpt && post.excerpt.toLowerCase().includes(q))),
+      { meta: posts.meta },
+    )
   }
 
   return (
@@ -54,7 +48,6 @@ export default async function PostsPage({
       <Layout settings={settings} bodyClass="tags-page" header={<HeaderIndex settings={settings} />}>
         {!selectedTag && (
           <section className="relative py-16 md:py-24 overflow-hidden">
-
             <div className="absolute inset-0 z-0 opacity-10">
               <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-foreground to-transparent"></div>
             </div>
@@ -65,7 +58,8 @@ export default async function PostsPage({
               </div>
             </div>
             <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-foreground/20 to-transparent"></div>
-          </section>)}
+          </section>
+        )}
         <section className="section">
           <div className="container">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -73,20 +67,11 @@ export default async function PostsPage({
                 <div className="flex justify-between items-center mb-8">
                   <h2 className="text-2xl font-bold">Artigos Recentes</h2>
                   <div className="flex flex-wrap gap-2">
-                    <Link
-                      href="/posts"
-                      className={`badge text-xs ${!selectedTag ? 'badge-primary' : 'badge-outline'}`}
-                      prefetch={false}
-                    >
+                    <Link href="/posts" className={`badge text-xs ${!selectedTag ? 'badge-primary' : 'badge-outline'}`} prefetch={false}>
                       Todos
                     </Link>
-                    {tags.map(tag => (
-                      <Link
-                        key={tag.slug}
-                        href={`/posts/${tag.slug}`}
-                        className={`badge text-xs ${selectedTag === tag.slug ? 'badge-primary' : 'badge-outline'}`}
-                        prefetch={false}
-                      >
+                    {tags.map((tag) => (
+                      <Link key={tag.slug} href={`/posts/${tag.slug}`} className={`badge text-xs ${selectedTag === tag.slug ? 'badge-primary' : 'badge-outline'}`} prefetch={false}>
                         {tag.name}
                       </Link>
                     ))}
@@ -94,15 +79,11 @@ export default async function PostsPage({
                 </div>
                 <div className="mb-8">
                   <form method="GET" action="/posts" className="flex gap-2">
-                    <input
-                      type="text"
-                      name="q"
-                      placeholder="Pesquisar artigos..."
-                      className="input w-full"
-                      defaultValue={searchQuery}
-                    />
+                    <input type="text" name="q" placeholder="Pesquisar artigos..." className="input w-full" defaultValue={searchQuery} />
                     {selectedTag && <input type="hidden" name="tag" value={selectedTag} />}
-                    <button type="submit" className="btn btn-primary">Filtrar</button>
+                    <button type="submit" className="btn btn-primary">
+                      Filtrar
+                    </button>
                   </form>
                 </div>
                 <div className="space-y-8">
@@ -150,5 +131,5 @@ export default async function PostsPage({
         </section>
       </Layout>
     </>
-  );
+  )
 }

@@ -4,7 +4,6 @@ import { Dimensions } from '@lib/images'
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
 
-
 interface PropertyProps {
   src: string
   className?: string[]

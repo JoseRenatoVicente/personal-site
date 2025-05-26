@@ -4,24 +4,24 @@ import { getCache, setCache } from '@lib/cache'
 import { createReadStream, createWriteStream, existsSync } from 'fs'
 import { join } from 'path'
 import { processEnv } from '@lib/processEnv'
-import { pipeline } from 'stream/promises';
-import { createHash } from 'crypto';
-import { Readable } from 'stream';
+import { pipeline } from 'stream/promises'
+import { createHash } from 'crypto'
+import { Readable } from 'stream'
 
-const streamPipeline = pipeline;
+const streamPipeline = pipeline
 
 function fetchToNodeStream(readableStream: ReadableStream): Readable {
-  const reader = readableStream.getReader();
+  const reader = readableStream.getReader()
   return new Readable({
     async read() {
-      const { done, value } = await reader.read();
+      const { done, value } = await reader.read()
       if (done) {
-        this.push(null);
+        this.push(null)
       } else {
-        this.push(Buffer.from(value));
+        this.push(Buffer.from(value))
       }
     },
-  });
+  })
 }
 
 /**
@@ -44,11 +44,11 @@ const read_timeout = 3000 // ms
 const response_timeout = 3000 // ms
 
 const calcHash = async (input: ArrayBuffer | string) => {
-  const hash = createHash('sha1');
-  const data = typeof input === 'string' ? input : Buffer.from(input);
-  hash.update(data);
-  return hash.digest('hex');
-};
+  const hash = createHash('sha1')
+  const data = typeof input === 'string' ? input : Buffer.from(input)
+  hash.update(data)
+  return hash.digest('hex')
+}
 
 const genCacheKey = async (url: string, noCache?: boolean) => {
   if (noCache) return null
@@ -139,10 +139,10 @@ export const normalizedImageUrl = async (url: string) => {
       const response = await fetch(url)
       if (!response.ok) throw new Error(`images.ts: unexpected response ${response.statusText}`)
       if (response.body) {
-        const nodeStream = fetchToNodeStream(response.body);
-        await streamPipeline(nodeStream, createWriteStream(filePath));
+        const nodeStream = fetchToNodeStream(response.body)
+        await streamPipeline(nodeStream, createWriteStream(filePath))
       } else {
-        throw new Error('Response body is null');
+        throw new Error('Response body is null')
       }
     }
     return `${processEnv.siteUrl}/images/${filename}`

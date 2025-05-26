@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+import { Metadata } from 'next'
 import { GhostSettings } from '@lib/ghost'
 import { Author, PostOrPage, Tag } from '@tryghost/content-api'
 import { ISeoImage } from '@components/meta/seoImage'
@@ -17,14 +17,14 @@ interface SEOProps {
 const getPublicTags = (tags: Tag[] | undefined) => (tags ? tags.filter((tag) => tag.name?.substr(0, 5) !== 'hash-') : [])
 
 export function getSeoMetadata(props: SEOProps): Metadata {
-  const { title: t, description: d, seoImage, settings, article, canonical } = props;
-  const { og_title, og_description, published_at, updated_at, primary_author, primary_tag, twitter_title, twitter_description } = article || {};
-  const type = article ? 'article' : 'website';
-  const siteUrl = settings.processEnv.siteUrl;
-  const { twitter, title: settingsTitle, description: settingsDescription, meta_title, meta_description } = settings;
-  const title = t || meta_title || settingsTitle || siteTitleMeta;
-  const description = d || meta_description || settingsDescription || siteDescriptionMeta;
-  const urlCanonical = canonical || siteUrl;
+  const { title: t, description: d, seoImage, settings, article, canonical } = props
+  const { og_title, og_description, published_at, updated_at, primary_author, primary_tag, twitter_title, twitter_description } = article || {}
+  const type = article ? 'article' : 'website'
+  const siteUrl = settings.processEnv.siteUrl
+  const { twitter, title: settingsTitle, description: settingsDescription, meta_title, meta_description } = settings
+  const title = t || meta_title || settingsTitle || siteTitleMeta
+  const description = d || meta_description || settingsDescription || siteDescriptionMeta
+  const urlCanonical = canonical || siteUrl
 
   return {
     title,
@@ -36,7 +36,15 @@ export function getSeoMetadata(props: SEOProps): Metadata {
       description: og_description || description,
       url: urlCanonical,
       siteName: title,
-      images: seoImage ? [{ url: seoImage.url, width: seoImage.dimensions.width, height: seoImage.dimensions.height }] : undefined,
+      images: seoImage
+        ? [
+            {
+              url: seoImage.url,
+              width: seoImage.dimensions.width,
+              height: seoImage.dimensions.height,
+            },
+          ]
+        : undefined,
       ...(published_at && { publishedTime: published_at }),
       ...(updated_at && { modifiedTime: updated_at }),
       ...(primary_author && { authors: [primary_author.name] }),
@@ -49,17 +57,20 @@ export function getSeoMetadata(props: SEOProps): Metadata {
       site: twitter ? `https://twitter.com/${twitter.replace(/^@/, ``)}/` : undefined,
       creator: twitter,
       images: seoImage ? [seoImage.url] : undefined,
-      ...(primary_author && { label1: 'Written by', data1: primary_author.name }),
+      ...(primary_author && {
+        label1: 'Written by',
+        data1: primary_author.name,
+      }),
       ...(primary_tag && { label2: 'Filed under', data2: primary_tag.name }),
     },
-  };
+  }
 }
 
 export const authorSameAs = (author: Author) => {
   const { website, twitter, facebook } = author
 
   const authorProfiles = [website, twitter && `https://twitter.com/${twitter.replace(/^@/, ``)}/`, facebook && `https://www.facebook.com/${facebook.replace(/^\//, ``)}/`].filter(
-    (element) => !!element
+    (element) => !!element,
   )
 
   return (authorProfiles.length > 0 && `["${authorProfiles.join(`", "`)}"]`) || undefined

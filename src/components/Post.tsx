@@ -20,8 +20,8 @@ import { collections } from '@lib/collections'
 
 import { ISeoImage } from '@components/meta/seoImage'
 
-import { IToC } from '@lib/toc';
-import { TableOfContentsItem } from '@components/toc/TableOfContents';
+import { IToC } from '@lib/toc'
+import { TableOfContentsItem } from '@components/toc/TableOfContents'
 
 import React from 'react'
 
@@ -43,7 +43,7 @@ const transformToC = (toc: IToC[]): TableOfContentsItem[] =>
     id: item.id,
     text: item.heading || '', // Assuming 'heading' maps to 'text'
     children: item.items ? transformToC(item.items) : undefined,
-  }));
+  }))
 
 export const Post = ({ cmsData }: PostProps) => {
   const { post, settings, seoImage, previewPosts, prevPost, nextPost, bodyClass } = cmsData
@@ -58,7 +58,11 @@ export const Post = ({ cmsData }: PostProps) => {
   const text = get(getLang(lang))
   const readingTime = readingTimeHelper(post).replace(`min read`, text(`MIN_READ`))
   const featImg = post.featureImage
-  const postClass = PostClass({ tags: post.tags, isFeatured: !!featImg, isImage: !!featImg })
+  const postClass = PostClass({
+    tags: post.tags,
+    isFeatured: !!featImg,
+    isImage: !!featImg,
+  })
 
   const htmlAst = post.htmlAst
   if (htmlAst === undefined) throw Error('Post.tsx: htmlAst must be defined.')
@@ -67,25 +71,17 @@ export const Post = ({ cmsData }: PostProps) => {
 
   return (
     <>
-      <Layout
-        {...{ bodyClass, settings }}
-        header={<HeaderPost {...{ settings, title }} />}
-        previewPosts={<></>}
-      >
-
+      <Layout {...{ bodyClass, settings }} header={<HeaderPost {...{ settings, title }} />} previewPosts={<></>}>
         <section className="relative py-16 md:py-24 overflow-hidden">
           <div className="absolute inset-0 z-0 opacity-10">
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-foreground to-transparent"></div>
           </div>
           <div className="container relative z-10">
             <div className="max-w-3xl mx-auto text-center">
-              <h1 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6 animate-fade-in text-gradient">
-                {title}
-              </h1>
+              <h1 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6 animate-fade-in text-gradient">{title}</h1>
             </div>
           </div>
           <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-foreground/20 to-transparent"></div>
-
         </section>
 
         <AuthorList {...{ settings, authors: post.authors, isPost: true }} />
@@ -136,7 +132,6 @@ export const Post = ({ cmsData }: PostProps) => {
           <div className="container">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
               <div className="lg:col-span-2">
-
                 <article className="prose max-w-none">
                   <RenderContent htmlAst={htmlAst} />
                 </article>
@@ -145,11 +140,7 @@ export const Post = ({ cmsData }: PostProps) => {
                   <div className="mt-12 pt-8 border-t">
                     <div className="flex flex-wrap gap-2">
                       {post.tags.map((tag) => (
-                        <Link
-                          key={tag.id}
-                          className="badge badge-outline hover:bg-secondary transition-colors"
-                          href={`/tags/${tag.slug}`}
-                        >
+                        <Link key={tag.id} className="badge badge-outline hover:bg-secondary transition-colors" href={`/tags/${tag.slug}`}>
                           {tag.name}
                         </Link>
                       ))}
@@ -157,8 +148,12 @@ export const Post = ({ cmsData }: PostProps) => {
                   </div>
                 )}
 
-                <div className="mt-12 pt-8 border-t"><h3 className="text-xl font-bold mb-6">Comentários</h3><div className="card p-6"><p className="text-center text-muted-foreground">Os comentários estão desabilitados neste artigo.</p></div></div>
-
+                <div className="mt-12 pt-8 border-t">
+                  <h3 className="text-xl font-bold mb-6">Comentários</h3>
+                  <div className="card p-6">
+                    <p className="text-center text-muted-foreground">Os comentários estão desabilitados neste artigo.</p>
+                  </div>
+                </div>
               </div>
 
               <div className="space-y-8">
@@ -169,14 +164,24 @@ export const Post = ({ cmsData }: PostProps) => {
                     {previewPosts?.map((post, i) => (
                       <li className="pt-4" key={i}>
                         <h4>
-                          <Link href={resolveUrl({ cmsUrl, collectionPath: collections.getCollectionByNode(post), slug: post.slug, url: post.url })} className="hover:text-accent transition-colors">
+                          <Link
+                            href={resolveUrl({
+                              cmsUrl,
+                              collectionPath: collections.getCollectionByNode(post),
+                              slug: post.slug,
+                              url: post.url,
+                            })}
+                            className="hover:text-accent transition-colors"
+                          >
                             {post.title}
                           </Link>
                         </h4>
                         <div className="read-next-card-meta">
                           <p>
-                            <time className="text-xs text-muted-foreground" dateTime={post.published_at || ''}>{dayjs(post.published_at || '').format('D MMMM, YYYY')}</time> –{' '}
-                            {readingTimeHelper(post).replace(`min read`, text(`MIN_READ`))}
+                            <time className="text-xs text-muted-foreground" dateTime={post.published_at || ''}>
+                              {dayjs(post.published_at || '').format('D MMMM, YYYY')}
+                            </time>{' '}
+                            – {readingTimeHelper(post).replace(`min read`, text(`MIN_READ`))}
                           </p>
                         </div>
                       </li>
@@ -184,11 +189,8 @@ export const Post = ({ cmsData }: PostProps) => {
                   </ul>
                 </div>
               </div>
-
             </div>
           </div>
-
-
         </section>
       </Layout>
     </>

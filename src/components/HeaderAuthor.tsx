@@ -27,7 +27,7 @@ export const HeaderAuthor = ({ settings, author }: HeaderAuthorProps) => {
   const title = text(`SITE_TITLE`, site.title)
   const siteLogo = site.logoImage
 
-    // targetHeight is coming from style .site-nav-logo img
+  // targetHeight is coming from style .site-nav-logo img
   const targetHeight = 21
   const calcSiteLogoWidth = (image: NextImage, targetHeight: number) => {
     const { width, height } = image.dimensions
@@ -35,34 +35,39 @@ export const HeaderAuthor = ({ settings, author }: HeaderAuthorProps) => {
   }
 
   return (
-    <header
-      className={`sticky top-0 z-40 w-full transition-all duration-200 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm`}>
+    <header className={`sticky top-0 z-40 w-full transition-all duration-200 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm`}>
       <div className="container flex h-16 items-center justify-between py-4">
-
-          <Link href="/" className="text-lg font-bold">
-            {siteLogo && nextImages.feature ? (
-              <div
-                style={{
-                  height: `${targetHeight}px`,
-                  width: `${calcSiteLogoWidth(siteLogo, targetHeight)}px`,
-                }}
-              >
-                <Image className="site-nav-logo" src={siteLogo.url} alt={title} width={siteLogo.dimensions.width} height={siteLogo.dimensions.height} quality={nextImages.quality} />
-              </div>
-            ) : site.logo ? (
-                <Image src={site.logo} alt={title} />
-            ) : (
-              title
-            )}
-          </Link>
-          <SiteNav {...{ settings }} className="relative z-50" />
+        <Link href="/" className="text-lg font-bold">
+          {siteLogo && nextImages.feature ? (
+            <div
+              style={{
+                height: `${targetHeight}px`,
+                width: `${calcSiteLogoWidth(siteLogo, targetHeight)}px`,
+              }}
+            >
+              <Image className="site-nav-logo" src={siteLogo.url} alt={title} width={siteLogo.dimensions.width} height={siteLogo.dimensions.height} quality={nextImages.quality} />
+            </div>
+          ) : site.logo ? (
+            <Image src={site.logo} alt={title} />
+          ) : (
+            title
+          )}
+        </Link>
+        <SiteNav {...{ settings }} className="relative z-50" />
       </div>
       <HeaderBackground srcImg={coverImg}>
         <div className="inner">
           <div className="site-header-content author-header">
             {profileImg && nextImages.feature ? (
               <div className="author-profile-image">
-                <Image className="author-profile-image" src={profileImg.url} alt={author.name || ''} quality={nextImages.quality} width={profileImg.dimensions.width} height={profileImg.dimensions.height} />
+                <Image
+                  className="author-profile-image"
+                  src={profileImg.url}
+                  alt={author.name || ''}
+                  quality={nextImages.quality}
+                  width={profileImg.dimensions.width}
+                  height={profileImg.dimensions.height}
+                />
               </div>
             ) : author.profile_image ? (
               /* eslint-disable @next/next/no-img-element */

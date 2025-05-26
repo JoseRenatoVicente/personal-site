@@ -1,4 +1,3 @@
-
 import { GhostSettings } from '@lib/ghost'
 
 interface SocialLinkProps {

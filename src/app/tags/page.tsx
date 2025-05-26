@@ -1,18 +1,18 @@
-import { getAllTags, GhostTags, GhostSettings, getAllSettings } from '@lib/ghost';
-import { getSeoMetadata } from '@components/meta/seo';
-import { Layout } from '@components/Layout';
-import Link from 'next/link';
-import { HeaderIndex } from '@components/HeaderIndex';
+import { getAllTags, GhostTags, GhostSettings, getAllSettings } from '@lib/ghost'
+import { getSeoMetadata } from '@components/meta/seo'
+import { Layout } from '@components/Layout'
+import Link from 'next/link'
+import { HeaderIndex } from '@components/HeaderIndex'
 
 export const metadata = getSeoMetadata({
   title: 'Tags',
   description: 'Navegue por todas as tags do blog',
-  settings: await getAllSettings()
-});
+  settings: await getAllSettings(),
+})
 
 export default async function TagsPage() {
-  const settings: GhostSettings = await getAllSettings();
-  const tags: GhostTags = await getAllTags();
+  const settings: GhostSettings = await getAllSettings()
+  const tags: GhostTags = await getAllTags()
 
   return (
     <>
@@ -33,5 +33,5 @@ export default async function TagsPage() {
         </section>
       </Layout>
     </>
-  );
+  )
 }

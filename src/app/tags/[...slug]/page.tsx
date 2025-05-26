@@ -21,22 +21,21 @@ export async function generateMetadata({ params }: TagPageProps) {
   const settings = await getAllSettings()
 
   return getSeoMetadata({
-    title: tag.name,                                 // título da tag
-    description: tag.description ?? undefined,       // null => undefined
-    settings
+    title: tag.name, // título da tag
+    description: tag.description ?? undefined, // null => undefined
+    settings,
   })
 }
-
 
 export default async function TagPage({ params }: TagPageProps) {
   const resolved = await params
   if (!resolved?.slug || !Array.isArray(resolved.slug)) notFound()
 
   const slug = resolved.slug[resolved.slug.length - 1]
-  let tag;
+  let tag
 
   try {
-    tag = await getTagBySlug(slug);
+    tag = await getTagBySlug(slug)
   } catch (e) {
     notFound()
   }
@@ -62,8 +61,7 @@ export default async function TagPage({ params }: TagPageProps) {
   )
 }
 
-
 export async function generateStaticParams() {
   const tags = await getAllTags()
-  return tags.map(tag => ({ slug: [tag.slug] }))
+  return tags.map((tag) => ({ slug: [tag.slug] }))
 }

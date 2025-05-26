@@ -12,7 +12,5 @@ interface HeaderIndexProps {
 }
 
 export const HeaderIndex = ({ settings }: HeaderIndexProps) => {
-  return (
-    <HeaderBase {...settings} />
-  )
+  return <HeaderBase {...settings} />
 }

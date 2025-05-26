@@ -47,11 +47,11 @@ export interface GhostPostOrPage extends PostOrPage {
   toc?: IToC[] | null
 }
 
-export type GhostPostsOrPages = BrowseResults<GhostPostOrPage>;
+export type GhostPostsOrPages = BrowseResults<GhostPostOrPage>
 
-export type GhostTags = BrowseResults<GhostTag>;
+export type GhostTags = BrowseResults<GhostTag>
 
-export type GhostAuthors = BrowseResults<GhostAuthor>;
+export type GhostAuthors = BrowseResults<GhostAuthor>
 
 const api = new GhostContentAPI({
   url: ghostAPIUrl,
@@ -91,27 +91,39 @@ export const createNextImage = async (url?: string | null): Promise<NextImage | 
 async function createNextFeatureImages(nodes: BrowseResults<Tag | PostOrPage>): Promise<GhostTags | PostsOrPages> {
   const { meta } = nodes
   const images = await Promise.all(nodes.map((node) => createNextImage(node.feature_image)))
-  const results = nodes.map((node, i) => ({ ...node, ...(images[i] && { featureImage: images[i] }) }))
+  const results = nodes.map((node, i) => ({
+    ...node,
+    ...(images[i] && { featureImage: images[i] }),
+  }))
   return Object.assign(results, { meta })
 }
 
 async function createNextProfileImages(nodes: BrowseResults<Author>): Promise<GhostAuthors> {
   const { meta } = nodes
   const images = await Promise.all(nodes.map((node) => createNextImage(node.profile_image)))
-  const results = nodes.map((node, i) => ({ ...node, ...(images[i] && { profileImage: images[i] }) }))
+  const results = nodes.map((node, i) => ({
+    ...node,
+    ...(images[i] && { profileImage: images[i] }),
+  }))
   return Object.assign(results, { meta })
 }
 
 export async function createNextProfileImagesFromAuthors(nodes: Author[] | undefined): Promise<Author[] | undefined> {
   if (!nodes) return undefined
   const images = await Promise.all(nodes.map((node) => createNextImage(node.profile_image)))
-  return nodes.map((node, i) => ({ ...node, ...(images[i] && { profileImage: images[i] }) }))
+  return nodes.map((node, i) => ({
+    ...node,
+    ...(images[i] && { profileImage: images[i] }),
+  }))
 }
 
 async function createNextProfileImagesFromPosts(nodes: BrowseResults<PostOrPage>): Promise<PostsOrPages> {
   const { meta } = nodes
   const authors = await Promise.all(nodes.map((node) => createNextProfileImagesFromAuthors(node.authors)))
-  const results = nodes.map((node, i) => ({ ...node, ...(authors[i] && { authors: authors[i] }) }))
+  const results = nodes.map((node, i) => ({
+    ...node,
+    ...(authors[i] && { authors: authors[i] }),
+  }))
   return Object.assign(results, { meta })
 }
 
@@ -146,20 +158,20 @@ export async function getAllAuthors() {
   return await createNextProfileImages(authors)
 }
 
-export async function getAllPosts(props?: { limit?: number, feature?: boolean }): Promise<GhostPostsOrPages> {
-  let filter = excludePostOrPageBySlug();
+export async function getAllPosts(props?: { limit?: number; feature?: boolean }): Promise<GhostPostsOrPages> {
+  let filter = excludePostOrPageBySlug()
   if (props?.feature === true) {
-    filter = filter ? `${filter}+featured:true` : 'featured:true';
+    filter = filter ? `${filter}+featured:true` : 'featured:true'
   } else if (props?.feature === false) {
-    filter = filter ? `${filter}+featured:false` : 'featured:false';
+    filter = filter ? `${filter}+featured:false` : 'featured:false'
   }
   const posts = await api.posts.browse({
     ...postAndPageFetchOptions,
     filter,
     ...(props?.limit && { limit: props.limit }),
-  });
-  const results = await createNextProfileImagesFromPosts(posts);
-  return await createNextFeatureImages(results);
+  })
+  const results = await createNextProfileImagesFromPosts(posts)
+  return await createNextFeatureImages(results)
 }
 
 export async function getAllPostSlugs(): Promise<string[]> {

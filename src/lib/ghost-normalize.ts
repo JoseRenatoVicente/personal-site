@@ -12,7 +12,14 @@ import { toString as nodeToString } from './nodeToString'
 import { processEnv } from '@lib/processEnv'
 const { prism, toc, nextImages } = processEnv
 
-const rehypeProcessor = rehype().use({ settings: { fragment: true, space: `html`, emitParseErrors: false, verbose: false } })
+const rehypeProcessor = rehype().use({
+  settings: {
+    fragment: true,
+    space: `html`,
+    emitParseErrors: false,
+    verbose: false,
+  },
+})
 
 export const normalizePost = async (post: PostOrPage, cmsUrl: UrlWithStringQuery | undefined, basePath?: string): Promise<GhostPostOrPage> => {
   if (!cmsUrl) throw Error('ghost-normalize.ts: cmsUrl expected.')
@@ -140,7 +147,11 @@ const syntaxHighlightWithPrismJS = async (htmlAst: Node) => {
     try {
       className = (className || []).concat('language-' + lang)
       // Use refractor.highlight with correct type
-      result = (refractor as unknown as { default: { highlight: (code: string, lang: string) => Node[] } }).default.highlight(nodeToString(node), lang)
+      result = (
+        refractor as unknown as {
+          default: { highlight: (code: string, lang: string) => Node[] }
+        }
+      ).default.highlight(nodeToString(node), lang)
     } catch (err) {
       if (prism.ignoreMissing && /Unknown language/.test((err as Error).message)) {
         return

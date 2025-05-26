@@ -42,7 +42,7 @@
         "src/pages/*"
       ],
       "@styles/*": [
-        "styles/*"
+        "src/styles/*"
       ],
       "@utils/*": [
         "src/utils/*"

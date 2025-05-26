@@ -42,12 +42,10 @@ export const SiteNav = ({ settings, className, postTitle }: SiteNavProps) => {
     config.addNavigation.map((item) => urls?.indexOf(item.url) === -1 && navigation?.push(item))
   }
 
-
-
   return (
     <nav className={className}>
-        <Navigation data={navigation} />
-        {/* {postTitle && <span className={`nav-post-title ${site.logo ? `` : `dash`}`}>{postTitle}</span>} */}
+      <Navigation data={navigation} />
+      {/* {postTitle && <span className={`nav-post-title ${site.logo ? `` : `dash`}`}>{postTitle}</span>} */}
       {/* <div className="site-nav-right">
         {secondaryNav ? (
           <Navigation data={site.secondary_navigation} />

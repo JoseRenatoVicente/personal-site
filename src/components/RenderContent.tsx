@@ -2,11 +2,10 @@ import { jsx, jsxs, Fragment } from 'react/jsx-runtime'
 import rehypeReact from 'rehype-react'
 import { unified } from 'unified'
 import { Node } from 'unist'
-import { ComponentProps } from 'react';
+import { ComponentProps } from 'react'
 
 import { NextLink } from '@components/NextLink'
 import { NextImage } from '@components/NextImage'
-
 
 const options = {
   Fragment,
@@ -17,7 +16,7 @@ const options = {
     Link: NextLink,
     Image: NextImage,
     script: (props: ComponentProps<'script'>) => {
-      return null;
+      return null
     },
   },
 }
@@ -30,7 +29,7 @@ interface RenderContentProps {
 
 export const RenderContent = ({ htmlAst }: RenderContentProps) => {
   if (!htmlAst) return null
-  return <>{renderAst.stringify(htmlAst)}</>;
+  return <>{renderAst.stringify(htmlAst)}</>
 }
 
 //<div className="post-content load-external-scripts">{renderAst.stringify(htmlAst)}</div>

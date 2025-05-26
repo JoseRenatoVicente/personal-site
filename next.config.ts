@@ -1,5 +1,5 @@
-import type { NextConfig } from "next";
-import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
+import type { NextConfig } from 'next'
+import CssMinimizerPlugin from 'css-minimizer-webpack-plugin'
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
@@ -10,25 +10,20 @@ const nextConfig: NextConfig = {
     reactRemoveProperties: true,
   },
   generateBuildId: async () => {
-    return Math.random().toString(36).substring(2, 15);
+    return Math.random().toString(36).substring(2, 15)
   },
   webpack: (config, { dev }) => {
     if (!dev) {
-      config.optimization.minimizer = config.optimization.minimizer.filter(
-        (minimizer: any) => minimizer.constructor.name !== 'CssMinimizerPlugin'
-      );
+      config.optimization.minimizer = config.optimization.minimizer.filter((minimizer: any) => minimizer.constructor.name !== 'CssMinimizerPlugin')
       config.optimization.minimizer.push(
         new CssMinimizerPlugin({
           minimizerOptions: {
-            preset: [
-              'advanced',
-              { discardComments: { removeAll: true } }
-            ],
+            preset: ['advanced', { discardComments: { removeAll: true } }],
           },
-        })
-      );
+        }),
+      )
     }
-    return config;
+    return config
   },
   images: {
     deviceSizes: [320, 500, 680, 1040, 2080, 2048, 3120],
@@ -49,12 +44,15 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'images.unsplash.com',
       },
-      ...(process.env.IMAGE_DOMAINS || '').split(',').filter(Boolean).map(domain => ({
-        protocol: 'https' as const,
-        hostname: domain.trim(),
-      })),
-    ]
+      ...(process.env.IMAGE_DOMAINS || '')
+        .split(',')
+        .filter(Boolean)
+        .map((domain) => ({
+          protocol: 'https' as const,
+          hostname: domain.trim(),
+        })),
+    ],
   },
-};
+}
 
-export default nextConfig;
+export default nextConfig
