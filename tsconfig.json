@@ -1,0 +1,75 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "baseUrl": "./" /* Base directory to resolve non-absolute module names. */,
+    "paths": {
+      "@/*": [
+        "./*"
+      ],
+      "@siteOptions": [
+        "siteOptions"
+      ],
+      "@mediaConfig": [
+        "mediaConfig"
+      ],
+      "@appConfig": [
+        "appConfig"
+      ],
+      "@routesConfig": [
+        "routesConfig"
+      ],
+      "@lib/*": [
+        "src/lib/*"
+      ],
+      "@pages/*": [
+        "src/pages/*"
+      ],
+      "@styles/*": [
+        "styles/*"
+      ],
+      "@utils/*": [
+        "src/utils/*"
+      ],
+      "@dashboard/*": [
+        "src/pages/dashboard/*"
+      ],
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@common/*": [
+        "src/components/common/*"
+      ],
+      "@icons/*": [
+        "src/components/icons/*"
+      ],
+      "@effects/*": [
+        "src/components/effects/*"
+      ],
+      "@helpers/*": [
+        "src/components/helpers/*"
+      ],
+      "@meta/*": [
+        "src/components/meta/*"
+      ]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
+}

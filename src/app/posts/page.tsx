@@ -1,0 +1,154 @@
+import { getAllTags, GhostSettings, getAllSettings, GhostPostsOrPages, getAllPosts, getPostsByTag } from '@lib/ghost';
+import { getSeoMetadata } from '@components/meta/seo';
+import { Layout } from '@components/Layout';
+import Link from 'next/link';
+import { HeaderIndex } from '@components/HeaderIndex';
+import { Subscribe } from '@components/Subscribe';
+import { PostView } from '@components/PostView';
+
+export const dynamic = "force-static";
+
+export const metadata = getSeoMetadata({
+  title: 'Artigos',
+  description: 'Navegue por todas as tags do blog',
+  settings: await getAllSettings()
+});
+
+export default async function PostsPage({
+  searchParams
+}: {
+  searchParams?: Promise<{ tag?: string; q?: string }>
+}) {
+  const settings: GhostSettings = await getAllSettings();
+  const tags = await getAllTags();
+
+  let tag = null, q = '';
+  if (searchParams) {
+    const params = await searchParams;
+    tag = params.tag || null;
+    q = params.q || '';
+  }
+  const selectedTag = tag;
+  const searchQuery = q;
+
+  let posts: GhostPostsOrPages;
+  if (selectedTag) {
+    posts = await getPostsByTag(selectedTag);
+  } else {
+    posts = await getAllPosts({ limit: 6 });
+  }
+
+  if (searchQuery) {
+    const q = searchQuery.toLowerCase();
+    posts = Object.assign(
+      posts.filter((post) =>
+        (post.title && post.title.toLowerCase().includes(q)) ||
+        (post.excerpt && post.excerpt.toLowerCase().includes(q))
+      ),
+      { meta: posts.meta }
+    );
+  }
+
+  return (
+    <>
+      <Layout settings={settings} bodyClass="tags-page" header={<HeaderIndex settings={settings} />}>
+        {!selectedTag && (
+          <section className="relative py-16 md:py-24 overflow-hidden">
+
+            <div className="absolute inset-0 z-0 opacity-10">
+              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-foreground to-transparent"></div>
+            </div>
+            <div className="container relative z-10">
+              <div className="max-w-3xl mx-auto text-center">
+                <h1 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6 animate-fade-in text-gradient">{settings.title}</h1>
+                <p className="text-lg md:text-xl text-muted-foreground animate-fade-in">{settings.meta_description}</p>
+              </div>
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-foreground/20 to-transparent"></div>
+          </section>)}
+        <section className="section">
+          <div className="container">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              <div className="lg:col-span-2">
+                <div className="flex justify-between items-center mb-8">
+                  <h2 className="text-2xl font-bold">Artigos Recentes</h2>
+                  <div className="flex flex-wrap gap-2">
+                    <Link
+                      href="/posts"
+                      className={`badge text-xs ${!selectedTag ? 'badge-primary' : 'badge-outline'}`}
+                      prefetch={false}
+                    >
+                      Todos
+                    </Link>
+                    {tags.map(tag => (
+                      <Link
+                        key={tag.slug}
+                        href={`/posts/${tag.slug}`}
+                        className={`badge text-xs ${selectedTag === tag.slug ? 'badge-primary' : 'badge-outline'}`}
+                        prefetch={false}
+                      >
+                        {tag.name}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+                <div className="mb-8">
+                  <form method="GET" action="/posts" className="flex gap-2">
+                    <input
+                      type="text"
+                      name="q"
+                      placeholder="Pesquisar artigos..."
+                      className="input w-full"
+                      defaultValue={searchQuery}
+                    />
+                    {selectedTag && <input type="hidden" name="tag" value={selectedTag} />}
+                    <button type="submit" className="btn btn-primary">Filtrar</button>
+                  </form>
+                </div>
+                <div className="space-y-8">
+                  <PostView {...{ settings, posts, isHome: true }} />
+                </div>
+              </div>
+              <div className="space-y-8">
+                <Subscribe settings={settings} />
+                <div className="card p-6">
+                  <h3 className="text-lg font-bold mb-4">Categorias</h3>
+                  <ul className="space-y-2">
+                    {tags.map((tag) => (
+                      <li key={tag.slug}>
+                        <Link href={`/tags/${tag.slug}`} className="flex items-center justify-between w-full text-left hover:text-accent transition-colors">
+                          {tag.name}
+                          <span className="badge badge-outline text-xs">{tag.count?.posts || 0}</span>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="card p-6">
+                  <h3 className="text-lg font-bold mb-4">Posts Populares</h3>
+                  {/* <ul className="space-y-4 divide-y">
+                    <li className="pt-4 first:pt-0"><a href="/blog/projetando-microsservicos-escalaveis"
+                      className="hover:text-accent transition-colors">
+                      <h4 className="font-medium line-clamp-2 mb-1">Como projetar microsserviços que realmente escalam</h4>
+                      <time className="text-xs text-muted-foreground">12 de abril de 2023</time>
+                    </a></li>
+                    <li className="pt-4 first:pt-0"><a href="/blog/seguranca-apis-restful"
+                      className="hover:text-accent transition-colors">
+                      <h4 className="font-medium line-clamp-2 mb-1">Segurança em APIs RESTful: Boas práticas e armadilhas
+                        comuns</h4><time className="text-xs text-muted-foreground">5 de março de 2023</time>
+                    </a></li>
+                    <li className="pt-4 first:pt-0"><a href="/blog/ci-cd-microsservicos"
+                      className="hover:text-accent transition-colors">
+                      <h4 className="font-medium line-clamp-2 mb-1">CI/CD para microsserviços: Estratégias eficientes</h4>
+                      <time className="text-xs text-muted-foreground">18 de fevereiro de 2023</time>
+                    </a></li>
+                  </ul> */}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </Layout>
+    </>
+  );
+}

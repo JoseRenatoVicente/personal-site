@@ -1,0 +1,277 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Light Theme */
+    --light-background: 210 20% 98%;
+    --light-foreground: 224 71% 4%;
+    --light-card: 0 0% 100%;
+    --light-card-foreground: 224 71% 4%;
+    --light-border: 220 13% 91%;
+    --light-input: 220 13% 91%;
+    --light-ring: 224 71% 4%;
+    --light-primary: 262 83% 58%;
+    --light-primary-foreground: 210 20% 98%;
+    --light-secondary: 220 14% 96%;
+    --light-secondary-foreground: 225 27% 31%;
+    --light-accent: 199 89% 48%;
+    --light-accent-foreground: 210 20% 98%;
+    --light-destructive: 0 84% 60%;
+    --light-destructive-foreground: 210 20% 98%;
+    --light-muted: 220 14% 96%;
+    --light-muted-foreground: 220 8% 46%;
+    --light-popover: 0 0% 100%;
+    --light-popover-foreground: 224 71% 4%;
+
+    /* Dark Theme - Active by default */
+    --background: 224 71% 4%;
+    --foreground: 210 20% 98%;
+    --card: 224 71% 4%;
+    --card-foreground: 210 20% 98%;
+    --border: 215 27% 17%;
+    --input: 215 27% 17%;
+    --ring: 263 47% 86%;
+    --primary: 262 83% 58%;
+    --primary-foreground: 210 20% 98%;
+    --secondary: 217 19% 27%;
+    --secondary-foreground: 210 20% 98%;
+    --accent: 199 89% 48%;
+    --accent-foreground: 210 20% 98%;
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 210 20% 98%;
+    --muted: 217 19% 27%;
+    --muted-foreground: 215 20% 75%;
+    --popover: 224 71% 4%;
+    --popover-foreground: 210 20% 98%;
+
+    --radius: 0.5rem;
+  }
+
+  .light-theme {
+    --background: var(--light-background);
+    --foreground: var(--light-foreground);
+    --card: var(--light-card);
+    --card-foreground: var(--light-card-foreground);
+    --border: var(--light-border);
+    --input: var(--light-input);
+    --ring: var(--light-ring);
+    --primary: var(--light-primary);
+    --primary-foreground: var(--light-primary-foreground);
+    --secondary: var(--light-secondary);
+    --secondary-foreground: var(--light-secondary-foreground);
+    --accent: var(--light-accent);
+    --accent-foreground: var(--light-accent-foreground);
+    --destructive: var(--light-destructive);
+    --destructive-foreground: var(--light-destructive-foreground);
+    --muted: var(--light-muted);
+    --muted-foreground: var(--light-muted-foreground);
+    --popover: var(--light-popover);
+    --popover-foreground: var(--light-popover-foreground);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground transition-colors duration-300 ease-in-out;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    @apply font-bold leading-tight tracking-tighter;
+  }
+
+  a {
+    @apply text-primary hover:text-accent transition-colors duration-200;
+  }
+
+  .container {
+    @apply px-4 mx-auto max-w-7xl sm:px-6 lg:px-8;
+  }
+
+  .section {
+    @apply py-12 md:py-20;
+  }
+
+  .post-content {
+    @apply max-w-none;
+  }
+
+  .post-content h2 {
+    @apply text-2xl font-bold mb-4;
+  }
+
+  .post-content h3 {
+    @apply text-xl font-bold mt-8 mb-4;
+  }
+
+  .post-content p {
+    @apply mb-4;
+  }
+
+  .post-content ul {
+    @apply space-y-2 mb-6;
+  }
+
+  .post-content li {
+    @apply flex items-center;
+    position: relative;
+    padding-left: 2rem;
+  }
+  
+  .post-content li::before {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    left: 0.25rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.25rem;
+    height: 1.25rem;
+    background: none;
+    mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>') no-repeat center/contain;
+    -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>') no-repeat center/contain;
+    background-color: hsl(var(--primary));
+    margin-right: 0.5rem;
+    vertical-align: middle;
+    content: '';
+  }
+
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
+  }
+
+  .btn-primary {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary text-secondary-foreground hover:bg-secondary/80;
+  }
+
+  .btn-outline {
+    @apply border border-input hover:bg-accent hover:text-accent-foreground;
+  }
+
+  .btn-ghost {
+    @apply hover:bg-accent hover:text-accent-foreground;
+  }
+
+  .btn-link {
+    @apply text-primary underline-offset-4 hover:underline;
+  }
+
+  .btn-sm {
+    @apply h-9 px-3;
+  }
+
+  .btn-md {
+    @apply h-10 px-4 py-2;
+  }
+
+  .btn-lg {
+    @apply h-11 px-8;
+  }
+
+  .card {
+    @apply rounded-lg border bg-card text-card-foreground shadow-sm;
+  }
+
+  .card-header {
+    @apply flex flex-col space-y-1.5 p-6;
+  }
+
+  .card-title {
+    @apply text-2xl font-semibold leading-none tracking-tight;
+  }
+
+  .card-description {
+    @apply text-sm text-muted-foreground;
+  }
+
+  .card-content {
+    @apply p-6 pt-0;
+  }
+
+  .card-footer {
+    @apply flex items-center p-6 pt-0;
+  }
+
+  .input {
+    @apply flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .badge {
+    @apply inline-flex items-center border rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2;
+  }
+
+  .badge-primary {
+    @apply bg-primary text-primary-foreground hover:bg-primary/80;
+  }
+
+  .badge-secondary {
+    @apply bg-secondary text-secondary-foreground hover:bg-secondary/80;
+  }
+
+  .badge-outline {
+    @apply text-foreground border-border;
+  }
+}
+
+@layer utilities {
+  .code-block {
+    @apply bg-muted p-4 rounded-md font-mono text-sm overflow-x-auto;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.5s ease-out forwards;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
