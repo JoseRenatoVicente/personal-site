@@ -10,11 +10,11 @@ const nextConfig: NextConfig = {
     reactRemoveProperties: true,
   },
   generateBuildId: async () => {
-    return Math.random().toString(36).substring(2, 15)
+    return Math.random().toString(36).slice(2, 15)
   },
   webpack: (config, { dev }) => {
     if (!dev) {
-      config.optimization.minimizer = config.optimization.minimizer.filter((minimizer: any) => minimizer.constructor.name !== 'CssMinimizerPlugin')
+      config.optimization.minimizer = config.optimization.minimizer.filter((minimizer: CssMinimizerPlugin) => minimizer.constructor.name !== 'CssMinimizerPlugin')
       config.optimization.minimizer.push(
         new CssMinimizerPlugin({
           minimizerOptions: {

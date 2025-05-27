@@ -36,7 +36,7 @@ export default async function TagPage({ params }: TagPageProps) {
 
   try {
     tag = await getTagBySlug(slug)
-  } catch (e) {
+  } catch {
     notFound()
   }
 
@@ -50,8 +50,8 @@ export default async function TagPage({ params }: TagPageProps) {
     <Layout {...{ settings, bodyClass }} header={<HeaderTag {...{ settings, tag }} />}>
       <section className="section">
         <div className="container">
-          <div className="grid grid-cols-1 md:grid-cols-6 gap-12">
-            <div className="md:col-span-4 space-y-12">
+          <div className="grid grid-cols-1 gap-12 md:grid-cols-6">
+            <div className="space-y-12 md:col-span-4">
               <PostView {...{ settings, posts, isHome: true }} />
             </div>
           </div>

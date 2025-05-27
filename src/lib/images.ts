@@ -1,12 +1,12 @@
 import probe from 'probe-image-size'
 import { getCache, setCache } from '@lib/cache'
 
-import { createReadStream, createWriteStream, existsSync } from 'fs'
-import { join } from 'path'
+import { createReadStream, createWriteStream, existsSync } from 'node:fs'
+import { join } from 'node:path'
 import { processEnv } from '@lib/processEnv'
-import { pipeline } from 'stream/promises'
-import { createHash } from 'crypto'
-import { Readable } from 'stream'
+import { pipeline } from 'node:stream/promises'
+import { createHash } from 'node:crypto'
+import { Readable } from 'node:stream'
 
 const streamPipeline = pipeline
 
@@ -82,8 +82,8 @@ export const imageDimensions = async (url: string | undefined | null, noCache?: 
       width = w
       height = h
       hasError = false
-    } catch (e) {
-      const error = e as { code: string }
+    } catch (error_) {
+      const error = error_ as { code: string }
       const { code } = error
 
       hasError = true
@@ -95,7 +95,7 @@ export const imageDimensions = async (url: string | undefined | null, noCache?: 
       }
       if (!['ECONNRESET', 'ECONTENT'].includes(code)) {
         console.warn(`images.ts: Error while probing image with url: ${url}.`)
-        throw e
+        throw error_
       }
       //console.warn(`images.ts: Network error while probing image with url: ${url}.`)
     }

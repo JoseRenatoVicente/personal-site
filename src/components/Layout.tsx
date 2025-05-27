@@ -6,7 +6,7 @@ import { StickyNav } from '@components/StickyNav'
 import { getLang, get } from '@utils/use-lang'
 import { GhostSettings } from '@lib/ghost'
 
-import { resolve } from 'url'
+import { resolve } from 'node:url'
 import Footer from './Footer'
 
 /**
@@ -43,11 +43,11 @@ export const Layout = ({ settings, header, children, isHome, previewPosts, bodyC
   return (
     <>
       <DocumentHead className={bodyClass} />
-      <div className="flex flex-col min-h-screen">
+      <div className="flex min-h-screen flex-col">
         {/* The main header section on top of the screen */}
         {header}
         {/* The main content area */}
-        <main className={`flex-grow ${errorClass}`}>
+        <main className={`grow ${errorClass}`}>
           {/* All the main content gets inserted here, index.js, post.js */}
           {children}
         </main>

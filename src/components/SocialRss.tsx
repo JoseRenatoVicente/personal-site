@@ -1,5 +1,5 @@
 import { RssIcon } from '@components/icons/RssIcon'
-import { resolve } from 'url'
+import { resolve } from 'node:url'
 
 interface SocialRssProps {
   siteUrl: string

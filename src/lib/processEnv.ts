@@ -18,7 +18,7 @@ const resolveBool = (value: string | undefined, defaultValue: boolean) => {
 
 const resolveNumber = (value: string | undefined, defaultValue: number): number => {
   if (!value) return defaultValue
-  return parseInt(value, 10)
+  return Number.parseInt(value, 10)
 }
 
 const resolveDarkMode = (value: string | undefined, defaultValue: appConfig.DarkMode): appConfig.DarkMode => {

@@ -51,22 +51,22 @@ export const Page = ({ cmsData }: PageProps) => {
   })
 
   const htmlAst = page.htmlAst
-  if (htmlAst === undefined) throw Error('Post.tsx: htmlAst must be defined.')
+  if (htmlAst === undefined) throw new Error('Post.tsx: htmlAst must be defined.')
 
   return (
     <>
       <Layout {...{ bodyClass, settings }} header={<HeaderPost {...{ settings, title }} />} previewPosts={<></>}>
-        <section className="relative py-16 md:py-24 overflow-hidden">
+        <section className="relative overflow-hidden py-16 md:py-24">
           <div className="absolute inset-0 z-0 opacity-10">
-            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-foreground to-transparent"></div>
+            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-foreground to-transparent"></div>
           </div>
           <div className="container relative z-10">
-            <div className="max-w-3xl mx-auto text-center">
-              <h1 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6 animate-fade-in text-gradient">{title}</h1>
-              <p className="text-lg md:text-xl text-muted-foreground animate-fade-in">{page.custom_excerpt}</p>
+            <div className="mx-auto max-w-3xl text-center">
+              <h1 className="animate-fade-in text-gradient mb-4 text-3xl font-bold md:mb-6 md:text-5xl">{title}</h1>
+              <p className="animate-fade-in text-lg text-muted-foreground md:text-xl">{page.custom_excerpt}</p>
             </div>
           </div>
-          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-foreground/20 to-transparent"></div>
+          <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-foreground/20 to-transparent"></div>
         </section>
 
         {featImg &&
@@ -113,17 +113,17 @@ export const Page = ({ cmsData }: PageProps) => {
 
         <section className="section">
           <div className="container">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
               <div className="lg:col-span-2">
                 <article className="post-content">
                   <RenderContent htmlAst={htmlAst} />
                 </article>
 
                 {page.primary_tag && (
-                  <div className="mt-12 pt-8 border-t">
+                  <div className="mt-12 border-t pt-8">
                     <div className="flex flex-wrap gap-2">
                       <Link
-                        className="badge badge-outline hover:bg-secondary transition-colors"
+                        className="badge badge-outline transition-colors hover:bg-secondary"
                         href={resolveUrl({
                           cmsUrl,
                           slug: page.primary_tag.slug,

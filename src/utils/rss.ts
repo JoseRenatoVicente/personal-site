@@ -3,7 +3,7 @@ import RSS from 'rss'
 
 import { GhostPostOrPage, GhostPostsOrPages, GhostSettings } from '@lib/ghost'
 import { siteTitleMeta, siteDescriptionMeta, siteIcon } from '@components/meta/siteDefaults'
-import { resolve } from 'url'
+import { resolve } from 'node:url'
 import { Tag } from '@tryghost/content-api'
 
 interface FeedProps {
@@ -30,7 +30,7 @@ export const generateRSSFeed = ({ posts, settings }: FeedProps) => {
 
   const feedItems = posts.map((post) => generateItem({ post, settings }))
 
-  feedItems.forEach((item) => feed.item(item))
+  for (const item of feedItems) feed.item(item)
 
   return feed.xml({ indent: false })
 }
@@ -55,7 +55,7 @@ const generateItem = ({ post, settings }: ItemProps) => {
   })
   const imageUrl = post.feature_image
 
-  const tagsFilter = (tags: Tag[]) => tags.filter(({ name }) => !!name && name.substr(0, 5) !== 'hash-').map(({ name }) => name || '')
+  const tagsFilter = (tags: Tag[]) => tags.filter(({ name }) => !!name && name.slice(0, 5) !== 'hash-').map(({ name }) => name || '')
 
   const item = {
     title,

@@ -14,7 +14,7 @@ interface SEOProps {
   article?: PostOrPage
 }
 
-const getPublicTags = (tags: Tag[] | undefined) => (tags ? tags.filter((tag) => tag.name?.substr(0, 5) !== 'hash-') : [])
+const getPublicTags = (tags: Tag[] | undefined) => (tags ? tags.filter((tag) => tag.name?.slice(0, 5) !== 'hash-') : [])
 
 export function getSeoMetadata(props: SEOProps): Metadata {
   const { title: t, description: d, seoImage, settings, article, canonical } = props

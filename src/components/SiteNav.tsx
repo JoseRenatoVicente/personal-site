@@ -21,7 +21,7 @@ export const SiteNav = ({ settings, className, postTitle }: SiteNavProps) => {
   }
   const site = settings
   const siteUrl = settings.processEnv.siteUrl
-  const secondaryNav = site.secondary_navigation && 0 < site.secondary_navigation.length
+  const secondaryNav = site.secondary_navigation && site.secondary_navigation.length > 0
 
   const navigation = site.navigation
 

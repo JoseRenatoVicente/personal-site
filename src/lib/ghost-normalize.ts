@@ -6,7 +6,7 @@ import { PostOrPage } from '@tryghost/content-api'
 import { Dimensions, imageDimensions } from '@lib/images'
 import { generateTableOfContents } from '@lib/toc'
 import { GhostPostOrPage, createNextProfileImagesFromAuthors } from './ghost'
-import { parse as urlParse, UrlWithStringQuery } from 'url'
+import { parse as urlParse, UrlWithStringQuery } from 'node:url'
 import { toString as nodeToString } from './nodeToString'
 
 import { processEnv } from '@lib/processEnv'
@@ -22,7 +22,7 @@ const rehypeProcessor = rehype().use({
 })
 
 export const normalizePost = async (post: PostOrPage, cmsUrl: UrlWithStringQuery | undefined, basePath?: string): Promise<GhostPostOrPage> => {
-  if (!cmsUrl) throw Error('ghost-normalize.ts: cmsUrl expected.')
+  if (!cmsUrl) throw new Error('ghost-normalize.ts: cmsUrl expected.')
   const rewriteGhostLinks = withRewriteGhostLinks(cmsUrl, basePath)
 
   const processors = [rewriteGhostLinks, rewriteRelativeLinks, syntaxHighlightWithPrismJS, rewriteInlineImages]
@@ -71,7 +71,7 @@ const withRewriteGhostLinks =
       if (!node.properties || !node.properties.href) return
       const href = urlParse(node.properties.href)
       if (href.protocol === cmsUrl.protocol && href.host === cmsUrl.host) {
-        node.properties.href = basePath + href.pathname?.substring(1)
+        node.properties.href = basePath + href.pathname?.slice(1)
       }
     })
 
@@ -152,11 +152,11 @@ const syntaxHighlightWithPrismJS = async (htmlAst: Node) => {
           default: { highlight: (code: string, lang: string) => Node[] }
         }
       ).default.highlight(nodeToString(node), lang)
-    } catch (err) {
-      if (prism.ignoreMissing && /Unknown language/.test((err as Error).message)) {
+    } catch (error) {
+      if (prism.ignoreMissing && /Unknown language/.test((error as Error).message)) {
         return
       }
-      throw err
+      throw error
     }
     node.children = result
   })
@@ -203,8 +203,8 @@ const rewriteInlineImages = async (htmlAst: Node) => {
 
   const dimensions = await Promise.all(nodes.map(({ node }) => node.imageDimensions))
 
-  nodes.forEach(({ node, parent }, i) => {
-    if (dimensions[i] === null) return
+  for (const [i, { node, parent }] of nodes.entries()) {
+    if (dimensions[i] === null) continue
     node.imageDimensions = dimensions[i] as Dimensions
     const { width, height } = node.imageDimensions
     const aspectRatio = width / height
@@ -214,7 +214,7 @@ const rewriteInlineImages = async (htmlAst: Node) => {
       if (typeof parentStyle === 'string') parentStyle = [parentStyle]
       parent.properties.style = [...parentStyle, flex]
     }
-  })
+  }
 
   return htmlAst
 }

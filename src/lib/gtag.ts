@@ -24,7 +24,7 @@ export interface EventType {
  * @param {string} url The URL to save the page view event with.
  */
 export const pageview = (url: string): void => {
-  ;(window as unknown as { gtag: (...args: unknown[]) => void }).gtag('config', GA_TRACKING_ID, {
+  ;(globalThis as unknown as { gtag: (...args: unknown[]) => void }).gtag('config', GA_TRACKING_ID, {
     page_path: url,
   })
 }
@@ -36,7 +36,7 @@ export const pageview = (url: string): void => {
  * @param {EventType} parameters The event parameters.
  */
 export const event = ({ action, category, label, value }: EventType): void => {
-  ;(window as unknown as { gtag: (...args: unknown[]) => void }).gtag('event', action, {
+  ;(globalThis as unknown as { gtag: (...args: unknown[]) => void }).gtag('event', action, {
     event_category: category,
     event_label: label,
     value: value,

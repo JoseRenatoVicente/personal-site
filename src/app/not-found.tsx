@@ -9,7 +9,7 @@ export default async function NotFound() {
   let settings
   try {
     settings = await getAllSettings()
-  } catch (e) {
+  } catch {
     settings = {
       title: 'Página não encontrada',
       lang: 'pt',
@@ -60,8 +60,8 @@ export default async function NotFound() {
   return (
     <Layout {...{ settings, bodyClass }} header={<HeaderPage {...{ settings }} />} errorClass="error-content">
       <div className="container py-20">
-        <section className="max-w-lg mx-auto text-center">
-          <div className="inline-block p-6 bg-muted rounded-full mb-8">
+        <section className="mx-auto max-w-lg text-center">
+          <div className="mb-8 inline-block rounded-full bg-muted p-6">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="48"
@@ -79,8 +79,8 @@ export default async function NotFound() {
               <line x1="12" y1="16" x2="12.01" y2="16"></line>
             </svg>
           </div>
-          <h1 className="text-4xl font-bold mb-4">404</h1>
-          <p className="text-xl text-muted-foreground mb-8">{text(`PAGE_NOT_FOUND`)}</p>
+          <h1 className="mb-4 text-4xl font-bold">404</h1>
+          <p className="mb-8 text-xl text-muted-foreground">{text(`PAGE_NOT_FOUND`)}</p>
 
           <div className="space-y-4">
             <div className="flex justify-center space-x-4">

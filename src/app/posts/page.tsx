@@ -29,11 +29,7 @@ export default async function PostsPage({ searchParams }: { searchParams?: Promi
   const searchQuery = q
 
   let posts: GhostPostsOrPages
-  if (selectedTag) {
-    posts = await getPostsByTag(selectedTag)
-  } else {
-    posts = await getAllPosts({ limit: 6 })
-  }
+  posts = await (selectedTag ? getPostsByTag(selectedTag) : getAllPosts({ limit: 6 }));
 
   if (searchQuery) {
     const q = searchQuery.toLowerCase()
@@ -47,27 +43,27 @@ export default async function PostsPage({ searchParams }: { searchParams?: Promi
     <>
       <Layout settings={settings} bodyClass="tags-page" header={<HeaderIndex settings={settings} />}>
         {!selectedTag && (
-          <section className="relative py-16 md:py-24 overflow-hidden">
+          <section className="relative overflow-hidden py-16 md:py-24">
             <div className="absolute inset-0 z-0 opacity-10">
-              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-foreground to-transparent"></div>
+              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-foreground to-transparent"></div>
             </div>
             <div className="container relative z-10">
-              <div className="max-w-3xl mx-auto text-center">
-                <h1 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6 animate-fade-in text-gradient">{settings.title}</h1>
-                <p className="text-lg md:text-xl text-muted-foreground animate-fade-in">{settings.meta_description}</p>
+              <div className="mx-auto max-w-3xl text-center">
+                <h1 className="animate-fade-in text-gradient mb-4 text-3xl font-bold md:mb-6 md:text-5xl">{settings.title}</h1>
+                <p className="animate-fade-in text-lg text-muted-foreground md:text-xl">{settings.meta_description}</p>
               </div>
             </div>
-            <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-foreground/20 to-transparent"></div>
+            <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-foreground/20 to-transparent"></div>
           </section>
         )}
         <section className="section">
           <div className="container">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
               <div className="lg:col-span-2">
-                <div className="flex justify-between items-center mb-8">
+                <div className="mb-8 flex items-center justify-between">
                   <h2 className="text-2xl font-bold">Artigos Recentes</h2>
                   <div className="flex flex-wrap gap-2">
-                    <Link href="/posts" className={`badge text-xs ${!selectedTag ? 'badge-primary' : 'badge-outline'}`} prefetch={false}>
+                    <Link href="/posts" className={`badge text-xs ${selectedTag ? 'badge-outline' : 'badge-primary'}`} prefetch={false}>
                       Todos
                     </Link>
                     {tags.map((tag) => (
@@ -93,11 +89,11 @@ export default async function PostsPage({ searchParams }: { searchParams?: Promi
               <div className="space-y-8">
                 <Subscribe settings={settings} />
                 <div className="card p-6">
-                  <h3 className="text-lg font-bold mb-4">Categorias</h3>
+                  <h3 className="mb-4 text-lg font-bold">Categorias</h3>
                   <ul className="space-y-2">
                     {tags.map((tag) => (
                       <li key={tag.slug}>
-                        <Link href={`/tags/${tag.slug}`} className="flex items-center justify-between w-full text-left hover:text-accent transition-colors">
+                        <Link href={`/tags/${tag.slug}`} className="flex w-full items-center justify-between text-left transition-colors hover:text-accent">
                           {tag.name}
                           <span className="badge badge-outline text-xs">{tag.count?.posts || 0}</span>
                         </Link>
@@ -106,7 +102,7 @@ export default async function PostsPage({ searchParams }: { searchParams?: Promi
                   </ul>
                 </div>
                 <div className="card p-6">
-                  <h3 className="text-lg font-bold mb-4">Posts Populares</h3>
+                  <h3 className="mb-4 text-lg font-bold">Posts Populares</h3>
                   {/* <ul className="space-y-4 divide-y">
                     <li className="pt-4 first:pt-0"><a href="/blog/projetando-microsservicos-escalaveis"
                       className="hover:text-accent transition-colors">

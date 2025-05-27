@@ -12,9 +12,9 @@ const countWords = (text: string) => {
     return 0
   }
 
-  text = text.replace(/<(.|\n)*?>/g, ' ') // strip any HTML tags
+  text = text.replaceAll(/<(.|\n)*?>/g, ' ') // strip any HTML tags
 
-  const pattern = /[a-zA-ZÀ-ÿ0-9_\u0392-\u03c9\u0410-\u04F9]+|[\u4E00-\u9FFF\u3400-\u4dbf\uf900-\ufaff\u3040-\u309f\uac00-\ud7af]+/g
+  const pattern = /[a-zA-ZÀ-ÿ0-9_\u0392-\u03C9\u0410-\u04F9]+|[\u4E00-\u9FFF\u3400-\u4DBF\uF900-\uFAFF\u3040-\u309F\uAC00-\uD7AF]+/g
   const match = text.match(pattern)
   let count = 0
 
@@ -22,12 +22,8 @@ const countWords = (text: string) => {
     return count
   }
 
-  for (let i = 0; i < match.length; i += 1) {
-    if (match[i].charCodeAt(0) >= 0x4e00) {
-      count += match[i].length
-    } else {
-      count += 1
-    }
+  for (const element of match) {
+    count += element.charCodeAt(0) >= 0x4E_00 ? element.length : 1;
   }
 
   return count
@@ -79,11 +75,7 @@ export const readingTime = (post: PostOrPage, options: ReadingTimeOptions = {}) 
   const time = post.reading_time || readingMinutes(post.html!, imageCount)
 
   let readingTime = ''
-  if (time <= 1) {
-    readingTime = minuteStr
-  } else {
-    readingTime = minutesStr.replace('%', `${time}`)
-  }
+  readingTime = time <= 1 ? minuteStr : minutesStr.replace('%', `${time}`);
 
   return readingTime
 }

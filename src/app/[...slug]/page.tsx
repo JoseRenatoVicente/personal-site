@@ -49,8 +49,8 @@ export default async function PostOrPage({ params }: { params?: Promise<{ slug: 
       },
     },
   })
-  let prevPost: GhostPostOrPage | undefined = undefined
-  let nextPost: GhostPostOrPage | undefined = undefined
+  let prevPost: GhostPostOrPage | undefined
+  let nextPost: GhostPostOrPage | undefined
 
   if (isPost && post?.id && post?.slug) {
     const tagSlug = post?.primary_tag?.slug

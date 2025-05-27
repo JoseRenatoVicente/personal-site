@@ -7,11 +7,11 @@ export const Subscribe = ({ settings }: { settings: GhostSettings }) => {
   const title = text(`SITE_TITLE`, settings.title)
 
   return (
-    <section className="bg-card border rounded-lg p-6">
-      <h3 className="text-lg font-bold mb-2">
+    <section className="rounded-lg border bg-card p-6">
+      <h3 className="mb-2 text-lg font-bold">
         {text(`SUBSCRIBE_TO`)} {title}
       </h3>
-      <p className="text-sm text-muted-foreground mb-4">{text(`SUBSCRIBE_SECTION`)}</p>
+      <p className="mb-4 text-sm text-muted-foreground">{text(`SUBSCRIBE_SECTION`)}</p>
       <SubscribeForm {...{ settings }} />
     </section>
   )

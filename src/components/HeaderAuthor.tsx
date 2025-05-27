@@ -35,7 +35,7 @@ export const HeaderAuthor = ({ settings, author }: HeaderAuthorProps) => {
   }
 
   return (
-    <header className={`sticky top-0 z-40 w-full transition-all duration-200 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm`}>
+    <header className={`sticky top-0 z-40 w-full bg-background/95 shadow-sm backdrop-blur transition-all duration-200 supports-[backdrop-filter]:bg-background/60`}>
       <div className="container flex h-16 items-center justify-between py-4">
         <Link href="/" className="text-lg font-bold">
           {siteLogo && nextImages.feature ? (
@@ -47,11 +47,11 @@ export const HeaderAuthor = ({ settings, author }: HeaderAuthorProps) => {
             >
               <Image className="site-nav-logo" src={siteLogo.url} alt={title} width={siteLogo.dimensions.width} height={siteLogo.dimensions.height} quality={nextImages.quality} />
             </div>
-          ) : site.logo ? (
+          ) : (site.logo ? (
             <Image src={site.logo} alt={title} />
           ) : (
             title
-          )}
+          ))}
         </Link>
         <SiteNav {...{ settings }} className="relative z-50" />
       </div>
@@ -69,14 +69,14 @@ export const HeaderAuthor = ({ settings, author }: HeaderAuthorProps) => {
                   height={profileImg.dimensions.height}
                 />
               </div>
-            ) : author.profile_image ? (
+            ) : (author.profile_image ? (
               /* eslint-disable @next/next/no-img-element */
               <img className="author-profile-image" src={author.profile_image} alt={author.name} />
             ) : (
               <div className="author-profile-image">
                 <AvatarIcon />
               </div>
-            )}
+            ))}
             <div className="author-header-content">
               <h1 className="site-title">{author.name}</h1>
               {author.bio && <h2 className="author-bio">{author.bio}</h2>}

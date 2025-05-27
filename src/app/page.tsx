@@ -33,22 +33,22 @@ export default async function HomePage() {
 
   return (
     <Layout settings={settings} bodyClass={bodyClass} header={<HeaderIndex settings={settings} />} isHome>
-      <section className="relative py-16 md:py-24 overflow-hidden">
+      <section className="relative overflow-hidden py-16 md:py-24">
         <div className="absolute inset-0 z-0 opacity-10">
-          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-foreground to-transparent"></div>
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-foreground to-transparent"></div>
         </div>
         <div className="container relative z-10">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6 animate-fade-in text-gradient">{settings.title}</h1>
-            <p className="text-lg md:text-xl text-muted-foreground animate-fade-in">{settings.meta_description}</p>
+          <div className="mx-auto max-w-3xl text-center">
+            <h1 className="animate-fade-in text-gradient mb-4 text-3xl font-bold md:mb-6 md:text-5xl">{settings.title}</h1>
+            <p className="animate-fade-in text-lg text-muted-foreground md:text-xl">{settings.meta_description}</p>
           </div>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-foreground/20 to-transparent"></div>
+        <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-foreground/20 to-transparent"></div>
       </section>
       <section className="section">
         <div className="container">
-          <div className="grid grid-cols-1 md:grid-cols-6 gap-12">
-            <div className="md:col-span-4 space-y-12">
+          <div className="grid grid-cols-1 gap-12 md:grid-cols-6">
+            <div className="space-y-12 md:col-span-4">
               <div className="space-y-6">
                 <div className="flex items-center justify-between">
                   <h2 className="text-2xl font-bold">Projetos em Destaque</h2>
@@ -56,7 +56,7 @@ export default async function HomePage() {
                     Ver todos
                   </Link>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                   {featurePosts?.map((post, i) => <PostCard key={post.id} {...{ settings, post, num: i }} />)}
                 </div>
               </div>
@@ -72,42 +72,42 @@ export default async function HomePage() {
                 </div>
               </div>
             </div>
-            <div className="md:col-span-2 space-y-8">
-              <div className="card p-6 space-y-4">
-                <h3 className="text-lg font-bold mb-2">Especialidades</h3>
+            <div className="space-y-8 md:col-span-2">
+              <div className="card space-y-4 p-6">
+                <h3 className="mb-2 text-lg font-bold">Especialidades</h3>
                 <ul className="space-y-2">
                   <li className="flex items-start">
-                    <svg className="h-5 w-5 mr-2 text-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <svg className="mr-2 size-5 text-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                       <path d="M14.916 2.404a.75.75 0 01.32 1.012l-5 11a.75.75 0 01-1.342-.004l-3-6.5a.75.75 0 111.364-.63L9.106 11.5l4.798-10.548a.75.75 0 011.012-.32z"></path>
                     </svg>
                     <span>Arquitetura de Microsserviços</span>
                   </li>
                   <li className="flex items-start">
-                    <svg className="h-5 w-5 mr-2 text-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <svg className="mr-2 size-5 text-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                       <path d="M14.916 2.404a.75.75 0 01.32 1.012l-5 11a.75.75 0 01-1.342-.004l-3-6.5a.75.75 0 111.364-.63L9.106 11.5l4.798-10.548a.75.75 0 011.012-.32z"></path>
                     </svg>
                     <span>DevOps &amp; CI/CD Pipelines</span>
                   </li>
                   <li className="flex items-start">
-                    <svg className="h-5 w-5 mr-2 text-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <svg className="mr-2 size-5 text-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                       <path d="M14.916 2.404a.75.75 0 01.32 1.012l-5 11a.75.75 0 01-1.342-.004l-3-6.5a.75.75 0 111.364-.63L9.106 11.5l4.798-10.548a.75.75 0 011.012-.32z"></path>
                     </svg>
                     <span>Segurança de Aplicações</span>
                   </li>
                   <li className="flex items-start">
-                    <svg className="h-5 w-5 mr-2 text-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <svg className="mr-2 size-5 text-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                       <path d="M14.916 2.404a.75.75 0 01.32 1.012l-5 11a.75.75 0 01-1.342-.004l-3-6.5a.75.75 0 111.364-.63L9.106 11.5l4.798-10.548a.75.75 0 011.012-.32z"></path>
                     </svg>
                     <span>Cloud Native &amp; Kubernetes</span>
                   </li>
                   <li className="flex items-start">
-                    <svg className="h-5 w-5 mr-2 text-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <svg className="mr-2 size-5 text-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                       <path d="M14.916 2.404a.75.75 0 01.32 1.012l-5 11a.75.75 0 01-1.342-.004l-3-6.5a.75.75 0 111.364-.63L9.106 11.5l4.798-10.548a.75.75 0 011.012-.32z"></path>
                     </svg>
                     <span>Infraestrutura como Código</span>
                   </li>
                 </ul>
-                <div className="pt-4 border-t">
+                <div className="border-t pt-4">
                   <Link className="btn btn-sm btn-secondary w-full" href="/sobre">
                     Saiba mais
                   </Link>

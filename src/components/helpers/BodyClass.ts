@@ -22,13 +22,11 @@ export const BodyClass = ({ isHome, isPost, author, tags, page }: BodyClassProps
   } else if (isPost) {
     classes.push(`post-template`)
   } else if (isPage) {
-    classes.push(`page-template`)
-    classes.push(`page-${page?.slug}`)
+    classes.push(`page-template`, `page-${page?.slug}`)
   } else if (tags && tags.length > 0) {
     classes.push(`tag-template`)
   } else if (isAuthor) {
-    classes.push(`author-template`)
-    classes.push(`author-${author?.slug}`)
+    classes.push(`author-template`, `author-${author?.slug}`)
   }
 
   if (tags) {

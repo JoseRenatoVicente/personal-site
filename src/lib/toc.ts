@@ -27,22 +27,22 @@ interface TocElement extends Node {
 }
 
 export const generateTableOfContents = (htmlAst: Node) => {
-  const tags = [`h1`, `h2`, `h3`, `h4`, `h5`, `h6`]
+  const tags = new Set([`h1`, `h2`, `h3`, `h4`, `h5`, `h6`])
 
   function headings(node: unknown): node is TocElement {
-    return tags.includes((node as TocElement).tagName)
+    return tags.has((node as TocElement).tagName)
   }
 
   // recursive walk to visit all children
   const walk = (children: TocElement[], text = ``, depth = 0) => {
-    children.forEach((child) => {
+    for (const child of children) {
       if (child.type === `text`) {
         text = text + child.value
       } else if (child.children && depth < 3) {
         depth = depth + 1
         text = walk(child.children, text, depth)
       }
-    })
+    }
     return text
   }
 
@@ -51,7 +51,7 @@ export const generateTableOfContents = (htmlAst: Node) => {
     const text = walk(node.children || [])
     if (text.length > 0) {
       const id = (node.properties as NodeProperties).id || `error-missing-id`
-      const level = (node.tagName as string).substr(1, 1)
+      const level = (node.tagName as string).slice(1, 2)
       toc.push({
         level: level,
         id: id,
@@ -71,11 +71,11 @@ export const generateTableOfContents = (htmlAst: Node) => {
   }
 
   // determine parents
-  toc.forEach((node, index) => {
+  for (const [index, node] of toc.entries()) {
     const prev = toc[index > 0 ? index - 1 : 0]
     node.parentIndex = node.level > prev.level ? (node.parentIndex = index - 1) : prev.parentIndex
     node.parentIndex = node.level < prev.level ? findParent(toc, node.parentIndex, node.level) : node.parentIndex
-  })
+  }
 
   // add children to their parent
   toc.forEach((node: TOC) => node.parentIndex >= 0 && (toc[node.parentIndex].items as TOC[]).push(node))

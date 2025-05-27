@@ -1,8 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 import Image from 'next/image'
-import Link from 'next/link'
-
-import { resolveUrl } from '@utils/routing'
 import { getLang, get } from '@utils/use-lang'
 import { AvatarIcon } from '@components/icons/AvatarIcon'
 import { GhostAuthor, GhostSettings } from '@lib/ghost'
@@ -22,28 +19,28 @@ export const AuthorList = ({ settings, authors, isPost }: AuthorListProps) => {
     const author = authors[0]
     const profileImg = author.profileImage
     return (
-      <section className="py-6 border-b">
+      <section className="border-b py-6">
         <div className="container">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <div className="h-10 w-10 rounded-full overflow-hidden">
+              <div className="size-10 overflow-hidden rounded-full">
                 {/* <Image src={author.profileImage?.url || "https://i.pravatar.cc/300"} alt={author.name || "Autor"} className="h-full w-full object-cover" /> */}
                 {profileImg && nextImages.feature ? (
                   <Image
                     src={profileImg.url || ''}
                     alt={author.name || ''}
-                    className="h-full w-full object-cover"
+                    className="size-full object-cover"
                     width={profileImg.dimensions?.width}
                     height={profileImg.dimensions?.height}
                     quality={nextImages.quality}
                   />
-                ) : author.profile_image ? (
-                  <img src={author.profile_image} alt={author.name || ''} className="h-full w-full object-cover" />
+                ) : (author.profile_image ? (
+                  <img src={author.profile_image} alt={author.name || ''} className="size-full object-cover" />
                 ) : (
                   <span className="author-profile-image">
                     <AvatarIcon />
                   </span>
-                )}
+                ))}
               </div>
               <div>
                 <p className="text-sm font-medium">{author.name}</p>
@@ -55,7 +52,7 @@ export const AuthorList = ({ settings, authors, isPost }: AuthorListProps) => {
                 href="https://twitter.com/intent/tweet?text=Como%20projetar%20microsservi%C3%A7os%20que%20realmente%20escalam&amp;url=http%3A%2F%2Flocalhost%3A4173%2Fblog%2Fprojetando-microsservicos-escalaveis"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground transition-colors"
+                className="text-muted-foreground transition-colors hover:text-foreground"
                 aria-label="Compartilhar no Twitter"
               >
                 <svg
@@ -76,7 +73,7 @@ export const AuthorList = ({ settings, authors, isPost }: AuthorListProps) => {
                 href="https://www.linkedin.com/sharing/share-offsite/?url=http%3A%2F%2Flocalhost%3A4173%2Fblog%2Fprojetando-microsservicos-escalaveis"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground transition-colors"
+                className="text-muted-foreground transition-colors hover:text-foreground"
                 aria-label="Compartilhar no LinkedIn"
               >
                 <svg
@@ -95,7 +92,7 @@ export const AuthorList = ({ settings, authors, isPost }: AuthorListProps) => {
                   <circle cx="4" cy="4" r="2"></circle>
                 </svg>
               </a>
-              <button className="text-muted-foreground hover:text-foreground transition-colors" aria-label="Copiar link">
+              <button className="text-muted-foreground transition-colors hover:text-foreground" aria-label="Copiar link">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="20"

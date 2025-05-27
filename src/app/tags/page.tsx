@@ -19,12 +19,12 @@ export default async function TagsPage() {
       <Layout settings={settings} bodyClass="tags-page" header={<HeaderIndex settings={settings} />}>
         <section className="section">
           <div className="container">
-            <h1 className="text-3xl md:text-5xl font-bold mb-8 text-gradient">Tags</h1>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            <h1 className="text-gradient mb-8 text-3xl font-bold md:text-5xl">Tags</h1>
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
               {tags.map((tag) => (
-                <Link key={tag.slug} href={`/tags/${tag.slug}`} className="card p-6 hover:shadow-lg transition-shadow">
-                  <h2 className="text-xl font-semibold mb-2">{tag.name}</h2>
-                  <p className="text-muted-foreground text-sm">{tag.description}</p>
+                <Link key={tag.slug} href={`/tags/${tag.slug}`} className="card p-6 transition-shadow hover:shadow-lg">
+                  <h2 className="mb-2 text-xl font-semibold">{tag.name}</h2>
+                  <p className="text-sm text-muted-foreground">{tag.description}</p>
                   <span className="text-xs text-primary">{tag.count?.posts || 0} posts</span>
                 </Link>
               ))}

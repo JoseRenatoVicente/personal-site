@@ -1,7 +1,7 @@
 import { lang, StringKeyObjectMap } from '@utils/lang'
 
 const getLang = (locale: string = 'en') => {
-  const normalizedLocale = locale.replace(/-/g, '')
+  const normalizedLocale = locale.replaceAll('-', '')
   return lang[normalizedLocale] ?? lang.en
 }
 

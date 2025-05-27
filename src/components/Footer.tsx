@@ -11,9 +11,9 @@ const Footer = ({ settings }: { settings: GhostSettings }) => {
   const navigation = site.navigation
 
   return (
-    <footer className="bg-background border-t">
+    <footer className="border-t bg-background">
       <div className="container py-8 md:py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           <div className="md:col-span-2">
             <Link href="/" className="text-lg font-bold">
               <span className="text-gradient">&lt;/&gt;</span> {brandTitle}
@@ -114,8 +114,8 @@ const Footer = ({ settings }: { settings: GhostSettings }) => {
             </ul>
           </div>
         </div>
-        <div className="mt-8 pt-6 border-t text-sm text-muted-foreground">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+        <div className="mt-8 border-t pt-6 text-sm text-muted-foreground">
+          <div className="flex flex-col items-center justify-between space-y-4 md:flex-row md:space-y-0">
             <p>
               &copy; {currentYear} {brandTitle}. Todos os direitos reservados.
             </p>

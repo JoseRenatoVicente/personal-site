@@ -65,23 +65,23 @@ export const Post = ({ cmsData }: PostProps) => {
   })
 
   const htmlAst = post.htmlAst
-  if (htmlAst === undefined) throw Error('Post.tsx: htmlAst must be defined.')
+  if (htmlAst === undefined) throw new Error('Post.tsx: htmlAst must be defined.')
 
   const collectionPath = collections.getCollectionByNode(post)
 
   return (
     <>
       <Layout {...{ bodyClass, settings }} header={<HeaderPost {...{ settings, title }} />} previewPosts={<></>}>
-        <section className="relative py-16 md:py-24 overflow-hidden">
+        <section className="relative overflow-hidden py-16 md:py-24">
           <div className="absolute inset-0 z-0 opacity-10">
-            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-foreground to-transparent"></div>
+            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-foreground to-transparent"></div>
           </div>
           <div className="container relative z-10">
-            <div className="max-w-3xl mx-auto text-center">
-              <h1 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6 animate-fade-in text-gradient">{title}</h1>
+            <div className="mx-auto max-w-3xl text-center">
+              <h1 className="animate-fade-in text-gradient mb-4 text-3xl font-bold md:mb-6 md:text-5xl">{title}</h1>
             </div>
           </div>
-          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-foreground/20 to-transparent"></div>
+          <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-foreground/20 to-transparent"></div>
         </section>
 
         <AuthorList {...{ settings, authors: post.authors, isPost: true }} />
@@ -130,17 +130,17 @@ export const Post = ({ cmsData }: PostProps) => {
 
         <section className="section">
           <div className="container">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
               <div className="lg:col-span-2">
                 <article className="prose max-w-none">
                   <RenderContent htmlAst={htmlAst} />
                 </article>
 
                 {post.tags && post.tags.length > 0 && (
-                  <div className="mt-12 pt-8 border-t">
+                  <div className="mt-12 border-t pt-8">
                     <div className="flex flex-wrap gap-2">
                       {post.tags.map((tag) => (
-                        <Link key={tag.id} className="badge badge-outline hover:bg-secondary transition-colors" href={`/tags/${tag.slug}`}>
+                        <Link key={tag.id} className="badge badge-outline transition-colors hover:bg-secondary" href={`/tags/${tag.slug}`}>
                           {tag.name}
                         </Link>
                       ))}
@@ -148,8 +148,8 @@ export const Post = ({ cmsData }: PostProps) => {
                   </div>
                 )}
 
-                <div className="mt-12 pt-8 border-t">
-                  <h3 className="text-xl font-bold mb-6">Comentários</h3>
+                <div className="mt-12 border-t pt-8">
+                  <h3 className="mb-6 text-xl font-bold">Comentários</h3>
                   <div className="card p-6">
                     <p className="text-center text-muted-foreground">Os comentários estão desabilitados neste artigo.</p>
                   </div>
@@ -171,7 +171,7 @@ export const Post = ({ cmsData }: PostProps) => {
                               slug: post.slug,
                               url: post.url,
                             })}
-                            className="hover:text-accent transition-colors"
+                            className="transition-colors hover:text-accent"
                           >
                             {post.title}
                           </Link>

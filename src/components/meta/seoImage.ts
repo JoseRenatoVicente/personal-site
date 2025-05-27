@@ -1,6 +1,6 @@
-import path from 'path'
-import { resolve } from 'url'
-import { existsSync } from 'fs'
+import path from 'node:path'
+import { resolve } from 'node:url'
+import { existsSync } from 'node:fs'
 
 import { siteImage } from '@components/meta/siteDefaults'
 import { imageDimensions, imageDimensionsFromFile, Dimensions } from '@lib/images'

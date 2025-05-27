@@ -28,7 +28,7 @@ export const PreviewPosts = ({ settings, primaryTag, posts, prev, next }: Previe
     <aside className="read-next outer">
       <div className="inner">
         <div className="read-next-feed">
-          {posts && 0 < posts.length && (
+          {posts && posts.length > 0 && (
             <article className="read-next-card">
               <header className="read-next-card-header">
                 <h3>
@@ -47,7 +47,7 @@ export const PreviewPosts = ({ settings, primaryTag, posts, prev, next }: Previe
                             slug: post.slug,
                             url: post.url,
                           })}
-                          className="hover:text-accent transition-colors"
+                          className="transition-colors hover:text-accent"
                         >
                           {post.title}
                         </Link>
