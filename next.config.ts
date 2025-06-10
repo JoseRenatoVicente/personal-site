@@ -1,5 +1,4 @@
 import type { NextConfig } from 'next'
-import CssMinimizerPlugin from 'css-minimizer-webpack-plugin'
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
@@ -12,18 +11,34 @@ const nextConfig: NextConfig = {
   generateBuildId: async () => {
     return Math.random().toString(36).slice(2, 15)
   },
-  webpack: (config, { dev }) => {
-    if (!dev) {
-      config.optimization.minimizer = config.optimization.minimizer.filter((minimizer: CssMinimizerPlugin) => minimizer.constructor.name !== 'CssMinimizerPlugin')
-      config.optimization.minimizer.push(
-        new CssMinimizerPlugin({
-          minimizerOptions: {
-            preset: ['advanced', { discardComments: { removeAll: true } }],
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-Frame-Options',
+            value: 'DENY',
           },
-        }),
-      )
-    }
-    return config
+          {
+            key: 'Cross-Origin-Opener-Policy',
+            value: 'same-origin'
+          },
+          {
+            key: 'Strict-Transport-Security',
+            value: 'max-age=31536000; includeSubDomains; preload'
+          },          
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'origin-when-cross-origin',
+          },
+        ],
+      },
+    ];
   },
   images: {
     deviceSizes: [320, 500, 680, 1040, 2080, 2048, 3120],
@@ -34,7 +49,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'liebling.eduardogomez.io',
+        hostname: 'cdn.renatovicente.dev',
       },
       {
         protocol: 'https',

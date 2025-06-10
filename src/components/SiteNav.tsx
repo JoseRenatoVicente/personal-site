@@ -44,19 +44,50 @@ export const SiteNav = ({ settings, className, postTitle }: SiteNavProps) => {
 
   return (
     <nav className={className}>
-      <Navigation data={navigation} />
-      {/* {postTitle && <span className={`nav-post-title ${site.logo ? `` : `dash`}`}>{postTitle}</span>} */}
-      {/* <div className="site-nav-right">
-        {secondaryNav ? (
-          <Navigation data={site.secondary_navigation} />
-        ) : (
-          <div className="social-links">
-            <SocialLinks {...{ siteUrl, site }} />
-          </div>
-        )}
-        <DarkMode {...{ settings }} />
-        {memberSubscriptions && <SubscribeButton {...{ lang: settings.lang }} />}
-      </div> */}
+      {/* Checkbox hack para menu mobile */}
+      <input id="mobile-menu-toggle" type="checkbox" className="peer sr-only" />
+      <label htmlFor="mobile-menu-toggle" className="relative z-40 block cursor-pointer size-8 md:hidden">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="block peer-checked:hidden"
+        >
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="hidden peer-checked:block"
+        >
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </label>
+      {/* Mobile menu usando peer-checked */}
+      <div className="absolute right-0 top-full z-40 mt-2 w-48 origin-top-right rounded-md border bg-background shadow-lg animate-fade-in hidden peer-checked:block md:hidden">
+        <div className="py-2 space-y-1">
+          <Navigation data={navigation} navClass="block px-4 py-2 text-sm hover:bg-muted" />
+        </div>
+      </div>
+      <div className="md:flex md:items-center md:space-x-6 hidden">
+        <Navigation data={navigation} navClass="flex md:items-center md:space-x-6" />
+      </div>
     </nav>
   )
 }

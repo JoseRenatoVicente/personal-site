@@ -38,6 +38,8 @@ const config = [
       "@typescript-eslint/no-unused-vars": "off",
       "no-unused-vars": "off",
       "unicorn/prevent-abbreviations": "off",
+      "tailwindcss/classnames-order": "off",
+      "tailwindcss/enforces-shorthand": "off",
     },
   },
   {

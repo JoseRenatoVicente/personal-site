@@ -28,7 +28,7 @@
     /* Dark Theme - Active by default */
     --background: 224 71% 4%;
     --foreground: 210 20% 98%;
-    --card: 224 71% 4%;
+    --card: 20 20 20;
     --card-foreground: 210 20% 98%;
     --border: 215 27% 17%;
     --input: 215 27% 17%;
@@ -94,10 +94,11 @@
   h6 {
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     @apply font-bold leading-tight tracking-tighter;
+    font-size: inherit;
   }
 
   a {
-    @apply text-primary hover:text-accent transition-colors duration-200;
+    @apply text-primary hover:text-primary/80 transition-colors duration-200;
   }
 
   .container {
@@ -193,6 +194,7 @@
 
   .card {
     @apply rounded-lg border bg-card text-card-foreground shadow-sm;
+     background-color: rgb(20 20 20);
   }
 
   .card-header {

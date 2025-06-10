@@ -94,23 +94,6 @@ export const Page = ({ cmsData }: PageProps) => {
               </figure>
             )
           ))}
-        {/* 
-              <section className="post-full-content">
-                {toc.enable && !!post.toc && (
-                  <TableOfContents
-                    {...{
-                      toc: transformToC(post.toc),
-                      url: resolveUrl({ cmsUrl, collectionPath, slug, url }),
-                      maxDepth: toc.maxDepth,
-                      lang,
-                    }}
-                  />
-                )}
-
-
-
-              </section> */}
-
         <section className="section">
           <div className="container">
             <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">

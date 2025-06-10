@@ -101,26 +101,6 @@ export default async function PostsPage({ searchParams }: { searchParams?: Promi
                     ))}
                   </ul>
                 </div>
-                <div className="card p-6">
-                  <h3 className="mb-4 text-lg font-bold">Posts Populares</h3>
-                  {/* <ul className="space-y-4 divide-y">
-                    <li className="pt-4 first:pt-0"><a href="/blog/projetando-microsservicos-escalaveis"
-                      className="hover:text-accent transition-colors">
-                      <h4 className="font-medium line-clamp-2 mb-1">Como projetar microsserviços que realmente escalam</h4>
-                      <time className="text-xs text-muted-foreground">12 de abril de 2023</time>
-                    </a></li>
-                    <li className="pt-4 first:pt-0"><a href="/blog/seguranca-apis-restful"
-                      className="hover:text-accent transition-colors">
-                      <h4 className="font-medium line-clamp-2 mb-1">Segurança em APIs RESTful: Boas práticas e armadilhas
-                        comuns</h4><time className="text-xs text-muted-foreground">5 de março de 2023</time>
-                    </a></li>
-                    <li className="pt-4 first:pt-0"><a href="/blog/ci-cd-microsservicos"
-                      className="hover:text-accent transition-colors">
-                      <h4 className="font-medium line-clamp-2 mb-1">CI/CD para microsserviços: Estratégias eficientes</h4>
-                      <time className="text-xs text-muted-foreground">18 de fevereiro de 2023</time>
-                    </a></li>
-                  </ul> */}
-                </div>
               </div>
             </div>
           </div>

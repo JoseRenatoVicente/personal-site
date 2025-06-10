@@ -70,8 +70,7 @@ export const HeaderAuthor = ({ settings, author }: HeaderAuthorProps) => {
                 />
               </div>
             ) : (author.profile_image ? (
-              /* eslint-disable @next/next/no-img-element */
-              <img className="author-profile-image" src={author.profile_image} alt={author.name} />
+              <Image className="author-profile-image" src={author.profile_image} alt={author.name || ''} />
             ) : (
               <div className="author-profile-image">
                 <AvatarIcon />

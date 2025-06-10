@@ -24,7 +24,6 @@ export const AuthorList = ({ settings, authors, isPost }: AuthorListProps) => {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <div className="size-10 overflow-hidden rounded-full">
-                {/* <Image src={author.profileImage?.url || "https://i.pravatar.cc/300"} alt={author.name || "Autor"} className="h-full w-full object-cover" /> */}
                 {profileImg && nextImages.feature ? (
                   <Image
                     src={profileImg.url || ''}

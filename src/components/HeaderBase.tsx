@@ -15,7 +15,7 @@ export const HeaderBase = (settings: GhostSettings) => {
           <span className="text-gradient">&lt;/&gt;</span> {brandTitle}
         </Link>
 
-        <SiteNav {...{ settings }} className="site-nav" postTitle={brandTitle} />
+        <SiteNav {...{ settings }} className="relative z-50" postTitle={brandTitle} />
       </div>
     </header>
   )

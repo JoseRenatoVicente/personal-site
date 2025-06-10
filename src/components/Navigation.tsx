@@ -11,7 +11,7 @@ const Navigation = ({ data, navClass }: NavigationProps) => {
   const renderLinks = () =>
     data?.map((navItem, i) => {
       const isExternal = navItem.url.match(/^[\s]?http(s?)/gi)
-      const className = navItem.label === 'Newsletter' ? 'btn btn-primary btn-sm' : navClass || 'text-muted-foreground hover:text-foreground transition-colors'
+      const className = navItem.label === 'Newsletter' ? 'btn btn-primary btn-sm' : 'text-muted-foreground hover:text-foreground transition-colors'
       return isExternal ? (
           <Link key={i} href={navItem.url} className={className} target="_blank" rel="noopener noreferrer">
             {navItem.label}
@@ -23,7 +23,7 @@ const Navigation = ({ data, navClass }: NavigationProps) => {
         );
     })
 
-  return <nav className="hidden md:flex md:items-center md:space-x-6">{renderLinks()}</nav>
+  return <nav className={navClass}>{renderLinks()}</nav>
 }
 
 export default Navigation

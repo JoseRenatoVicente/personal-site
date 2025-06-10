@@ -1,12 +1,7 @@
-import Link from 'next/link'
 import { ReactNode } from 'react'
-
 import { DocumentHead } from '@components/DocumentHead'
-import { StickyNav } from '@components/StickyNav'
 import { getLang, get } from '@utils/use-lang'
 import { GhostSettings } from '@lib/ghost'
-
-import { resolve } from 'node:url'
 import Footer from './Footer'
 
 /**
@@ -44,17 +39,12 @@ export const Layout = ({ settings, header, children, isHome, previewPosts, bodyC
     <>
       <DocumentHead className={bodyClass} />
       <div className="flex min-h-screen flex-col">
-        {/* The main header section on top of the screen */}
         {header}
-        {/* The main content area */}
         <main className={`grow ${errorClass}`}>
-          {/* All the main content gets inserted here, index.js, post.js */}
           {children}
         </main>
-        {/* Links to Previous/Next posts */}
         {previewPosts}
 
-        {/* O novo Footer migrado do sombra-digital-brilhante */}
         <Footer {...{ settings }} />
       </div>
     </>

@@ -6,36 +6,24 @@ import { HeaderIndex } from '@components/HeaderIndex'
 import { Subscribe } from '@components/Subscribe'
 import { PostView } from '@components/PostView'
 import { notFound } from 'next/navigation'
+import { seoImage } from '@/src/components/meta/seoImage'
 
 export const dynamic = 'force-static'
+
+export const metadata = async () => {
+  const settings = await getAllSettings()
+  return getSeoMetadata({
+    title: settings.title,
+    description: settings.meta_description ?? undefined,
+    settings
+  })
+}
 
 export async function generateStaticParams() {
   const tags = await getAllTags()
   return tags.map((tag) => ({ slug: [tag.slug] }))
 }
 
-export async function generateMetadata({ params }: PostsTagPageProps) {
-  const resolved = await params
-  if (!resolved?.slug) notFound()
-
-  const slug = resolved.slug[resolved.slug.length - 1]
-  let tag
-
-  try {
-    tag = await getTagBySlug(slug)
-  } catch {
-    notFound()
-  }
-  if (!tag) notFound()
-
-  const settings = await getAllSettings()
-
-  return getSeoMetadata({
-    title: tag.name,
-    description: tag.description ?? undefined,
-    settings,
-  })
-}
 interface PostsTagPageProps {
   params?: Promise<{ slug: string[] }>
 }
