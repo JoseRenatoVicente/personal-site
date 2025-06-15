@@ -51,7 +51,7 @@ export default async function HomePage() {
             <div className="space-y-12 md:col-span-4">
               <div className="space-y-6">
                 <div className="flex items-center justify-between">
-                  <h2 className="text-2xl font-bold">Projetos em Destaque</h2>
+                  <h2 className="text-2xl font-bold">Em Destaque</h2>
                   <Link className="btn btn-sm btn-outline" href="/posts">
                     Ver todos
                   </Link>
@@ -86,12 +86,6 @@ export default async function HomePage() {
                     <svg className="mr-2 size-5 text-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                       <path d="M14.916 2.404a.75.75 0 01.32 1.012l-5 11a.75.75 0 01-1.342-.004l-3-6.5a.75.75 0 111.364-.63L9.106 11.5l4.798-10.548a.75.75 0 011.012-.32z"></path>
                     </svg>
-                    <span>DevOps &amp; CI/CD Pipelines</span>
-                  </li>
-                  <li className="flex items-start">
-                    <svg className="mr-2 size-5 text-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                      <path d="M14.916 2.404a.75.75 0 01.32 1.012l-5 11a.75.75 0 01-1.342-.004l-3-6.5a.75.75 0 111.364-.63L9.106 11.5l4.798-10.548a.75.75 0 011.012-.32z"></path>
-                    </svg>
                     <span>Segurança de Aplicações</span>
                   </li>
                   <li className="flex items-start">
@@ -99,12 +93,6 @@ export default async function HomePage() {
                       <path d="M14.916 2.404a.75.75 0 01.32 1.012l-5 11a.75.75 0 01-1.342-.004l-3-6.5a.75.75 0 111.364-.63L9.106 11.5l4.798-10.548a.75.75 0 011.012-.32z"></path>
                     </svg>
                     <span>Cloud Native &amp; Kubernetes</span>
-                  </li>
-                  <li className="flex items-start">
-                    <svg className="mr-2 size-5 text-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                      <path d="M14.916 2.404a.75.75 0 01.32 1.012l-5 11a.75.75 0 01-1.342-.004l-3-6.5a.75.75 0 111.364-.63L9.106 11.5l4.798-10.548a.75.75 0 011.012-.32z"></path>
-                    </svg>
-                    <span>Infraestrutura como Código</span>
                   </li>
                 </ul>
                 <div className="border-t pt-4">

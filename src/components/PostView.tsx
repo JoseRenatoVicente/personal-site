@@ -1,13 +1,7 @@
-import Link from 'next/link'
 import dayjs from 'dayjs'
+import 'dayjs/locale/pt-br'
 
-import { readingTime as readingTimeHelper } from '@lib/readingTime'
-import { resolveUrl } from '@utils/routing'
-import { getLang, get } from '@utils/use-lang'
-
-import { AuthorList } from '@components/AuthorList'
-import { PostClass } from '@components/helpers/PostClass'
-import { collections } from '@lib/collections'
+dayjs.locale('pt-br')
 import { GhostPostsOrPages, GhostSettings } from '@lib/ghost'
 
 interface PostViewProps {
@@ -29,7 +23,7 @@ export const PostView = (props: PostViewProps) => {
                 </a>
               </h3>
               <time className="mb-2 block text-sm text-muted-foreground" dateTime={post.published_at || ''}>
-                {dayjs(post.published_at || '').format('D MMM YYYY')}&nbsp;
+                {dayjs(post.published_at || '').format('D [de] MMMM [de] YYYY')}&nbsp;
               </time>
               <p className="mb-3 text-muted-foreground">{post.excerpt}</p>
               <div className="mt-3 flex flex-wrap gap-2">

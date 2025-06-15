@@ -30,14 +30,6 @@ export const PostCard = ({ settings, post, num, isHome }: PostCardProps) => {
     url: post.url,
   })
   const featImg = typeof post.featureImage === 'string' ? post.featureImage : ''
-  const readingTime = readingTimeHelper(post).replace(`min read`, text(`MIN_READ`))
-  const postClass = PostClass({
-    tags: post.tags,
-    isFeatured: post.featured,
-    isImage: !!featImg,
-  })
-  const large = (featImg && isHome && num !== undefined && 0 === num % 6 && `post-card-large`) || ``
-  const authors = post?.authors?.filter((_, i) => (i < 2 ? true : false))
 
   return (
     <article className="card overflow-hidden transition-shadow hover:shadow-md">
@@ -53,7 +45,7 @@ export const PostCard = ({ settings, post, num, isHome }: PostCardProps) => {
               fill
             />
           ) : (
-            <Image src="/ghost-icon.png" alt={post.title || ''} width={680} height={382} className="size-full object-cover transition-transform duration-300 hover:scale-105" />
+            <Image src={post.featureImage?.url || '/ghost-icon.png'} alt={post.title || ''} width={680} height={382} className="size-full object-cover transition-transform duration-300 hover:scale-105" />
           )}
         </div>
       </Link>
