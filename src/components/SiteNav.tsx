@@ -73,7 +73,7 @@ export const SiteNav = ({ settings, className, postTitle }: SiteNavProps) => {
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="hidden peer-checked:block"
+          className="absolute inset-0 opacity-0 transition-opacity duration-200 peer-checked:opacity-100"
         >
           <line x1="18" y1="6" x2="6" y2="18"></line>
           <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -81,8 +81,10 @@ export const SiteNav = ({ settings, className, postTitle }: SiteNavProps) => {
       </label>
       {/* Mobile menu usando peer-checked */}
       <div className="absolute right-0 top-full z-40 mt-2 w-48 origin-top-right rounded-md border bg-background shadow-lg animate-fade-in hidden peer-checked:block md:hidden">
-        <div className="py-2 space-y-1">
-          <Navigation data={navigation} navClass="block px-4 py-2 text-sm hover:bg-muted" />
+        <div className="py-4 space-y-1 border-t bg-background shadow-lg">
+            <div className="container mx-auto px-4">
+              <Navigation data={navigation} navClass="flex flex-col space-y-4 text-lg" />
+            </div>
         </div>
       </div>
       <div className="md:flex md:items-center md:space-x-6 hidden">
