@@ -32,7 +32,12 @@ export const metadata = async () => {
 export default async function PostOrPage({ params }: { params?: Promise<{ slug: string[] }> }) {
   const resolvedParams = params ? await params : undefined
   if (!resolvedParams?.slug || !Array.isArray(resolvedParams.slug)) notFound()
-  const slug = resolvedParams.slug[resolvedParams.slug.length - 1]
+  const lastSlug = resolvedParams.slug[resolvedParams.slug.length - 1]
+
+  if (!/^[a-zA-Z0-9-_]+$/.test(lastSlug)) {
+    notFound()
+  }
+  const slug = lastSlug
   const settings = await getAllSettings()
 
   const post = await getPostBySlug(slug)
