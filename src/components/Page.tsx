@@ -76,6 +76,8 @@ export const Page = ({ cmsData }: PageProps) => {
                 src={featImg.url}
                 alt={title || ''}
                 quality={nextImages.quality}
+                priority={true}
+                loading="eager"
                 style={{ objectFit: 'cover' }}
                 sizes={`
                               (max-width: 350px) 350px,

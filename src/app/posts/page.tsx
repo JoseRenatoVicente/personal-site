@@ -77,7 +77,7 @@ export default async function PostsPage({ searchParams }: { searchParams?: Promi
                   <form method="GET" action="/posts" className="flex gap-2">
                     <input type="text" name="q" placeholder="Pesquisar artigos..." className="input w-full" defaultValue={searchQuery} />
                     {selectedTag && <input type="hidden" name="tag" value={selectedTag} />}
-                    <button type="submit" className="btn btn-primary">
+                    <button type="submit" className="btn btn-primary btn-sm">
                       Filtrar
                     </button>
                   </form>

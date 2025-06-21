@@ -17,6 +17,17 @@ import { collections } from '@lib/collections'
 import { seoImage } from '@components/meta/seoImage'
 import { processEnv } from '@lib/processEnv'
 import { BodyClass } from '@components/helpers/BodyClass'
+import { getSeoMetadata } from '@components/meta/seo'
+
+export const metadata = async () => {
+  const settings = await getAllSettings()
+  return getSeoMetadata({
+    title: settings.title,
+    description: settings.meta_description ?? undefined,
+    settings,
+    seoImage: await seoImage({ siteUrl: settings.processEnv.siteUrl }),
+  })
+}
 
 export default async function PostOrPage({ params }: { params?: Promise<{ slug: string[] }> }) {
   const resolvedParams = params ? await params : undefined

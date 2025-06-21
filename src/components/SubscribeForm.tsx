@@ -10,7 +10,7 @@ export const SubscribeForm = ({ settings }: { settings: GhostSettings }) => {
       <div>
         <input id="email" name="email" type="email" className="input w-full" data-members-email placeholder={text(`YOUR_EMAIL`)} autoComplete="false" />
       </div>
-      <button type="submit" className="btn btn-primary w-full">
+      <button type="submit" className="btn btn-primary w-full py-1">
         {text(`SUBSCRIBE`)}
       </button>
       <p className="text-xs text-muted-foreground">Nunca compartilharemos seu e-mail. Você pode cancelar a qualquer momento.</p>

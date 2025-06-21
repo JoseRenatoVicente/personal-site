@@ -40,24 +40,26 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  experimental: {
+    optimizeCss: true,
+  },
   images: {
-    deviceSizes: [320, 500, 680, 1040, 2080, 2048, 3120],
+    deviceSizes: [320, 640, 750, 828, 1080, 1200, 1920, 2048],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    formats: ['image/webp'],
+    minimumCacheTTL: 60,
     remotePatterns: [
-      {
-        protocol: 'http',
-        hostname: 'localhost',
-      },
       {
         protocol: 'https',
         hostname: 'cdn.renatovicente.dev',
       },
       {
         protocol: 'https',
-        hostname: 'www.gravatar.com',
+        hostname: 'admin.renatovicente.dev',
       },
       {
         protocol: 'https',
-        hostname: 'images.unsplash.com',
+        hostname: 'localhost',
       },
       ...(process.env.IMAGE_DOMAINS || '')
         .split(',')

@@ -6,7 +6,6 @@ import { HeaderIndex } from '@components/HeaderIndex'
 import { Subscribe } from '@components/Subscribe'
 import { PostView } from '@components/PostView'
 import { notFound } from 'next/navigation'
-import { seoImage } from '@/src/components/meta/seoImage'
 
 export const dynamic = 'force-static'
 
