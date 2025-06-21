@@ -1,6 +1,121 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@config '../../tailwind.config.ts';
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+@utility btn {
+  @apply inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
+}
+
+@utility btn-primary {
+  @apply bg-primary text-primary-foreground hover:bg-primary/90;
+}
+
+@utility btn-secondary {
+  @apply bg-secondary text-secondary-foreground hover:bg-secondary/80;
+}
+
+@utility btn-outline {
+  @apply border border-input hover:bg-accent hover:text-accent-foreground;
+}
+
+@utility btn-ghost {
+  @apply hover:bg-accent hover:text-accent-foreground;
+}
+
+@utility btn-link {
+  @apply text-primary underline-offset-4 hover:underline;
+}
+
+@utility btn-sm {
+  @apply h-9 px-3;
+}
+
+@utility btn-md {
+  @apply h-10 px-4 py-2;
+}
+
+@utility btn-lg {
+  @apply h-11 px-8;
+}
+
+@utility card {
+  @apply rounded-lg border bg-card text-card-foreground shadow-xs;
+  background-color: rgb(20 20 20);
+}
+
+@utility card-header {
+  @apply flex flex-col space-y-1.5 p-6;
+}
+
+@utility card-title {
+  @apply text-2xl font-semibold leading-none tracking-tight;
+}
+
+@utility card-description {
+  @apply text-sm text-muted-foreground;
+}
+
+@utility card-content {
+  @apply p-6 pt-0;
+}
+
+@utility card-footer {
+  @apply flex items-center p-6 pt-0;
+}
+
+@utility input {
+  @apply flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+}
+
+@utility badge {
+  @apply inline-flex items-center border rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-2;
+}
+
+@utility badge-primary {
+  @apply bg-primary text-primary-foreground hover:bg-primary/80;
+}
+
+@utility badge-secondary {
+  @apply bg-secondary text-secondary-foreground hover:bg-secondary/80;
+}
+
+@utility badge-outline {
+  @apply text-foreground border-border;
+}
+
+@utility code-block {
+  @apply bg-muted p-4 rounded-md font-mono text-sm overflow-x-auto;
+}
+
+@utility text-gradient {
+  @apply bg-linear-to-r from-primary to-accent bg-clip-text text-transparent;
+}
+
+@utility animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+@utility animate-slide-up {
+  animation: slideUp 0.5s ease-out forwards;
+}
 
 @layer base {
   :root {
@@ -155,107 +270,6 @@
     content: '';
   }
 
-}
-
-@layer components {
-  .btn {
-    @apply inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
-  }
-
-  .btn-primary {
-    @apply bg-primary text-primary-foreground hover:bg-primary/90;
-  }
-
-  .btn-secondary {
-    @apply bg-secondary text-secondary-foreground hover:bg-secondary/80;
-  }
-
-  .btn-outline {
-    @apply border border-input hover:bg-accent hover:text-accent-foreground;
-  }
-
-  .btn-ghost {
-    @apply hover:bg-accent hover:text-accent-foreground;
-  }
-
-  .btn-link {
-    @apply text-primary underline-offset-4 hover:underline;
-  }
-
-  .btn-sm {
-    @apply h-9 px-3;
-  }
-
-  .btn-md {
-    @apply h-10 px-4 py-2;
-  }
-
-  .btn-lg {
-    @apply h-11 px-8;
-  }
-
-  .card {
-    @apply rounded-lg border bg-card text-card-foreground shadow-sm;
-     background-color: rgb(20 20 20);
-  }
-
-  .card-header {
-    @apply flex flex-col space-y-1.5 p-6;
-  }
-
-  .card-title {
-    @apply text-2xl font-semibold leading-none tracking-tight;
-  }
-
-  .card-description {
-    @apply text-sm text-muted-foreground;
-  }
-
-  .card-content {
-    @apply p-6 pt-0;
-  }
-
-  .card-footer {
-    @apply flex items-center p-6 pt-0;
-  }
-
-  .input {
-    @apply flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
-  }
-
-  .badge {
-    @apply inline-flex items-center border rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2;
-  }
-
-  .badge-primary {
-    @apply bg-primary text-primary-foreground hover:bg-primary/80;
-  }
-
-  .badge-secondary {
-    @apply bg-secondary text-secondary-foreground hover:bg-secondary/80;
-  }
-
-  .badge-outline {
-    @apply text-foreground border-border;
-  }
-}
-
-@layer utilities {
-  .code-block {
-    @apply bg-muted p-4 rounded-md font-mono text-sm overflow-x-auto;
-  }
-
-  .text-gradient {
-    @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
-  }
-
-  .animate-fade-in {
-    animation: fadeIn 0.5s ease-out forwards;
-  }
-
-  .animate-slide-up {
-    animation: slideUp 0.5s ease-out forwards;
-  }
 }
 
 @keyframes fadeIn {

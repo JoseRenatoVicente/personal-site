@@ -9,7 +9,7 @@ export const HeaderBase = (settings: GhostSettings) => {
   const brandTitle = text(`SITE_TITLE`, site.title)
 
   return (
-    <header className={`sticky top-0 z-40 w-full bg-background/95 shadow-sm backdrop-blur transition-all duration-200 supports-[backdrop-filter]:bg-background/60`}>
+    <header className={`sticky top-0 z-40 w-full bg-background/95 shadow-xs backdrop-blur-sm transition-all duration-200 supports-backdrop-filter:bg-background/60`}>
       <div className="container flex h-16 items-center justify-between py-4">
         <Link href="/" className="text-lg font-bold">
           <span className="text-gradient">&lt;/&gt;</span> {brandTitle}

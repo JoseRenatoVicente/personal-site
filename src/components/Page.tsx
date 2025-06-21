@@ -58,7 +58,7 @@ export const Page = ({ cmsData }: PageProps) => {
       <Layout {...{ bodyClass, settings }} header={<HeaderPost {...{ settings, title }} />} previewPosts={<></>}>
         <section className="relative overflow-hidden py-16 md:py-24">
           <div className="absolute inset-0 z-0 opacity-10">
-            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-foreground to-transparent"></div>
+            <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-foreground to-transparent"></div>
           </div>
           <div className="container relative z-10">
             <div className="mx-auto max-w-3xl text-center">
@@ -66,7 +66,7 @@ export const Page = ({ cmsData }: PageProps) => {
               <p className="animate-fade-in text-lg text-muted-foreground md:text-xl">{page.custom_excerpt}</p>
             </div>
           </div>
-          <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-foreground/20 to-transparent"></div>
+          <div className="absolute inset-x-0 bottom-0 h-px bg-linear-to-r from-transparent via-foreground/20 to-transparent"></div>
         </section>
 
         {featImg &&

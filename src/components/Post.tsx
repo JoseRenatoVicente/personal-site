@@ -74,14 +74,14 @@ export const Post = ({ cmsData }: PostProps) => {
       <Layout {...{ bodyClass, settings }} header={<HeaderPost {...{ settings, title }} />} previewPosts={<></>}>
         <section className="relative overflow-hidden py-16 md:py-24">
           <div className="absolute inset-0 z-0 opacity-10">
-            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-foreground to-transparent"></div>
+            <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-foreground to-transparent"></div>
           </div>
           <div className="container relative z-10">
             <div className="mx-auto max-w-3xl text-center">
               <h1 className="animate-fade-in text-gradient mb-4 text-3xl font-bold md:mb-6 md:text-5xl">{title}</h1>
             </div>
           </div>
-          <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-foreground/20 to-transparent"></div>
+          <div className="absolute inset-x-0 bottom-0 h-px bg-linear-to-r from-transparent via-foreground/20 to-transparent"></div>
         </section>
 
         <AuthorList {...{ settings, authors: post.authors, isPost: true }} />
