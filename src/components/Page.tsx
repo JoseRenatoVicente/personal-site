@@ -78,6 +78,7 @@ export const Page = ({ cmsData }: PageProps) => {
                 quality={nextImages.quality}
                 priority={true}
                 loading="eager"
+                fetchPriority="high"
                 style={{ objectFit: 'cover' }}
                 sizes={`
                               (max-width: 350px) 350px,
@@ -92,7 +93,7 @@ export const Page = ({ cmsData }: PageProps) => {
           ) : (
             page.feature_image && (
               <figure className="post-full-image">
-                <img src={page.feature_image} alt={title} />
+                <img src={page.feature_image} alt={title} loading="eager" fetchPriority="high" />
               </figure>
             )
           ))}

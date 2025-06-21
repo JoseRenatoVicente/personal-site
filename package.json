@@ -12,7 +12,7 @@
     "format": "prettier --write **/*.{js,ts,tsx}",
     "lint": "eslint . --ext ts --ext tsx --ext js",
     "lint-fix": "npx eslint . --fix",
-    "postbuild": "next-sitemap",
+    "postbuild": "next-sitemap && node ./scripts/hide-next-version.cjs",
     "analyze": "npx cross-env ANALYZE=true npm run build",
     "serve": "serve out"
   },

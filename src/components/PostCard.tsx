@@ -41,8 +41,7 @@ export const PostCard = ({ settings, post, num, isHome }: PostCardProps) => {
               alt={post.title || ''}
               sizes="(max-width: 640px) 320px, (max-width: 1000px) 500px, 680px"
               quality={nextImages.quality}
-              priority={isHome && num === 0}
-              loading={isHome && num === 0 ? "eager" : "lazy"}
+              priority={isHome && num === 0} 
               className="size-full object-cover transition-transform duration-300 hover:scale-105"
               fill
             />

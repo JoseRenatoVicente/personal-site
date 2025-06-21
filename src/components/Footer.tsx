@@ -72,27 +72,27 @@ const Footer = ({ settings }: { settings: GhostSettings }) => {
             <h3 className="text-sm font-medium uppercase tracking-wider">Especialidades</h3>
             <ul className="mt-4 space-y-2 text-sm">
               <li>
-                <Link href="/portfolio?tag=arquitetura" className="text-muted-foreground hover:text-foreground">
+                <Link href="/posts?tag=arquitetura" className="text-muted-foreground hover:text-foreground">
                   Arquitetura Backend
                 </Link>
               </li>
               <li>
-                <Link href="/portfolio?tag=devops" className="text-muted-foreground hover:text-foreground">
+                <Link href="/posts?tag=devops" className="text-muted-foreground hover:text-foreground">
                   DevOps & CI/CD
                 </Link>
               </li>
               <li>
-                <Link href="/portfolio?tag=microservices" className="text-muted-foreground hover:text-foreground">
+                <Link href="/posts?tag=microservices" className="text-muted-foreground hover:text-foreground">
                   Microsserviços
                 </Link>
               </li>
               <li>
-                <Link href="/portfolio?tag=seguranca" className="text-muted-foreground hover:text-foreground">
+                <Link href="/posts?tag=seguranca" className="text-muted-foreground hover:text-foreground">
                   Segurança
                 </Link>
               </li>
               <li>
-                <Link href="/portfolio?tag=cloud" className="text-muted-foreground hover:text-foreground">
+                <Link href="/posts?tag=cloud" className="text-muted-foreground hover:text-foreground">
                   Cloud Native
                 </Link>
               </li>

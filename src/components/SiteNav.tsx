@@ -45,7 +45,7 @@ export const SiteNav = ({ settings, className, postTitle }: SiteNavProps) => {
   return (
     <nav className={className}>
       {/* Checkbox hack para menu mobile */}
-      <input id="mobile-menu-toggle" type="checkbox" className="peer sr-only" />
+      <input id="mobile-menu-toggle" type="checkbox" className="peer sr-only" title="Abrir menu mobile" aria-label="Abrir menu mobile" />
       <label htmlFor="mobile-menu-toggle" className="relative z-40 block cursor-pointer size-8 md:hidden">
         <svg
           xmlns="http://www.w3.org/2000/svg"
