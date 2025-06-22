@@ -52,7 +52,7 @@ export default async function HomePage() {
               <div className="space-y-6">
                 <div className="flex items-center justify-between">
                   <h2 className="text-2xl font-bold">Em Destaque</h2>
-                  <Link className="btn btn-sm btn-outline" href="/posts">
+                  <Link className="btn btn-sm btn-outline" href="/posts" prefetch={false}>
                     Ver todos
                   </Link>
                 </div>
@@ -63,7 +63,7 @@ export default async function HomePage() {
               <div className="space-y-6">
                 <div className="flex items-center justify-between">
                   <h2 className="text-2xl font-bold">Artigos Recentes</h2>
-                  <Link className="btn btn-sm btn-outline" href="/posts">
+                  <Link className="btn btn-sm btn-outline" href="/posts" prefetch={false}>
                     Ver todos
                   </Link>
                 </div>
@@ -96,7 +96,7 @@ export default async function HomePage() {
                   </li>
                 </ul>
                 <div className="border-t pt-4">
-                  <Link className="btn btn-sm btn-secondary w-full" href="/sobre">
+                  <Link className="btn btn-sm btn-secondary w-full" href="/sobre" prefetch={false}>
                     Saiba mais
                   </Link>
                 </div>
