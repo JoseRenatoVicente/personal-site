@@ -1,9 +1,0 @@
-# *
-User-agent: *
-Allow: /
-
-# Host
-Host: https://renatovicente.dev
-
-# Sitemaps
-Sitemap: https://renatovicente.dev/sitemap.xml

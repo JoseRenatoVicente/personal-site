@@ -2,8 +2,6 @@ import globals from "globals"
 import pluginJs from "@eslint/js"
 import tseslint from "typescript-eslint"
 import pluginReact from "eslint-plugin-react"
-import eslintPluginUnicorn from "eslint-plugin-unicorn"
-import tailwind from "eslint-plugin-tailwindcss"
 import { FlatCompat } from "@eslint/eslintrc"
 
 const compat = new FlatCompat({
