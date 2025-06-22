@@ -61,7 +61,7 @@ const Footer = ({ settings }: { settings: GhostSettings }) => {
             <ul className="mt-4 space-y-2 text-sm">
               {navigation?.map((navItem, i) => (
                 <li key={i}>
-                  <Link href={navItem.url} className="text-muted-foreground hover:text-foreground">
+                  <Link href={navItem.url} className="text-muted-foreground hover:text-foreground" prefetch={false}>
                     {navItem.label}
                   </Link>
                 </li>

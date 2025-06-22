@@ -33,7 +33,7 @@ export const PostCard = ({ settings, post, num, isHome }: PostCardProps) => {
 
   return (
     <article className="card overflow-hidden transition-shadow hover:shadow-md">
-      <Link href={url} aria-label={post.title || ''} className="block">
+      <Link href={url} aria-label={post.title || ''} prefetch={false} className="block">
         <div className="aspect-video overflow-hidden bg-muted">
           {featImg ? (
             <Image
@@ -61,7 +61,7 @@ export const PostCard = ({ settings, post, num, isHome }: PostCardProps) => {
       </Link>
       <div className="p-5">
         <h3 className="mb-2 line-clamp-2 text-lg font-bold">
-          <Link href={url} className="transition-colors hover:text-accent">
+          <Link href={url} className="transition-colors hover:text-accent" prefetch={false}>
             {post.title}
           </Link>
         </h3>
