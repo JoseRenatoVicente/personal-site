@@ -16,6 +16,9 @@
     "analyze": "npx cross-env ANALYZE=true npm run build",
     "serve": "serve out"
   },
+  "browserslist": [
+    "defaults"
+  ],
   "dependencies": {
     "@tryghost/content-api": "^1.11.24",
     "cheerio": "^1.0.0",
