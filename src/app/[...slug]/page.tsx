@@ -29,31 +29,18 @@ export const metadata = async () => {
   })
 }
 
-export default async function PostOrPage({ params }: { params?: Promise<{ slug: string[] }> }) {
-  const resolvedParams = params ? await params : undefined
-  if (!resolvedParams?.slug || !Array.isArray(resolvedParams.slug)) notFound()
-  const lastSlug = resolvedParams.slug[resolvedParams.slug.length - 1]
+function isValidSlug(slug: string) {
+  return /^[a-zA-Z0-9-_]+$/.test(slug)
+}
 
-  if (!/^[a-zA-Z0-9-_]+$/.test(lastSlug)) {
-    notFound()
-  }
-  const slug = lastSlug
-  const settings = await getAllSettings()
+async function getPreviewPosts(post: GhostPostOrPage) {
+  const tagSlug = post.primary_tag?.slug
+  if (!tagSlug) return emptyPreviewPosts()
+  return (await getPostsByTag(tagSlug, 3, post.id)) || emptyPreviewPosts()
+}
 
-  const post = await getPostBySlug(slug)
-  let page: GhostPostOrPage | null = null
-  const isPost = !!post
-
-  if (!isPost) {
-    page = await getPageBySlug(slug)
-  } else if (post?.primary_tag) {
-    const primaryTag = await getTagBySlug(post.primary_tag.slug)
-    post.primary_tag = primaryTag
-  }
-
-  if (!post && !page) notFound()
-
-  let previewPosts: GhostPostsOrPages = Object.assign([], {
+function emptyPreviewPosts(): GhostPostsOrPages {
+  return Object.assign([], {
     meta: {
       pagination: {
         page: 1,
@@ -65,40 +52,48 @@ export default async function PostOrPage({ params }: { params?: Promise<{ slug: 
       },
     },
   })
-  let prevPost: GhostPostOrPage | undefined
-  let nextPost: GhostPostOrPage | undefined
+}
 
-  if (isPost && post?.id && post?.slug) {
-    const tagSlug = post?.primary_tag?.slug
-    previewPosts =
-      (tagSlug && (await getPostsByTag(tagSlug, 3, post?.id))) ||
-      Object.assign([], {
-        meta: {
-          pagination: {
-            page: 1,
-            limit: 3,
-            pages: 1,
-            total: 0,
-            next: null,
-            prev: null,
-          },
-        },
-      })
-    const postSlugs = await getAllPostSlugs()
-    const index = postSlugs.indexOf(post?.slug)
-    const prevSlug = index > 0 ? postSlugs[index - 1] : null
-    const nextSlug = index < postSlugs.length - 1 ? postSlugs[index + 1] : null
-    prevPost = (prevSlug && (await getPostBySlug(prevSlug))) || undefined
-    nextPost = (nextSlug && (await getPostBySlug(nextSlug))) || undefined
+async function getPrevNextPosts(slug: string) {
+  const postSlugs = await getAllPostSlugs()
+  const index = postSlugs.indexOf(slug)
+  const prevSlug = index > 0 ? postSlugs[index - 1] : null
+  const nextSlug = index < postSlugs.length - 1 ? postSlugs[index + 1] : null
+  const [prevPost, nextPost] = await Promise.all([
+    prevSlug ? getPostBySlug(prevSlug) : undefined,
+    nextSlug ? getPostBySlug(nextSlug) : undefined,
+  ])
+  return { prevPost, nextPost }
+}
+
+export default async function PostOrPage({ params }: { params?: Promise<{ slug: string[] }> }) {
+  const resolvedParams = params ? await params : undefined
+  const slug = resolvedParams?.slug?.at(-1)
+  if (!slug || !isValidSlug(slug)) return notFound()
+
+  const settings = await getAllSettings()
+  let post = await getPostBySlug(slug)
+  let page: GhostPostOrPage | null = null
+
+  if (!post) {
+    page = await getPageBySlug(slug)
+    if (!page) return notFound()
+  } else {
+    if (post.primary_tag) {
+      post.primary_tag = await getTagBySlug(post.primary_tag.slug)
+    }
   }
 
+  const isPost = !!post
   const siteUrl = settings.processEnv.siteUrl
-  const imageUrl = (post || page)?.feature_image || undefined
+  const imageUrl = (post || page)?.feature_image
   const image = await seoImage({ siteUrl, imageUrl })
-  const tags = (page && page.tags) || undefined
+  const tags = page?.tags
   const bodyClass = BodyClass({ isPost, page: page || undefined, tags })
 
   if (isPost && post) {
+    const previewPosts = await getPreviewPosts(post)
+    const { prevPost, nextPost } = await getPrevNextPosts(post.slug)
     return (
       <Post
         cmsData={{
@@ -106,34 +101,28 @@ export default async function PostOrPage({ params }: { params?: Promise<{ slug: 
           post,
           seoImage: image,
           previewPosts,
-          prevPost,
-          nextPost,
+          prevPost: prevPost || undefined,
+          nextPost: nextPost || undefined,
           bodyClass,
         }}
       />
     )
-  } else if (page) {
-    return <Page cmsData={{ settings, page, seoImage: image, bodyClass }} />
-  } else {
-    notFound()
   }
+  if (page) {
+    return <Page cmsData={{ settings, page, seoImage: image, bodyClass }} />
+  }
+  return notFound()
 }
 
 export async function generateStaticParams() {
   const { enable, maxNumberOfPosts, maxNumberOfPages } = processEnv.isr
-  const limitForPosts = (enable && { limit: maxNumberOfPosts }) || undefined
-  const limitForPages = (enable && { limit: maxNumberOfPages }) || undefined
-  const posts = await getAllPosts(limitForPosts)
-  const pages = await getAllPages(limitForPages)
-  const settings = await getAllSettings()
-  const { url: cmsUrl } = settings
-  const postRoutes = posts.map((post: GhostPostOrPage) => {
-    const collectionPath = collections.getCollectionByNode(post)
-    const { slug, url } = post
-    return { slug: [slug] }
-  })
-  const pageRoutes = pages.map((page: GhostPostOrPage) => ({
-    slug: [page.slug],
-  }))
+  const limitForPosts = enable ? { limit: maxNumberOfPosts } : undefined
+  const limitForPages = enable ? { limit: maxNumberOfPages } : undefined
+  const [posts, pages] = await Promise.all([
+    getAllPosts(limitForPosts),
+    getAllPages(limitForPages),
+  ])
+  const postRoutes = posts.map((post: GhostPostOrPage) => ({ slug: [post.slug] }))
+  const pageRoutes = pages.map((page: GhostPostOrPage) => ({ slug: [page.slug] }))
   return [...postRoutes, ...pageRoutes]
 }

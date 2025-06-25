@@ -25,10 +25,24 @@ export function getSeoMetadata(props: SEOProps): Metadata {
   const title = t || meta_title || settingsTitle || siteTitleMeta
   const description = d || meta_description || settingsDescription || siteDescriptionMeta
   const urlCanonical = canonical || siteUrl
-
+  const robots = 'index, follow'
+  const charSet = 'utf-8'
+  const keywords = article && article.tags ? getPublicTags(article.tags).map((tag) => tag.name).join(', ') : undefined
+  const ogImage = seoImage ? seoImage.url : `${siteUrl}/site-meta.png`
+  const ogImageWidth = seoImage ? seoImage.dimensions.width : 1120
+  const ogImageHeight = seoImage ? seoImage.dimensions.height : 768
+  const ogImageAlt = title
+  const ogImageType = 'image/png'
+  const ogLocale = (settings as any).locale || 'pt_BR'
+  const articleAuthor = primary_author?.name
+console.log('article', article)
   return {
+    applicationName: settingsTitle,
     title,
     description,
+    keywords,
+    robots: { index: true, follow: true },
+    metadataBase: new URL(siteUrl),
     alternates: { canonical: urlCanonical },
     openGraph: {
       type,
@@ -36,15 +50,16 @@ export function getSeoMetadata(props: SEOProps): Metadata {
       description: og_description || description,
       url: urlCanonical,
       siteName: title,
-      images: seoImage
-        ? [
-            {
-              url: seoImage.url,
-              width: seoImage.dimensions.width,
-              height: seoImage.dimensions.height,
-            },
-          ]
-        : undefined,
+      locale: ogLocale,
+      images: [
+        {
+          url: ogImage,
+          width: ogImageWidth,
+          height: ogImageHeight,
+          alt: ogImageAlt,
+          type: ogImageType,
+        },
+      ],
       ...(published_at && { publishedTime: published_at }),
       ...(updated_at && { modifiedTime: updated_at }),
       ...(primary_author && { authors: [primary_author.name] }),
@@ -56,13 +71,65 @@ export function getSeoMetadata(props: SEOProps): Metadata {
       description: twitter_description || description,
       site: twitter ? `https://twitter.com/${twitter.replace(/^@/, ``)}/` : undefined,
       creator: twitter,
-      images: seoImage ? [seoImage.url] : undefined,
+      images: [ogImage],
       ...(primary_author && {
         label1: 'Written by',
         data1: primary_author.name,
       }),
       ...(primary_tag && { label2: 'Filed under', data2: primary_tag.name }),
     },
+    other: {
+      'charSet': charSet,
+      ...(published_at && { 'article:published_time': published_at }),
+      ...(article && updated_at && { 'article:modified_time': updated_at }),
+      ...(article && articleAuthor && { 'article:author': articleAuthor }),
+    },
+     appleWebApp: {
+    title: "Blog | Minh Vu",
+    statusBarStyle: "default",
+    capable: true
+  },
+  // verification: {
+  //   google: "YOUR_DATA",
+  //   yandex: ["YOUR_DATA"],
+  //   other: {
+  //     "msvalidate.01": ["YOUR_DATA"],
+  //     "facebook-domain-verification": ["YOUR_DATA"]
+  //   }
+  // },
+  // icons: {
+  //   icon: [
+  //     {
+  //       url: "/favicon.ico",
+  //       type: "image/x-icon"
+  //     },
+  //     {
+  //       url: "/favicon-16x16.png",
+  //       sizes: "16x16",
+  //       type: "image/png"
+  //     }
+  //     // add favicon-32x32.png, favicon-96x96.png, android-chrome-192x192.png
+  //   ],
+  //   shortcut: [
+  //     {
+  //       url: "/favicon.ico",
+  //       type: "image/x-icon"
+  //     }
+  //   ],
+  //   apple: [
+  //     {
+  //       url: "/apple-icon-57x57.png",
+  //       sizes: "57x57",
+  //       type: "image/png"
+  //     },
+  //     {
+  //       url: "/apple-icon-60x60.png",
+  //       sizes: "60x60",
+  //       type: "image/png"
+  //     }
+  //     // add apple-icon-72x72.png, apple-icon-76x76.png, apple-icon-114x114.png, apple-icon-120x120.png, apple-icon-144x144.png, apple-icon-152x152.png, apple-icon-180x180.png
+  //   ]
+  // }
   }
 }
 

@@ -26,7 +26,14 @@ export const NextImage = (props: { node: ImageNode }) => {
     <div className="next-image-wrapper">
       <div {...{ className }}>
         <Zoom>
-          <Image src={src} width={imageDimensions.width} height={imageDimensions.height} className={className} alt="" />
+          <Image
+            src={src}
+            width={imageDimensions.width}
+            height={imageDimensions.height}
+            className={className}
+            alt=""
+            loading="eager"
+          />
         </Zoom>
       </div>
     </div>
