@@ -8,6 +8,10 @@ const nextConfig: NextConfig = {
     removeConsole: process.env.NODE_ENV === 'production' ? { exclude: ['error'] } : false,
     reactRemoveProperties: true,
   },
+  transpilePackages: ['@components', '@lib', '@utils', '@styles'], 
+  experimental: {
+    optimizeCss: true
+  },
   generateBuildId: async () => {
     return Math.random().toString(36).slice(2, 15)
   },
@@ -59,9 +63,6 @@ const nextConfig: NextConfig = {
         ],
       },
     ];
-  },
-  experimental: {
-    optimizeCss: true
   },
   images: {
     deviceSizes: [320, 640, 750, 828, 1080, 1200, 1920, 2048],

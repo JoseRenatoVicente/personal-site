@@ -35,7 +35,7 @@ export function getSeoMetadata(props: SEOProps): Metadata {
   const ogImageType = 'image/png'
   const ogLocale = (settings as any).locale || 'pt_BR'
   const articleAuthor = primary_author?.name
-console.log('article', article)
+
   return {
     applicationName: settingsTitle,
     title,
