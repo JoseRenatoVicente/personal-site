@@ -7,8 +7,6 @@ import { Subscribe } from '@components/Subscribe'
 import { PostView } from '@components/PostView'
 import { notFound } from 'next/navigation'
 
-export const dynamic = 'force-static'
-
 export const metadata = async () => {
   const settings = await getAllSettings()
   return getSeoMetadata({

@@ -6,8 +6,6 @@ import { HeaderIndex } from '@components/HeaderIndex'
 import { Subscribe } from '@components/Subscribe'
 import { PostView } from '@components/PostView'
 
-export const dynamic = 'force-static'
-
 export const metadata = getSeoMetadata({
   title: 'Artigos',
   description: 'Navegue por todas as tags do blog',
