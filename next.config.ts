@@ -8,7 +8,6 @@ const nextConfig: NextConfig = {
     removeConsole: process.env.NODE_ENV === 'production' ? { exclude: ['error'] } : false,
     reactRemoveProperties: true,
   },
-  transpilePackages: ['@components', '@lib', '@utils', '@styles'], 
   experimental: {
     optimizeCss: true
   },
