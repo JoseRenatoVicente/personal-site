@@ -1,20 +1,10 @@
-const postcssConfig = {
+// Configuração minimalista do PostCSS para compatibilidade com Vercel
+export default {
   plugins: {
+    // Apenas os plugins essenciais
     'postcss-preset-env': {
-      stage: 3,
-      features: {
-        'nesting-rules': true
-      }
+      stage: 3
     },
-    cssnano: {
-      preset: [
-        'default',
-        {
-          discardComments: { removeAll: true }
-        },
-      ],
-    }
-  },
+    // cssnano será aplicado automaticamente em produção pelo Next.js
+  }
 };
-
-export default postcssConfig;
