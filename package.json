@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start",
     "export": "cross-env IS_EXPORT=true next build && next export",
-    "clean": "rm -rf .cache public/images",
+    "clean": "rm -rf .cache public/images .next",
     "format": "prettier --write **/*.{js,ts,tsx}",
     "lint": "eslint . --ext ts --ext tsx --ext js",
     "lint-fix": "npx eslint . --fix",
