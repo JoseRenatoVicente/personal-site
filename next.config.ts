@@ -11,6 +11,9 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizeCss: true
   },
+  webpack: (config) => {
+    return config;
+  },
   generateBuildId: async () => {
     return Math.random().toString(36).slice(2, 15)
   },
