@@ -31,6 +31,7 @@ export interface GhostSettings extends SettingsResponse {
   iconImage?: NextImage
   logoImage?: NextImage
   coverImage?: NextImage
+  locale?: string
 }
 
 export interface GhostTag extends Tag {

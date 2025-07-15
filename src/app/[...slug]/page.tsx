@@ -73,7 +73,7 @@ export default async function PostOrPage({ params }: { params?: Promise<{ slug: 
   if (!slug || !isValidSlug(slug)) return notFound()
 
   const settings = await getAllSettings()
-  let post = await getPostBySlug(slug)
+  const post = await getPostBySlug(slug)
   let page: GhostPostOrPage | null = null
 
   if (!post) {

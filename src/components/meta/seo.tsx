@@ -33,7 +33,7 @@ export function getSeoMetadata(props: SEOProps): Metadata {
   const ogImageHeight = seoImage ? seoImage.dimensions.height : 768
   const ogImageAlt = title
   const ogImageType = 'image/png'
-  const ogLocale = (settings as any).locale || 'pt_BR'
+  const ogLocale = settings.locale || 'pt_BR'
   const articleAuthor = primary_author?.name
 
   return {
