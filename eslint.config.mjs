@@ -16,7 +16,6 @@ const config = [
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,
-  ...tailwind.configs["flat/recommended"],
   ...compat.config({
     extends: ["next"],
     settings: {
@@ -32,12 +31,9 @@ const config = [
     rules: {
       "no-undef": "error",
       "react/react-in-jsx-scope": "off",
-      "tailwindcss/no-custom-classname": "off",
       "@typescript-eslint/no-unused-vars": "off",
       "no-unused-vars": "off",
       "unicorn/prevent-abbreviations": "off",
-      "tailwindcss/classnames-order": "off",
-      "tailwindcss/enforces-shorthand": "off",
     },
   },
   {
