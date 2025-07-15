@@ -6,6 +6,8 @@ import { getSeoMetadata } from '@components/meta/seo'
 import { getTagBySlug, getAllTags, getAllSettings, getPostsByTag } from '@lib/ghost'
 import { BodyClass } from '@components/helpers/BodyClass'
 
+export const revalidate = 60
+
 interface TagPageProps {
   params?: Promise<{ slug: string[] }>
 }

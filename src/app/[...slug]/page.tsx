@@ -13,11 +13,12 @@ import {
   GhostPostOrPage,
   GhostPostsOrPages,
 } from '@lib/ghost'
-import { collections } from '@lib/collections'
 import { seoImage } from '@components/meta/seoImage'
 import { processEnv } from '@lib/processEnv'
 import { BodyClass } from '@components/helpers/BodyClass'
 import { getSeoMetadata } from '@components/meta/seo'
+
+export const revalidate = 60
 
 export const metadata = async () => {
   const settings = await getAllSettings()

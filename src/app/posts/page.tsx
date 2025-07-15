@@ -6,6 +6,8 @@ import { HeaderIndex } from '@components/HeaderIndex'
 import { Subscribe } from '@components/Subscribe'
 import { PostView } from '@components/PostView'
 
+export const revalidate = 60
+
 export const metadata = getSeoMetadata({
   title: 'Artigos',
   description: 'Navegue por todas as tags do blog',

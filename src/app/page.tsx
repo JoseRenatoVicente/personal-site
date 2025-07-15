@@ -9,6 +9,8 @@ import { PostCard } from '@components/PostCard'
 import { Subscribe } from '@components/Subscribe'
 import Link from 'next/link'
 
+export const revalidate = 60
+ 
 export const metadata = async () => {
   const settings = await getAllSettings()
   return getSeoMetadata({

@@ -4,6 +4,8 @@ import { Layout } from '@components/Layout'
 import Link from 'next/link'
 import { HeaderIndex } from '@components/HeaderIndex'
 
+export const revalidate = 60
+
 export const metadata = getSeoMetadata({
   title: 'Tags',
   description: 'Navegue por todas as tags do blog',

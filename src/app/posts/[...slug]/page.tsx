@@ -7,6 +7,8 @@ import { Subscribe } from '@components/Subscribe'
 import { PostView } from '@components/PostView'
 import { notFound } from 'next/navigation'
 
+export const revalidate = 60
+
 export const metadata = async () => {
   const settings = await getAllSettings()
   return getSeoMetadata({
