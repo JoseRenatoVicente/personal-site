@@ -5,15 +5,15 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "npm run clean && next build",
+    "build": "next build",
     "start": "next start",
-    "export": "cross-env IS_EXPORT=true npm run clean && next build && next export",
-    "clean": "node -e \"try { require('fs').rmSync('.next', { recursive: true, force: true }); console.log('.next folder removed successfully!'); } catch (e) { console.log('No .next folder found or error removing it:', e); }\"",
+    "export": "cross-env IS_EXPORT=true next build && next export",
+    "clean": "rm -rf .cache public/images .next",
     "format": "prettier --write **/*.{js,ts,tsx}",
     "lint": "eslint . --ext ts --ext tsx --ext js",
     "lint-fix": "npx eslint . --fix",
     "postbuild": "next-sitemap --config next-sitemap.config.cjs && node ./scripts/hide-next-version.cjs",
-    "analyze": "npx cross-env ANALYZE=true npm run clean && npm run build",
+    "analyze": "npx cross-env ANALYZE=true npm run build",
     "serve": "serve out"
   },
   "browserslist": [
