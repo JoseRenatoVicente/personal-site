@@ -10,6 +10,7 @@ import { imageDimensions, normalizedImageUrl, Dimensions } from '@lib/images'
 import { IToC } from '@lib/toc'
 
 import { contactPage } from '@appConfig'
+import { getCache, setCache } from './cache'
 
 export interface NextImage {
   url: string
@@ -129,8 +130,9 @@ async function createNextProfileImagesFromPosts(nodes: BrowseResults<PostOrPage>
 }
 
 export async function getAllSettings(): Promise<GhostSettings> {
-  //const cached = getCache<SettingsResponse>('settings')
-  //if (cached) return cached
+  const cached = getCache<GhostSettings>('getAllSettings')
+  if (cached) return cached
+
   const settings = await api.settings.browse()
   settings.url = settings?.url?.replace(/\/$/, ``)
 
@@ -145,13 +147,19 @@ export async function getAllSettings(): Promise<GhostSettings> {
     ...(logoImage && { logoImage }),
     ...(coverImage && { coverImage }),
   }
-  //setCache('settings', result)
+  setCache('getAllSettings', result)
   return result
 }
 
 export async function getAllTags(): Promise<GhostTags> {
+  const cached = getCache<GhostTags>('getAllTags')
+  if (cached) return cached
+
   const tags = await api.tags.browse(tagAndAuthorFetchOptions)
-  return await createNextFeatureImages(tags)
+  const result = await createNextFeatureImages(tags)
+
+  setCache('getAllTags', result)
+  return result
 }
 
 export async function getAllAuthors() {
@@ -160,6 +168,9 @@ export async function getAllAuthors() {
 }
 
 export async function getAllPosts(props?: { limit?: number; feature?: boolean }): Promise<GhostPostsOrPages> {
+  const cached = getCache<GhostPostsOrPages>('getAllPosts' + props?.limit + props?.feature)
+  if (cached) return cached
+
   let filter = excludePostOrPageBySlug()
   if (props?.feature === true) {
     filter = filter ? `${filter}+featured:true` : 'featured:true'
@@ -172,7 +183,11 @@ export async function getAllPosts(props?: { limit?: number; feature?: boolean })
     ...(props?.limit && { limit: props.limit }),
   })
   const results = await createNextProfileImagesFromPosts(posts)
-  return await createNextFeatureImages(results)
+  const result = await createNextFeatureImages(results)
+
+  setCache('getAllPosts' + props?.limit + props?.feature, result)
+
+  return result
 }
 
 export async function getAllPostSlugs(): Promise<string[]> {
