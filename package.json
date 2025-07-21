@@ -20,6 +20,7 @@
     "defaults"
   ],
   "dependencies": {
+    "@tailwindcss/postcss": "^4.1.11",
     "@tryghost/content-api": "^1.11.28",
     "cheerio": "^1.1.2",
     "critters": "^0.0.23",
@@ -51,7 +52,6 @@
     "@eslint/eslintrc": "^3",
     "@fullhuman/postcss-purgecss": "^7.0.2",
     "@next/bundle-analyzer": "^15.4.2",
-    "@tailwindcss/postcss": "^4.1.11",
     "@tailwindcss/typography": "^0.5.15",
     "@types/cheerio": "^0.22.35",
     "@types/lodash": "^4.17.19",
