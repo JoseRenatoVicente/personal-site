@@ -28,6 +28,8 @@ interface BrowseResults<T> extends Array<T> {
 
 export interface GhostSettings extends SettingsResponse {
   processEnv: ProcessEnvProps
+  title: string
+  description: string
   secondary_navigation?: NavItem[]
   iconImage?: NextImage
   logoImage?: NextImage
@@ -143,10 +145,12 @@ export async function getAllSettings(): Promise<GhostSettings> {
       return {
         processEnv,
         ...settings,
+        title: settings.title || 'Blog',
+        description: settings.description || '',
         ...(iconImage && { iconImage }),
         ...(logoImage && { logoImage }),
         ...(coverImage && { coverImage }),
-      }
+      } as GhostSettings
     },
   );
 }
