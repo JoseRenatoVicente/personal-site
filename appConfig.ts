@@ -54,6 +54,6 @@ export const customNavigation: NavItem[] = []
 // Incremental Static Regenerations (ISR)
 // Note: must be disbaled, when using `next export`
 export const isr: boolean = true
-export const revalidate: number = 10
+export const revalidate: number = 60
 export const maxNumberOfPosts: number = 20
 export const maxNumberOfPages: number = 20
