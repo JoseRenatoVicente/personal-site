@@ -42,7 +42,7 @@ export function getCache<T>(key: string | null): T | null {
 export async function getOrCreate<T>(
   key: string,
   factory: () => Promise<T>,
-  keySuffix: string = '',
+  keySuffix: string | null = null,
   ttl: number = DEFAULT_MEMORY_CACHE_TTL
 ): Promise<T> {
   const fullKey = keySuffix ? `${key}_${keySuffix}` : key;
