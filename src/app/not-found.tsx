@@ -12,6 +12,7 @@ export default async function NotFound() {
   } catch {
     settings = {
       title: 'Página não encontrada',
+      description: 'Esta página não foi encontrada',
       lang: 'pt',
       processEnv: {
         siteUrl: '',
