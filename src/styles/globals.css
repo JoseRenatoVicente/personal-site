@@ -1,10 +1,8 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+/* Import Tailwind CSS */
+@import "tailwindcss";
 
 /* 
-  Configuração do Tailwind CSS v4
-  A importação direta do 'tailwindcss' não é mais suportada no Tailwind CSS v4
+  Configuração simplificada para Tailwind CSS v4
 */
 
 /*

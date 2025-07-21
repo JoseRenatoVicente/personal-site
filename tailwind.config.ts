@@ -4,6 +4,7 @@ export default {
   darkMode: 'class',
   content: ['./pages/**/*.{ts,tsx}', './components/**/*.{ts,tsx}', './app/**/*.{ts,tsx}', './src/**/*.{ts,tsx}'],
   prefix: '',
+  // As configurações experimentais estão no objeto configuração do @tailwindcss/postcss
   theme: {
     container: {
       center: true,
