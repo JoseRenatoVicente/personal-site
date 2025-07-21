@@ -1,20 +1,12 @@
 const postcssConfig = {
   plugins: {
-    'postcss-import': {}, // Adicionar suporte a @import
     'postcss-preset-env': {
       stage: 3,
       features: {
-        'nesting-rules': true,
-        'custom-properties': false, // Desativar para evitar conflitos com o Tailwind
+        'nesting-rules': true
       }
     },
-    '@tailwindcss/postcss': {
-      config: './tailwind.config.ts',
-      experimental: {
-        applyDirectives: true,
-        cssUtilities: true
-      }
-    },
+    '@tailwindcss/postcss': {},
     cssnano: {
       preset: [
         'default',
