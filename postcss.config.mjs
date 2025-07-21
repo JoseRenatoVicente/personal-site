@@ -6,7 +6,9 @@ const postcssConfig = {
         'nesting-rules': true
       }
     },
-    '@tailwindcss/postcss': {},
+    '@tailwindcss/postcss': {
+      config: './tailwind.config.ts'
+    },
     cssnano: {
       preset: [
         'default',

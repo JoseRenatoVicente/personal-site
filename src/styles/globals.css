@@ -1,6 +1,11 @@
-@import 'tailwindcss';
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
-@config '../../tailwind.config.ts';
+/* 
+  Configuração do Tailwind CSS v4
+  A importação direta do 'tailwindcss' não é mais suportada no Tailwind CSS v4
+*/
 
 /*
   The default border color has changed to `currentcolor` in Tailwind CSS v4,
@@ -20,101 +25,109 @@
   }
 }
 
-@utility btn {
-  @apply inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
+@layer utilities {
+  .btn {
+    @apply inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
+  }
+
+  .btn-primary {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90;
+  }
 }
 
-@utility btn-primary {
-  @apply bg-primary text-primary-foreground hover:bg-primary/90;
+@layer utilities {
+  .btn-secondary {
+    @apply bg-secondary text-secondary-foreground hover:bg-secondary/80;
+  }
+
+  .btn-outline {
+    @apply border border-input hover:bg-accent hover:text-accent-foreground;
+  }
+
+  .btn-ghost {
+    @apply hover:bg-accent hover:text-accent-foreground;
+  }
+
+  .btn-link {
+    @apply text-primary underline-offset-4 hover:underline;
+  }
 }
 
-@utility btn-secondary {
-  @apply bg-secondary text-secondary-foreground hover:bg-secondary/80;
+@layer utilities {
+  .btn-sm {
+    @apply h-9 px-3;
+  }
+
+  .btn-md {
+    @apply h-10 px-4 py-2;
+  }
+
+  .btn-lg {
+    @apply h-11 px-8;
+  }
+
+  .card {
+    @apply rounded-lg border bg-card text-card-foreground shadow-xs;
+    background-color: rgb(20 20 20);
+  }
 }
 
-@utility btn-outline {
-  @apply border border-input hover:bg-accent hover:text-accent-foreground;
-}
+@layer utilities {
+  .card-header {
+    @apply flex flex-col space-y-1.5 p-6;
+  }
 
-@utility btn-ghost {
-  @apply hover:bg-accent hover:text-accent-foreground;
-}
+  .card-title {
+    @apply text-2xl font-semibold leading-none tracking-tight;
+  }
 
-@utility btn-link {
-  @apply text-primary underline-offset-4 hover:underline;
-}
+  .card-description {
+    @apply text-sm text-muted-foreground;
+  }
 
-@utility btn-sm {
-  @apply h-9 px-3;
-}
+  .card-content {
+    @apply p-6 pt-0;
+  }
 
-@utility btn-md {
-  @apply h-10 px-4 py-2;
-}
+  .card-footer {
+    @apply flex items-center p-6 pt-0;
+  }
 
-@utility btn-lg {
-  @apply h-11 px-8;
-}
+  .input {
+    @apply flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+  }
 
-@utility card {
-  @apply rounded-lg border bg-card text-card-foreground shadow-xs;
-  background-color: rgb(20 20 20);
-}
+  .badge {
+    @apply inline-flex items-center border rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-2;
+  }
 
-@utility card-header {
-  @apply flex flex-col space-y-1.5 p-6;
-}
+  .badge-primary {
+    @apply bg-primary text-primary-foreground hover:bg-primary/80;
+  }
 
-@utility card-title {
-  @apply text-2xl font-semibold leading-none tracking-tight;
-}
+  .badge-secondary {
+    @apply bg-secondary text-secondary-foreground hover:bg-secondary/80;
+  }
 
-@utility card-description {
-  @apply text-sm text-muted-foreground;
-}
+  .badge-outline {
+    @apply text-foreground border-border;
+  }
 
-@utility card-content {
-  @apply p-6 pt-0;
-}
+  .code-block {
+    @apply bg-muted p-4 rounded-md font-mono text-sm overflow-x-auto;
+  }
 
-@utility card-footer {
-  @apply flex items-center p-6 pt-0;
-}
+  .text-gradient {
+    @apply bg-linear-to-r from-primary to-accent bg-clip-text text-transparent;
+  }
 
-@utility input {
-  @apply flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
-}
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
 
-@utility badge {
-  @apply inline-flex items-center border rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-2;
-}
-
-@utility badge-primary {
-  @apply bg-primary text-primary-foreground hover:bg-primary/80;
-}
-
-@utility badge-secondary {
-  @apply bg-secondary text-secondary-foreground hover:bg-secondary/80;
-}
-
-@utility badge-outline {
-  @apply text-foreground border-border;
-}
-
-@utility code-block {
-  @apply bg-muted p-4 rounded-md font-mono text-sm overflow-x-auto;
-}
-
-@utility text-gradient {
-  @apply bg-linear-to-r from-primary to-accent bg-clip-text text-transparent;
-}
-
-@utility animate-fade-in {
-  animation: fadeIn 0.5s ease-out forwards;
-}
-
-@utility animate-slide-up {
-  animation: slideUp 0.5s ease-out forwards;
+  .animate-slide-up {
+    animation: slideUp 0.5s ease-out forwards;
+  }
 }
 
 @layer base {
