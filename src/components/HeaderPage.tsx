@@ -1,9 +1,5 @@
-import { GhostSettings, NextImage } from '@lib/ghost'
-import { SiteNav } from '@components/SiteNav'
-import Link from 'next/link'
-import { getLang, get } from '@utils/use-lang'
-import Image from 'next/image'
-import { HeaderBase } from './HeaderBase'
+import { GhostSettings } from '@lib/ghost'
+import { HeaderBase } from '@components/HeaderBase'
 
 interface HeaderPageProps {
   settings: GhostSettings

@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 import { DocumentHead } from '@components/DocumentHead'
 import { getLang, get } from '@utils/use-lang'
 import { GhostSettings } from '@lib/ghost'
-import Footer from './Footer'
+import Footer from '@components/Footer'
 
 /**
  * Main layout component

@@ -1,14 +1,8 @@
 import Link from 'next/link'
-import dayjs from 'dayjs'
-
-import { readingTime as readingTimeHelper } from '@lib/readingTime'
 import { resolveUrl } from '@utils/routing'
 import { getLang, get } from '@utils/use-lang'
-
-import { AuthorList } from '@components/AuthorList'
 import { collections } from '@lib/collections'
 import { GhostPostOrPage, GhostSettings } from '@lib/ghost'
-import { PostClass } from './helpers/PostClass'
 import Image from 'next/image'
 
 interface PostCardProps {

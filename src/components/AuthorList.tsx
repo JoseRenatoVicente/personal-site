@@ -3,8 +3,8 @@ import Image from 'next/image'
 import { getLang, get } from '@utils/use-lang'
 import { AvatarIcon } from '@components/icons/AvatarIcon'
 import { GhostAuthor, GhostSettings } from '@lib/ghost'
-import { LinkedInIcon } from './icons/LinkedInIcon'
-import { TwitterIcon } from './icons/TwitterIcon'
+import { LinkedInIcon } from '@icons/LinkedInIcon'
+import { TwitterIcon } from '@icons/TwitterIcon'
 
 interface AuthorListProps {
   settings: GhostSettings

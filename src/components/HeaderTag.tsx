@@ -1,10 +1,7 @@
 import { Tag } from '@tryghost/content-api'
-import { GhostSettings, NextImage } from '@lib/ghost'
-import { SiteNav } from '@components/SiteNav'
+import { GhostSettings } from '@lib/ghost'
 import { getLang, get } from '@utils/use-lang'
-import Link from 'next/link'
-import Image from 'next/image'
-import { HeaderBase } from './HeaderBase'
+import { HeaderBase } from '@components/HeaderBase'
 
 interface HeaderTagProps {
   settings: GhostSettings

@@ -10,7 +10,7 @@ import { imageDimensions, normalizedImageUrl, Dimensions } from '@lib/images'
 import { IToC } from '@lib/toc'
 
 import { contactPage } from '@appConfig'
-import { getCache, getOrCreate, setCache } from './cache'
+import { getCache, getOrCreate, setCache } from '@lib/cache'
 
 export interface NextImage {
   url: string
