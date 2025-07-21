@@ -23,7 +23,7 @@ export const revalidate = 60
 export const metadata = async () => {
   const settings = await getAllSettings()
   return getSeoMetadata({
-    title: settings.title,
+    title: settings.title ?? undefined,
     description: settings.meta_description ?? undefined,
     settings,
     seoImage: await seoImage({ siteUrl: settings.processEnv.siteUrl }),
