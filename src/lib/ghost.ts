@@ -27,6 +27,7 @@ interface BrowseResults<T> extends Array<T> {
 }
 
 export interface GhostSettings extends SettingsResponse {
+  title: string
   processEnv: ProcessEnvProps
   secondary_navigation?: NavItem[]
   iconImage?: NextImage
