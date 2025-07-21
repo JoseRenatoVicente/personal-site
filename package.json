@@ -5,10 +5,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "npm run clean && next build",
     "start": "next start",
     "export": "cross-env IS_EXPORT=true npm run clean && next build && next export",
-    "clean": "node -e \"try { require('fs').rmSync('.next', { recursive: true, force: true }); console.log('.next folder removed successfully!'); } catch (e) { console.log('No .next folder found or error removing it:', e); }\"",
+    "clean": "node -e \"const fs = require('fs'); const path = require('path'); const nextDir = path.resolve('.next'); if (fs.existsSync(nextDir)) { try { fs.rmSync(nextDir, { recursive: true, force: true, maxRetries: 3, retryDelay: 500 }); console.log('.next folder removed successfully!'); } catch (e) { console.error('Error removing .next folder:', e.message); process.exit(0); } } else { console.log('No .next folder found.'); }\"",
     "format": "prettier --write **/*.{js,ts,tsx}",
     "lint": "eslint . --ext ts --ext tsx --ext js",
     "lint-fix": "npx eslint . --fix",
