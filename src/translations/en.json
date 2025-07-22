@@ -1,0 +1,23 @@
+{
+    "home": {
+        "featured": "Em Destaque",
+        "viewAll": "Ver todos",
+        "recentPosts": "Artigos Recentes",
+        "learnMore": "Saiba mais",
+        "categories": "Categorias"
+    },
+    "search": {
+        "submit": "Filtrar",
+        "allPosts": "Todos os Artigos"
+    },
+    "subscribe": {
+        "title": "Inscreva-se para receber atualizações",
+        "description": "Receba as últimas postagens diretamente no seu e-mail.",
+        "youremail": "Seu e-mail",
+        "submit": "Inscrever-se",
+        "privacy": "Nunca compartilharemos seu e-mail. Você pode cancelar a qualquer momento."
+    },
+    "footer": { 
+        "description": "Desenvolvedor em .NET e Angular | Segurança da Informação. Construindo soluções robustas e escaláveis para desafios complexos."
+    }
+}

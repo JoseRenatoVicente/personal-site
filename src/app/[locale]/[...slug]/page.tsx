@@ -17,6 +17,8 @@ import { seoImage } from '@components/meta/seoImage'
 import { processEnv } from '@lib/processEnv'
 import { BodyClass } from '@components/helpers/BodyClass'
 import { getSeoMetadata } from '@components/meta/seo'
+import { Locale } from '@appConfig'
+import { getTranslation } from '@lib/i18n/getTranslation'
 
 export const revalidate = 60
 
@@ -67,7 +69,10 @@ async function getPrevNextPosts(slug: string) {
   return { prevPost, nextPost }
 }
 
-export default async function PostOrPage({ params }: { params?: Promise<{ slug: string[] }> }) {
+export default async function PostOrPage({ params }: { params?: Promise<{ slug: string[], locale: Locale }> }) {
+  const locale = (await params)?.locale as Locale;
+  const translation = await getTranslation(locale);
+  
   const resolvedParams = params ? await params : undefined
   const slug = resolvedParams?.slug?.at(-1)
   if (!slug || !isValidSlug(slug)) return notFound()
@@ -98,6 +103,7 @@ export default async function PostOrPage({ params }: { params?: Promise<{ slug: 
     return (
       <Post
         cmsData={{
+          translation,
           settings,
           post,
           seoImage: image,
@@ -110,7 +116,7 @@ export default async function PostOrPage({ params }: { params?: Promise<{ slug: 
     )
   }
   if (page) {
-    return <Page cmsData={{ settings, page, seoImage: image, bodyClass }} />
+    return <Page cmsData={{ translation, settings, page, seoImage: image, bodyClass }} />
   }
   return notFound()
 }
@@ -123,7 +129,28 @@ export async function generateStaticParams() {
     getAllPosts(limitForPosts),
     getAllPages(limitForPages),
   ])
-  const postRoutes = posts.map((post: GhostPostOrPage) => ({ slug: [post.slug] }))
-  const pageRoutes = pages.map((page: GhostPostOrPage) => ({ slug: [page.slug] }))
-  return [...postRoutes, ...pageRoutes]
+  
+  // Criar rotas para cada combinação de locale e slug
+  const routes: { locale: string; slug: string[] }[] = [];
+  const { locales } = await import('@appConfig');
+  
+  for (const locale of locales) {
+    // Rotas para posts
+    posts.forEach((post: GhostPostOrPage) => {
+      routes.push({
+        locale: locale,
+        slug: [post.slug]
+      });
+    });
+    
+    // Rotas para páginas
+    pages.forEach((page: GhostPostOrPage) => {
+      routes.push({
+        locale: locale, 
+        slug: [page.slug]
+      });
+    });
+  }
+  
+  return routes;
 }

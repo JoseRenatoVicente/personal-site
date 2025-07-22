@@ -5,6 +5,8 @@ import Link from 'next/link'
 import { HeaderIndex } from '@components/HeaderIndex'
 import { Subscribe } from '@components/Subscribe'
 import { PostView } from '@components/PostView'
+import { Locale } from '@appConfig'
+import { getTranslation } from '@lib/i18n/getTranslation'
 
 export const revalidate = 60
 
@@ -14,7 +16,10 @@ export const metadata = getSeoMetadata({
   settings: await getAllSettings(),
 })
 
-export default async function PostsPage({ searchParams }: { searchParams?: Promise<{ tag?: string; q?: string }> }) {
+export default async function PostsPage({ searchParams }: { searchParams?: Promise<{ locale: Locale, tag?: string; q?: string }> }) {
+  const locale = (await searchParams)?.locale as Locale;
+  const translation = await getTranslation(locale);
+  
   const settings: GhostSettings = await getAllSettings()
   const tags = await getAllTags()
 
@@ -41,7 +46,7 @@ export default async function PostsPage({ searchParams }: { searchParams?: Promi
 
   return (
     <>
-      <Layout settings={settings} bodyClass="tags-page" header={<HeaderIndex settings={settings} />}>
+      <Layout translation={translation} settings={settings} bodyClass="tags-page" header={<HeaderIndex translation={translation} settings={settings} />}>
         {!selectedTag && (
           <section className="relative overflow-hidden py-16 md:py-24">
             <div className="absolute inset-0 z-0 opacity-10">
@@ -61,13 +66,13 @@ export default async function PostsPage({ searchParams }: { searchParams?: Promi
             <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
               <div className="lg:col-span-2">
                 <div className="mb-8 flex items-center justify-between">
-                  <h2 className="text-2xl font-bold">Artigos Recentes</h2>
+                  <h2 className="text-2xl font-bold">{translation('home.recentPosts')}</h2>
                   <div className="flex flex-wrap gap-2">
-                    <Link href="/posts" className={`badge text-xs ${selectedTag ? 'badge-outline' : 'badge-primary'}`} prefetch={false}>
-                      Todos
+                    <Link href={`/${locale}/posts`} className={`badge text-xs ${selectedTag ? 'badge-outline' : 'badge-primary'}`} prefetch={false}>
+                       {translation('search.allPosts')}
                     </Link>
-                    {tags.map((tag) => (
-                      <Link key={tag.slug} href={`/posts/${tag.slug}`} className={`badge text-xs ${selectedTag === tag.slug ? 'badge-primary' : 'badge-outline'}`} prefetch={false}>
+                    {tags.map((tag) => tag.visibility === 'public' && (
+                      <Link key={tag.slug} href={`/${locale}/posts/${tag.slug}`} className={`badge text-xs ${selectedTag === tag.slug ? 'badge-primary' : 'badge-outline'}`} prefetch={false}>
                         {tag.name}
                       </Link>
                     ))}
@@ -78,22 +83,22 @@ export default async function PostsPage({ searchParams }: { searchParams?: Promi
                     <input type="text" name="q" placeholder="Pesquisar artigos..." className="input w-full" defaultValue={searchQuery} />
                     {selectedTag && <input type="hidden" name="tag" value={selectedTag} />}
                     <button type="submit" className="btn btn-primary btn-sm">
-                      Filtrar
+                      {translation('search.submit')}
                     </button>
                   </form>
                 </div>
                 <div className="space-y-8">
-                  <PostView {...{ settings, posts, isHome: true }} />
+                  <PostView {...{ locale, settings, posts, isHome: true }} />
                 </div>
               </div>
               <div className="space-y-8">
-                <Subscribe settings={settings} />
+                <Subscribe translation={translation} />
                 <div className="card p-6">
-                  <h3 className="mb-4 text-lg font-bold">Categorias</h3>
+                  <h3 className="mb-4 text-lg font-bold">{translation('home.categories')}</h3>
                   <ul className="space-y-2">
                     {tags.map((tag) => (
                       <li key={tag.slug}>
-                        <Link href={`/tags/${tag.slug}`} className="flex w-full items-center justify-between text-left transition-colors hover:text-accent">
+                        <Link href={`/${locale}/tags/${tag.slug}`} className="flex w-full items-center justify-between text-left transition-colors hover:text-accent">
                           {tag.name}
                           <span className="badge badge-outline text-xs">{tag.count?.posts || 0}</span>
                         </Link>

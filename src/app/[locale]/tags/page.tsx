@@ -3,6 +3,8 @@ import { getSeoMetadata } from '@components/meta/seo'
 import { Layout } from '@components/Layout'
 import Link from 'next/link'
 import { HeaderIndex } from '@components/HeaderIndex'
+import { Locale } from '@appConfig'
+import { getTranslation } from '@lib/i18n/getTranslation'
 
 export const revalidate = 60
 
@@ -12,19 +14,22 @@ export const metadata = getSeoMetadata({
   settings: await getAllSettings(),
 })
 
-export default async function TagsPage() {
+export default async function TagsPage({ params }: { params: Promise<{ locale: Locale }> }) {
+  const locale = (await params)?.locale as Locale;
+  const translation = await getTranslation(locale);
+
   const settings: GhostSettings = await getAllSettings()
   const tags: GhostTags = await getAllTags()
 
   return (
     <>
-      <Layout settings={settings} bodyClass="tags-page" header={<HeaderIndex settings={settings} />}>
+      <Layout translation={translation} settings={settings} bodyClass="tags-page" header={<HeaderIndex translation={translation} settings={settings} />}>
         <section className="section">
           <div className="container">
             <h1 className="text-gradient mb-8 text-3xl font-bold md:text-5xl">Tags</h1>
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
-              {tags.map((tag) => (
-                <Link key={tag.slug} href={`/tags/${tag.slug}`} className="card p-6 transition-shadow hover:shadow-lg">
+              {tags.map((tag) => tag.visibility === 'public' && (
+                <Link key={tag.slug} href={`/${locale}/tags/${tag.slug}`} className="card p-6 transition-shadow hover:shadow-lg">
                   <h2 className="mb-2 text-xl font-semibold">{tag.name}</h2>
                   <p className="text-sm text-muted-foreground">{tag.description}</p>
                   <span className="text-xs text-primary">{tag.count?.posts || 0} posts</span>

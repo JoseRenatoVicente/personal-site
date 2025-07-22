@@ -175,8 +175,8 @@ export async function getAllAuthors(): Promise<GhostAuthors> {
   );
 }
 
-export async function getAllPosts(props?: { limit?: number; feature?: boolean }): Promise<GhostPostsOrPages> {
-  const cached = getCache<GhostPostsOrPages>('getAllPosts' + props?.limit + props?.feature)
+export async function getAllPosts(props?: { limit?: number; feature?: boolean, tag?: string }): Promise<GhostPostsOrPages> {
+  const cached = getCache<GhostPostsOrPages>('getAllPosts' + props?.limit + props?.feature + props?.tag)
   if (cached) return cached
 
   let filter = excludePostOrPageBySlug()
@@ -185,6 +185,11 @@ export async function getAllPosts(props?: { limit?: number; feature?: boolean })
   } else if (props?.feature === false) {
     filter = filter ? `${filter}+featured:false` : 'featured:false'
   }
+  
+   if (props?.tag) {
+    filter = filter ? `${filter}+tag:${props.tag}` : `tag:${props.tag}`;
+  }
+
   const posts = await api.posts.browse({
     ...postAndPageFetchOptions,
     filter,
@@ -193,7 +198,7 @@ export async function getAllPosts(props?: { limit?: number; feature?: boolean })
   const results = await createNextProfileImagesFromPosts(posts)
   const result = await createNextFeatureImages(results)
 
-  setCache('getAllPosts' + props?.limit + props?.feature, result)
+  setCache('getAllPosts' + props?.limit + props?.feature + props?.tag, result)
 
   return result
 }

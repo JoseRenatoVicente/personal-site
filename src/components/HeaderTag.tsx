@@ -2,19 +2,21 @@ import { Tag } from '@tryghost/content-api'
 import { GhostSettings } from '@lib/ghost'
 import { getLang, get } from '@utils/use-lang'
 import { HeaderBase } from '@components/HeaderBase'
+import { TranslationKey } from '@lib/i18n/getTranslation'
 
 interface HeaderTagProps {
+  translation: TranslationKey
   settings: GhostSettings
   tag: Tag
 }
 
-export const HeaderTag = ({ settings, tag }: HeaderTagProps) => {
+export const HeaderTag = ({ translation, settings, tag }: HeaderTagProps) => {
   const text = get(getLang(settings.lang))
   const numberOfPosts = tag.count?.posts
 
   return (
     <>
-      <HeaderBase {...settings} />
+      <HeaderBase {...{ settings, translation }} />
 
       <section className="relative overflow-hidden py-16 md:py-24">
         <div className="absolute inset-0 z-0 opacity-10">

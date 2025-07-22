@@ -1,13 +1,12 @@
 import React from 'react'
 import Link from 'next/link'
-import { GhostSettings, NavItem } from '@lib/ghost'
-import { getLang, get } from '@utils/use-lang'
+import { GhostSettings } from '@lib/ghost'
+import { TranslationKey } from '@lib/i18n/getTranslation'
 
-const Footer = ({ settings }: { settings: GhostSettings }) => {
+const Footer = ({ settings, translation }: { settings: GhostSettings, translation: TranslationKey }) => {
   const currentYear = new Date().getFullYear()
-  const text = get(getLang(settings.lang))
   const site = settings
-  const brandTitle = text(`SITE_TITLE`, site.title)
+  const brandTitle = site.title
   const navigation = site.navigation
 
   return (
@@ -15,11 +14,11 @@ const Footer = ({ settings }: { settings: GhostSettings }) => {
       <div className="container py-8 md:py-12">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           <div className="md:col-span-2">
-            <Link href="/" className="text-lg font-bold">
+            <Link href={`/${translation.locale}`} className="text-lg font-bold">
               <span className="text-gradient">&lt;/&gt;</span> {brandTitle}
             </Link>
             <p className="mt-2 text-sm text-muted-foreground">
-              Especialista em Arquitetura de Software Backend, DevOps e Segurança. Construindo soluções robustas e escaláveis para desafios complexos.
+              {translation('footer.description')}
             </p>
             <div className="mt-4 flex space-x-4">
               <a href="https://github.com/JoseRenatoVicente" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground" aria-label="GitHub">

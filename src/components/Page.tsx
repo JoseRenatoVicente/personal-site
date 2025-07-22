@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import Image from 'next/image'
 import Link from 'next/link'
-import dayjs from 'dayjs'
 
 import { readingTime as readingTimeHelper } from '@lib/readingTime'
 
@@ -14,6 +13,7 @@ import { RenderContent } from '@components/RenderContent'
 import { PostClass } from '@components/helpers/PostClass'
 import { GhostPostOrPage, GhostSettings } from '@lib/ghost'
 import { ISeoImage } from '@components/meta/seoImage'
+import { TranslationKey } from '@lib/i18n/getTranslation'
 
 /**
  * Single page (/:slug)
@@ -24,6 +24,7 @@ import { ISeoImage } from '@components/meta/seoImage'
 
 interface PageProps {
   cmsData: {
+    translation: TranslationKey
     page: GhostPostOrPage
     settings: GhostSettings
     seoImage: ISeoImage
@@ -32,7 +33,7 @@ interface PageProps {
 }
 
 export const Page = ({ cmsData }: PageProps) => {
-  const { page, settings, bodyClass } = cmsData
+  const { translation, page, settings, bodyClass } = cmsData
   const { slug, url, meta_description, meta_title, excerpt, title } = page
   const { url: cmsUrl } = settings
   const description = meta_description || excerpt
@@ -55,7 +56,7 @@ export const Page = ({ cmsData }: PageProps) => {
 
   return (
     <>
-      <Layout {...{ bodyClass, settings }} header={<HeaderPost {...{ settings, title }} />} previewPosts={<></>}>
+      <Layout {...{ translation, bodyClass, settings }} header={<HeaderPost {...{ translation, settings, title }} />} previewPosts={<></>}>
         <section className="relative overflow-hidden py-16 md:py-24">
           <div className="absolute inset-0 z-0 opacity-10">
             <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-foreground to-transparent"></div>

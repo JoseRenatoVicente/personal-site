@@ -61,10 +61,11 @@ export const PostCard = ({ settings, post, num, isHome }: PostCardProps) => {
         <p className="mb-3 line-clamp-3 text-sm text-muted-foreground">{post.excerpt}</p>
         <div className="mt-3 flex flex-wrap gap-2">
           {post.tags?.map((tag) => (
+            tag.visibility === 'public' && (
             <a key={tag.id || tag.slug} href={`/tags/${tag.slug}`} className="badge badge-outline text-xs transition-colors hover:bg-secondary">
               {tag.name}
             </a>
-          ))}
+          )))}
         </div>
       </div>
     </article>

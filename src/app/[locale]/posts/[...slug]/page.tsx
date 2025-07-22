@@ -6,6 +6,8 @@ import { HeaderIndex } from '@components/HeaderIndex'
 import { Subscribe } from '@components/Subscribe'
 import { PostView } from '@components/PostView'
 import { notFound } from 'next/navigation'
+import { Locale } from '@appConfig'
+import { getTranslation } from '@lib/i18n/getTranslation'
 
 export const revalidate = 60
 
@@ -19,15 +21,31 @@ export const metadata = async () => {
 }
 
 export async function generateStaticParams() {
-  const tags = await getAllTags()
-  return tags.map((tag) => ({ slug: [tag.slug] }))
+  const tags = await getAllTags();
+  const { locales } = await import('@appConfig');
+  
+  const routes: { locale: string; slug: string[] }[] = [];
+  
+  for (const locale of locales) {
+    tags.forEach((tag) => {
+      routes.push({
+        locale: locale,
+        slug: [tag.slug]
+      });
+    });
+  }
+  
+  return routes;
 }
 
 interface PostsTagPageProps {
-  params?: Promise<{ slug: string[] }>
+  params?: Promise<{ slug: string[], locale: Locale }>
 }
 
 export default async function PostsByTagPage({ params }: PostsTagPageProps) {
+  const locale = (await params)?.locale as Locale;
+  const translation = await getTranslation(locale);
+  
   const resolved = await params
   if (!resolved?.slug || !Array.isArray(resolved.slug)) notFound()
 
@@ -40,7 +58,7 @@ export default async function PostsByTagPage({ params }: PostsTagPageProps) {
   const posts: GhostPostsOrPages = await getPostsByTag(selectedTag)
 
   return (
-    <Layout settings={settings} bodyClass="tags-page" header={<HeaderIndex settings={settings} />}>
+    <Layout translation={translation} settings={settings} bodyClass="tags-page" header={<HeaderIndex translation={translation} settings={settings} />}>
       <section className="relative overflow-hidden py-16 md:py-24">
         <div className="absolute inset-0 z-0 opacity-10">
           <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-foreground to-transparent"></div>
@@ -60,28 +78,28 @@ export default async function PostsByTagPage({ params }: PostsTagPageProps) {
               <div className="mb-8 flex items-center justify-between">
                 <h2 className="text-2xl font-bold">Artigos da Tag: {selectedTag}</h2>
                 <div className="flex flex-wrap gap-2">
-                  <Link href="/posts" className={`badge badge-outline text-xs`} prefetch={false}>
+                  <Link href={`/${locale}/posts`} className={`badge badge-outline text-xs`} prefetch={false}>
                     Todos
                   </Link>
-                  {tags.map((tag) => (
-                    <Link key={tag.slug} href={`/posts/${tag.slug}`} className={`badge text-xs ${selectedTag === tag.slug ? 'badge-primary' : 'badge-outline'}`} prefetch={false}>
+                  {tags.map((tag) => tag.visibility === 'public' && (
+                    <Link key={tag.slug} href={`/${locale}/posts/${tag.slug}`} className={`badge text-xs ${selectedTag === tag.slug ? 'badge-primary' : 'badge-outline'}`} prefetch={false}>
                       {tag.name}
                     </Link>
                   ))}
                 </div>
               </div>
               <div className="space-y-8">
-                <PostView {...{ settings, posts, isHome: true }} />
+                <PostView {...{ locale, settings, posts, isHome: true }} />
               </div>
             </div>
             <div className="space-y-8">
-              <Subscribe settings={settings} />
+              <Subscribe translation={translation} />
               <div className="card p-6">
                 <h3 className="mb-4 text-lg font-bold">Categorias</h3>
                 <ul className="space-y-2">
                   {tags.map((tag) => (
                     <li key={tag.slug}>
-                      <Link href={`/tags/${tag.slug}`} className="flex w-full items-center justify-between text-left transition-colors hover:text-accent">
+                      <Link href={`/${locale}/tags/${tag.slug}`} className="flex w-full items-center justify-between text-left transition-colors hover:text-accent">
                         {tag.name}
                         <span className="badge badge-outline text-xs">{tag.count?.posts || 0}</span>
                       </Link>

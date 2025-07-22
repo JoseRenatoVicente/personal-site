@@ -4,8 +4,13 @@ import { getAllSettings } from '@lib/ghost'
 import { getLang, get } from '@utils/use-lang'
 import { BodyClass } from '@helpers/BodyClass'
 import Link from 'next/link'
+import { getTranslation } from '@lib/i18n/getTranslation'
+import { Locale } from '@appConfig'
 
-export default async function NotFound() {
+export default async function NotFound({ params }: { params: Promise<{ locale: Locale }> }) {
+  const locale = (await params)?.locale as Locale;
+  const translation = await getTranslation(locale);
+
   let settings
   try {
     settings = await getAllSettings()
@@ -19,7 +24,7 @@ export default async function NotFound() {
         platform: '',
         gaMeasurementId: '',
         darkMode: {
-          defaultMode: 'light' as import('../../appConfig').DarkMode,
+          defaultMode: 'light' as import('../../../appConfig').DarkMode,
           overrideOS: false,
         },
         nextImages: {
@@ -59,7 +64,7 @@ export default async function NotFound() {
   const text = get(getLang(settings.lang))
 
   return (
-    <Layout {...{ settings, bodyClass }} header={<HeaderPage {...{ settings }} />} errorClass="error-content">
+    <Layout {...{ translation, settings, bodyClass }} header={<HeaderPage {...{ settings, translation }} />} errorClass="error-content">
       <div className="container py-20">
         <section className="mx-auto max-w-lg text-center">
           <div className="mb-8 inline-block rounded-full bg-muted p-6">
@@ -85,7 +90,7 @@ export default async function NotFound() {
 
           <div className="space-y-4">
             <div className="flex justify-center space-x-4">
-              <Link href="/" className="btn btn-sm btn-primary w-full">
+              <Link href={`/${locale}`} className="btn btn-sm btn-primary w-full">
                 {text(`GOTO_FRONT_PAGE`)} →
               </Link>
             </div>

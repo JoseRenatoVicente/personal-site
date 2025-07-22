@@ -8,6 +8,8 @@ import { HeaderIndex } from '@components/HeaderIndex'
 import { PostCard } from '@components/PostCard'
 import { Subscribe } from '@components/Subscribe'
 import Link from 'next/link'
+import { Locale } from '@appConfig';
+import { getTranslation } from '@lib/i18n/getTranslation';
 
 export const revalidate = 60
  
@@ -21,20 +23,25 @@ export const metadata = async () => {
   })
 }
 
-export default async function HomePage() {
+export default async function HomePage({ params }: { params: Promise<{ locale: Locale }> }) {
+  const locale = (await params)?.locale as Locale;
+  const translation = await getTranslation(locale);
+
   const settings: GhostSettings = await getAllSettings()
   const featurePosts: GhostPostsOrPages = await getAllPosts({
     limit: 6,
     feature: true,
+    tag: 'hash-' + locale,
   })
   const posts: GhostPostsOrPages = await getAllPosts({
     limit: 6,
     feature: false,
+    tag: 'hash-' + locale,
   })
   const bodyClass = BodyClass({ isHome: true })
 
   return (
-    <Layout settings={settings} bodyClass={bodyClass} header={<HeaderIndex settings={settings} />} isHome>
+    <Layout translation={translation} settings={settings} bodyClass={bodyClass} header={<HeaderIndex translation={translation} settings={settings} />}>
       <section className="relative overflow-hidden py-16 md:py-24">
         <div className="absolute inset-0 z-0 opacity-10">
           <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-foreground to-transparent"></div>
@@ -53,9 +60,9 @@ export default async function HomePage() {
             <div className="space-y-12 md:col-span-4">
               <div className="space-y-6">
                 <div className="flex items-center justify-between">
-                  <h2 className="text-2xl font-bold">Em Destaque</h2>
-                  <Link className="btn btn-sm btn-outline" href="/posts" prefetch={false}>
-                    Ver todos
+                  <h2 className="text-2xl font-bold">{translation('home.featured')}</h2>
+                  <Link className="btn btn-sm btn-outline" href={`/${locale}/posts`} prefetch={false}>
+                    {translation('home.viewAll')}
                   </Link>
                 </div>
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -64,13 +71,13 @@ export default async function HomePage() {
               </div>
               <div className="space-y-6">
                 <div className="flex items-center justify-between">
-                  <h2 className="text-2xl font-bold">Artigos Recentes</h2>
-                  <Link className="btn btn-sm btn-outline" href="/posts" prefetch={false}>
-                    Ver todos
+                  <h2 className="text-2xl font-bold">{translation('home.recentPosts')}</h2>
+                  <Link className="btn btn-sm btn-outline" href={`/${locale}/posts`} prefetch={false}>
+                    {translation('home.viewAll')}
                   </Link>
                 </div>
                 <div className="space-y-8">
-                  <PostView {...{ settings, posts, isHome: true }} />
+                  <PostView {...{ locale, settings, posts, isHome: true }} />
                 </div>
               </div>
             </div>
@@ -99,11 +106,11 @@ export default async function HomePage() {
                 </ul>
                 <div className="border-t pt-4">
                   <Link className="btn btn-sm btn-secondary w-full" href="/sobre" prefetch={false}>
-                    Saiba mais
+                    {translation('home.learnMore')}
                   </Link>
                 </div>
               </div>
-              <Subscribe settings={settings} />
+              <Subscribe translation={translation} />
             </div>
           </div>
         </div>

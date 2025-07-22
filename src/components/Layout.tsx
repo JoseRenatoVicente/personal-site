@@ -3,6 +3,7 @@ import { DocumentHead } from '@components/DocumentHead'
 import { getLang, get } from '@utils/use-lang'
 import { GhostSettings } from '@lib/ghost'
 import Footer from '@components/Footer'
+import { TranslationKey } from '@lib/i18n/getTranslation'
 
 /**
  * Main layout component
@@ -14,16 +15,16 @@ import Footer from '@components/Footer'
  */
 
 interface LayoutProps {
+  translation: TranslationKey
   settings: GhostSettings
   header: ReactNode
   children: ReactNode
-  isHome?: boolean
   previewPosts?: ReactNode
   bodyClass: string
   errorClass?: string
 }
 
-export const Layout = ({ settings, header, children, isHome, previewPosts, bodyClass, errorClass }: LayoutProps) => {
+export const Layout = ({ translation, settings, header, children, previewPosts, bodyClass, errorClass }: LayoutProps) => {
   const lang = settings.lang
   const text = get(getLang(lang))
   const site = settings
@@ -45,7 +46,7 @@ export const Layout = ({ settings, header, children, isHome, previewPosts, bodyC
         </main>
         {previewPosts}
 
-        <Footer {...{ settings }} />
+        <Footer translation={translation} settings={settings} />
       </div>
     </>
   )

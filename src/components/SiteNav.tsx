@@ -1,14 +1,16 @@
 import Navigation from '@components/Navigation'
 import { getLang, get } from '@utils/use-lang'
 import { GhostSettings, NavItem, NextImage } from '@lib/ghost'
+import { TranslationKey } from '../lib/i18n/getTranslation'
 
 export interface SiteNavProps {
   settings: GhostSettings
   className: string
-  postTitle?: string
+  postTitle?: string,
+  translation: TranslationKey
 }
 
-export const SiteNav = ({ settings, className, postTitle }: SiteNavProps) => {
+export const SiteNav = ({ settings, className, postTitle, translation }: SiteNavProps) => {
   const text = get(getLang(settings.lang))
   const { processEnv } = settings
   const { customNavigation, nextImages, memberSubscriptions } = processEnv

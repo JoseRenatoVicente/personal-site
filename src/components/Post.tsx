@@ -24,9 +24,11 @@ import { IToC } from '@lib/toc'
 import { TableOfContentsItem } from '@components/toc/TableOfContents'
 
 import React from 'react'
+import { TranslationKey } from '@lib/i18n/getTranslation'
 
 interface PostProps {
   cmsData: {
+    translation: TranslationKey
     post: GhostPostOrPage
     settings: GhostSettings
     seoImage: ISeoImage
@@ -49,7 +51,7 @@ export const Post = ({ cmsData }: PostProps) => {
   const { post, settings, seoImage, previewPosts, prevPost, nextPost, bodyClass } = cmsData
   const { slug, url, meta_description, excerpt, title } = post
   const { url: cmsUrl } = settings
-  const description = meta_description || excerpt
+  const translation = cmsData.translation;
 
   const { processEnv } = settings
   const { nextImages, toc, memberSubscriptions, commenting } = processEnv
@@ -71,7 +73,7 @@ export const Post = ({ cmsData }: PostProps) => {
 
   return (
     <>
-      <Layout {...{ bodyClass, settings }} header={<HeaderPost {...{ settings, title }} />} previewPosts={<></>}>
+      <Layout {...{ translation, bodyClass, settings }} header={<HeaderPost {...{ translation, settings, title }} />} previewPosts={<></>}>
         <section className="relative overflow-hidden py-16 md:py-24">
           <div className="absolute inset-0 z-0 opacity-10">
             <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-foreground to-transparent"></div>
@@ -157,7 +159,7 @@ export const Post = ({ cmsData }: PostProps) => {
               </div>
 
               <div className="space-y-8">
-                {memberSubscriptions && <Subscribe {...{ settings }} />}
+                {memberSubscriptions && <Subscribe translation={translation} />}
 
                 <div className="card p-6">
                   <ul className="space-y-4 divide-y">
