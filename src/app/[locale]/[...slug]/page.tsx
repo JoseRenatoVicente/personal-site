@@ -130,27 +130,39 @@ export async function generateStaticParams() {
     getAllPages(limitForPages),
   ])
   
-  // Criar rotas para cada combinação de locale e slug
   const routes: { locale: string; slug: string[] }[] = [];
-  const { locales } = await import('@appConfig');
+  const { locales, defaultLocale } = await import('@appConfig');
   
-  for (const locale of locales) {
-    // Rotas para posts
-    posts.forEach((post: GhostPostOrPage) => {
-      routes.push({
-        locale: locale,
-        slug: [post.slug]
-      });
-    });
+  const getContentLocale = (item: GhostPostOrPage): string => {
+    if (!item.tags || item.tags.length === 0) return defaultLocale;
     
-    // Rotas para páginas
-    pages.forEach((page: GhostPostOrPage) => {
-      routes.push({
-        locale: locale, 
-        slug: [page.slug]
-      });
+
+    for (const tag of item.tags) {
+      for (const locale of locales) {
+        if (tag.slug === `hash-${locale}`) {
+          return locale;
+        }
+      }
+    }
+    
+    return defaultLocale;
+  };
+  
+  posts.forEach((post: GhostPostOrPage) => {
+    const postLocale = getContentLocale(post);
+    routes.push({
+      locale: postLocale,
+      slug: [post.slug]
     });
-  }
+  });
+  
+  pages.forEach((page: GhostPostOrPage) => {
+    const pageLocale = getContentLocale(page);
+    routes.push({
+      locale: pageLocale,
+      slug: [page.slug]
+    });
+  });
   
   return routes;
 }

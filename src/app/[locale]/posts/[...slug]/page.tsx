@@ -21,12 +21,12 @@ export const metadata = async () => {
 }
 
 export async function generateStaticParams() {
-  const tags = await getAllTags()
   const { locales } = await import('@appConfig');
   
   const routes: { locale: string; slug: string[] }[] = [];
   
   for (const locale of locales) {
+    const tags = await getAllTags(locale)
     tags.forEach((tag) => {
       routes.push({
         locale: locale,
