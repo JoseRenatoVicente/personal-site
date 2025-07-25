@@ -1,6 +1,7 @@
 import { Locale } from '@appConfig';
 import { ObjectKeys } from '@lib/utils/objectKeys';
 import { loadTranslation, TranslationObject } from './loadTranslation';
+import c from 'refractor/c';
 
 // Defines a function type that takes a key string and returns a string.
 // Also includes the locale property to access the current locale
@@ -48,6 +49,7 @@ const getTranslationValueByKey = (
   key: string,
   translation: TranslationKeyValue
 ): string => {
+  try {
   // Split the key string into an array of keys using '.' as the divider.
   const keys: string[] = key.split('.');
 
@@ -58,7 +60,12 @@ const getTranslationValueByKey = (
     return key;
   }
 
-  return translationValue;
+    return translationValue;
+
+} catch (error) {
+  console.error(`Error retrieving translation for key "${key}":`);
+}
+
 };
 
 /**

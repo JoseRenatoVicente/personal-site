@@ -1,14 +1,41 @@
 {
     "home": {
+        "metaDescription": "Construindo soluções robustas e escaláveis para desafios complexos.",
         "featured": "Em Destaque",
         "viewAll": "Ver todos",
         "recentPosts": "Artigos Recentes",
         "learnMore": "Saiba mais",
-        "categories": "Categorias"
+        "categories": "Categorias",
+        "specialties": "Especialidades",
+        "architecture": "Arquitetura Backend",
+        "microservices": "Arquitetura de Microsserviços",
+        "applicationSecurity": "Segurança de Aplicações",
+        "cloudNativeKubernetes": "Cloud Native & Kubernetes"
+    },
+    "notfound": {
+        "pagenotfound": "Página não encontrada",
+        "gotofrontpage": "Voltar para a página inicial"
+    },
+    "header": {
+        "collectionposts": "Coleção de ",
+        "post": "artigo",
+        "posts": "artigos"
+    },
+    "navigation": {
+        "home": "Início",
+        "about": "Sobre",
+        "posts": "Artigos",
+        "contact": "Contato",
+        "tags": "Tags",
+        "newsletter": "Newsletter"
+    },
+    "posts":{
+        "taggedWith": "Artigos da Tag:"
     },
     "search": {
         "submit": "Filtrar",
-        "allPosts": "Todos os Artigos"
+        "allPosts": "Todos os Artigos",
+        "searchPosts": "Pesquisar artigos..."
     },
     "subscribe": {
         "title": "Inscreva-se para receber atualizações",
@@ -18,6 +45,7 @@
         "privacy": "Nunca compartilharemos seu e-mail. Você pode cancelar a qualquer momento."
     },
     "footer": { 
-        "description": "Desenvolvedor em .NET e Angular | Segurança da Informação. Construindo soluções robustas e escaláveis para desafios complexos."
+        "description": "Desenvolvedor em .NET e Angular | Segurança da Informação. Construindo soluções robustas e escaláveis para desafios complexos.",
+        "allRightsReserved": "Todos os direitos reservados."
     }
 }

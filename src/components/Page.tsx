@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { readingTime as readingTimeHelper } from '@lib/readingTime'
 
 import { resolveUrl } from '@utils/routing'
-import { getLang, get } from '@utils/use-lang'
 
 import { Layout } from '@components/Layout'
 import { HeaderPost } from '@components/HeaderPost'
@@ -41,9 +40,6 @@ export const Page = ({ cmsData }: PageProps) => {
   const { processEnv } = settings
   const { nextImages, toc, memberSubscriptions, commenting } = processEnv
 
-  const lang = settings.lang
-  const text = get(getLang(lang))
-  const readingTime = readingTimeHelper(page).replace(`min read`, text(`MIN_READ`))
   const featImg = page.featureImage
   const postClass = PostClass({
     tags: page.tags,

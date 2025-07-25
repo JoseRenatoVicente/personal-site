@@ -9,7 +9,7 @@ import { ghostAPIUrl, ghostAPIKey, processEnv, ProcessEnvProps } from '@lib/proc
 import { imageDimensions, normalizedImageUrl, Dimensions } from '@lib/images'
 import { IToC } from '@lib/toc'
 
-import { contactPage } from '@appConfig'
+import { contactPage, Locale } from '@appConfig'
 import { getCache, getOrCreate, setCache } from '@lib/cache'
 
 export interface NextImage {
@@ -72,6 +72,7 @@ const postAndPageFetchOptions: Params = {
 const tagAndAuthorFetchOptions: Params = {
   limit: 'all',
   include: 'count.posts',
+  filter: 'visibility:public'
 }
 
 const postAndPageSlugOptions: Params = {
@@ -155,12 +156,48 @@ export async function getAllSettings(): Promise<GhostSettings> {
   );
 }
 
-export async function getAllTags(): Promise<GhostTags> {
-  return await getOrCreate<GhostTags>(
-    'getAllTags',
+export async function getAllTags(locale?: Locale): Promise<GhostTags> {
+ return await getOrCreate<GhostTags>(
+    'getAllTags' + (locale ? `_${locale}` : ''),
     async () => {
-      const tags = await api.tags.browse(tagAndAuthorFetchOptions)
-      return await createNextFeatureImages(tags)
+
+      if (!locale) {  
+        const tags = await api.tags.browse(tagAndAuthorFetchOptions)
+        return await createNextFeatureImages(tags)
+      }
+
+      const posts = await api.posts.browse({
+        filter: `tags:hash-${locale}`,
+        include: 'tags',
+        limit: 'all'
+      });
+      
+      // Extrair todas as tags e contar ocorrências
+      const allTags = posts.flatMap(post => post.tags || []);
+      const tagCountMap = new Map<string, number>();
+      
+      // Contar posts por tag
+      allTags.forEach(tag => {
+        if (tag.visibility === 'public') {
+          const count = tagCountMap.get(tag.id) || 0;
+          tagCountMap.set(tag.id, count + 1);
+        }
+      });
+      
+      // Filtrar tags únicas e adicionar contagem
+      const uniqueTags = allTags.filter((tag, index, array) => 
+        tag.visibility === 'public' && 
+        array.findIndex(t => t.id === tag.id) === index
+      ).map(tag => {
+        return {
+          ...tag,
+          count: {
+            posts: tagCountMap.get(tag.id) || 0
+          }
+        };
+      });
+      
+      return await createNextFeatureImages(Object.assign(uniqueTags, { meta: posts.meta }));
     },
   );
 }
@@ -311,12 +348,34 @@ export async function getPostsByAuthor(slug: string): Promise<GhostPostsOrPages>
   return await createNextFeatureImages(posts)
 }
 
-export async function getPostsByTag(slug: string, limit?: number, excludeId?: string): Promise<GhostPostsOrPages> {
+export async function getPostsByTag(
+  slugOrSlugs: string | string[], 
+  limit?: number, 
+  excludeId?: string,
+  locale?: Locale
+): Promise<GhostPostsOrPages> {
   const exclude = (excludeId && `+id:-${excludeId}`) || ``
+  
+  // Constrói o filtro para uma ou várias tags
+  let tagsFilter = '';
+  if (Array.isArray(slugOrSlugs)) {
+    // Para múltiplas tags, usamos [tag:tag1,tag2,tag3] na API Ghost
+    tagsFilter = `tags:[${slugOrSlugs.join(',')}]`;
+  } else {
+    // Para uma tag única, usamos tags.slug:tag
+    tagsFilter = `tags.slug:${slugOrSlugs}`;
+  }
+  
+  // Adiciona filtro por locale se especificado
+  let filter = `${tagsFilter}${exclude}`;
+  if (locale) {
+    filter = `${filter}+tags:hash-${locale}`;
+  }
+  
   const posts = await api.posts.browse({
     ...postAndPageFetchOptions,
     ...(limit && { limit: `${limit}` }),
-    filter: `tags.slug:${slug}${exclude}`,
+    filter,
   })
   return await createNextFeatureImages(posts)
 }

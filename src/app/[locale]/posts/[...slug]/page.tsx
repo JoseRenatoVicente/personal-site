@@ -21,7 +21,7 @@ export const metadata = async () => {
 }
 
 export async function generateStaticParams() {
-  const tags = await getAllTags();
+  const tags = await getAllTags()
   const { locales } = await import('@appConfig');
   
   const routes: { locale: string; slug: string[] }[] = [];
@@ -53,7 +53,7 @@ export default async function PostsByTagPage({ params }: PostsTagPageProps) {
   const tag = await getTagBySlug(slug)
   if (!tag) notFound()
   const settings: GhostSettings = await getAllSettings()
-  const tags = await getAllTags()
+  const tags = await getAllTags(locale)
   const selectedTag = tag.slug
   const posts: GhostPostsOrPages = await getPostsByTag(selectedTag)
 
@@ -73,19 +73,19 @@ export default async function PostsByTagPage({ params }: PostsTagPageProps) {
       </section>
       <section className="section">
         <div className="container">
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-3"> 
             <div className="lg:col-span-2">
               <div className="mb-8 flex items-center justify-between">
-                <h2 className="text-2xl font-bold">Artigos da Tag: {selectedTag}</h2>
+                <h2 className="text-2xl font-bold">{translation('posts.taggedWith')} {selectedTag}</h2>
                 <div className="flex flex-wrap gap-2">
                   <Link href={`/${locale}/posts`} className={`badge badge-outline text-xs`} prefetch={false}>
-                    Todos
+                    {translation('search.allPosts')}
                   </Link>
-                  {tags.map((tag) => tag.visibility === 'public' && (
+                  {tags.map((tag) =>
                     <Link key={tag.slug} href={`/${locale}/posts/${tag.slug}`} className={`badge text-xs ${selectedTag === tag.slug ? 'badge-primary' : 'badge-outline'}`} prefetch={false}>
                       {tag.name}
                     </Link>
-                  ))}
+                  )}
                 </div>
               </div>
               <div className="space-y-8">
@@ -95,16 +95,16 @@ export default async function PostsByTagPage({ params }: PostsTagPageProps) {
             <div className="space-y-8">
               <Subscribe translation={translation} />
               <div className="card p-6">
-                <h3 className="mb-4 text-lg font-bold">Categorias</h3>
+                <h3 className="mb-4 text-lg font-bold">{translation('home.categories')}</h3>
                 <ul className="space-y-2">
-                  {tags.map((tag) => (
+                  {tags.map((tag) =>
                     <li key={tag.slug}>
                       <Link href={`/${locale}/tags/${tag.slug}`} className="flex w-full items-center justify-between text-left transition-colors hover:text-accent">
                         {tag.name}
                         <span className="badge badge-outline text-xs">{tag.count?.posts || 0}</span>
                       </Link>
                     </li>
-                  ))}
+                  )}
                 </ul>
               </div>
             </div>

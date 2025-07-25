@@ -1,6 +1,5 @@
 import { Tag } from '@tryghost/content-api'
 import { GhostSettings } from '@lib/ghost'
-import { getLang, get } from '@utils/use-lang'
 import { HeaderBase } from '@components/HeaderBase'
 import { TranslationKey } from '@lib/i18n/getTranslation'
 
@@ -11,7 +10,6 @@ interface HeaderTagProps {
 }
 
 export const HeaderTag = ({ translation, settings, tag }: HeaderTagProps) => {
-  const text = get(getLang(settings.lang))
   const numberOfPosts = tag.count?.posts
 
   return (
@@ -27,8 +25,8 @@ export const HeaderTag = ({ translation, settings, tag }: HeaderTagProps) => {
             <h1 className="animate-fade-in text-gradient mb-4 text-3xl font-bold md:mb-6 md:text-5xl">Artigos sobre: {tag.name}</h1>
             <p className="animate-fade-in text-lg text-muted-foreground md:text-xl">
               {tag.description ||
-                `${text(`A_COLLECTION_OF`)} ${
-                  (numberOfPosts && numberOfPosts > 0 && (numberOfPosts === 1 ? `1 ${text(`POST`)}` : `${numberOfPosts} ${text(`POSTS`)}`)) || `${text(`POSTS`)}`
+                `${translation(`header.collectionposts`)} ${
+                  (numberOfPosts && numberOfPosts > 0 && (numberOfPosts === 1 ? `1 ${translation(`header.post`)} ` : `${numberOfPosts} ${translation(`header.posts`)}`)) || `${translation(`header.posts`)}`
                 }`}
             </p>
           </div>

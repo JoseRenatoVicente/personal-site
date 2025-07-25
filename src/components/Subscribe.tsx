@@ -1,5 +1,4 @@
 import { GhostSettings } from '@lib/ghost'
-import { getLang, get } from '@utils/use-lang'
 import { SubscribeForm } from '@components/SubscribeForm'
 import { TranslationKey } from '@lib/i18n/getTranslation';
 import { Locale } from '@appConfig';

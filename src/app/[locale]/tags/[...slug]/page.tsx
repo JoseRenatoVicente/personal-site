@@ -49,7 +49,7 @@ export default async function TagPage({ params }: TagPageProps) {
 
   if (!tag) notFound()
 
-  const posts = await getPostsByTag(slug)
+  const posts = await getPostsByTag(slug, 10, undefined, locale)
   const settings = await getAllSettings()
   const bodyClass = BodyClass({ tags: [tag] })
 
@@ -69,7 +69,7 @@ export default async function TagPage({ params }: TagPageProps) {
 }
 
 export async function generateStaticParams() {
-  const tags = await getAllTags();
+  const tags = await getAllTags()
   const { locales } = await import('@appConfig');
   
   const routes: { locale: string; slug: string[] }[] = [];

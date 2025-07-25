@@ -1,23 +1,51 @@
 {
     "home": {
-        "featured": "Em Destaque",
-        "viewAll": "Ver todos",
-        "recentPosts": "Artigos Recentes",
-        "learnMore": "Saiba mais",
-        "categories": "Categorias"
+        "metaDescription": "Building robust and scalable solutions for complex challenges.",
+        "featured": "Featured",
+        "viewAll": "View All",
+        "recentPosts": "Recent Posts",
+        "learnMore": "Learn More",
+        "categories": "Categories",
+        "specialties": "Specialties",
+        "architecture": "Backend Architecture",
+        "microservices": "Microservices Architecture",
+        "applicationSecurity": "Application Security",
+        "cloudNativeKubernetes": "Cloud Native & Kubernetes"
+    },
+    "notfound": {
+        "pagenotfound": "Page not found",
+        "gotofrontpage": "Go to front page"
+    },
+    "header": {
+        "collectionposts": "Collection of ",
+        "post": "post",
+        "posts": "posts"
+    },
+    "navigation": {
+        "home": "Home",
+        "about": "About",
+        "posts": "Posts",
+        "contact": "Contact",
+        "tags": "Tags",
+        "newsletter": "Newsletter"
+    },
+    "posts":{
+        "taggedWith": "Posts Tagged With:"
     },
     "search": {
-        "submit": "Filtrar",
-        "allPosts": "Todos os Artigos"
+        "submit": "Filter",
+        "allPosts": "All Posts",
+        "searchPosts": "Search Posts..."
     },
     "subscribe": {
-        "title": "Inscreva-se para receber atualizações",
-        "description": "Receba as últimas postagens diretamente no seu e-mail.",
-        "youremail": "Seu e-mail",
-        "submit": "Inscrever-se",
-        "privacy": "Nunca compartilharemos seu e-mail. Você pode cancelar a qualquer momento."
+        "title": "Subscribe to receive updates",
+        "description": "Get the latest posts directly in your email.",
+        "youremail": "Your email",
+        "submit": "Subscribe",
+        "privacy": "We will never share your email. You can unsubscribe at any time."
     },
     "footer": { 
-        "description": "Desenvolvedor em .NET e Angular | Segurança da Informação. Construindo soluções robustas e escaláveis para desafios complexos."
+        "description": ".NET and Angular Developer | Information Security. Building robust and scalable solutions for complex challenges.",
+        "allRightsReserved": "All rights reserved."
     }
 }

@@ -49,7 +49,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
         <div className="container relative z-10">
           <div className="mx-auto max-w-3xl text-center">
             <h1 className="animate-fade-in text-gradient mb-4 text-3xl font-bold md:mb-6 md:text-5xl">{settings.title}</h1>
-            <p className="animate-fade-in text-lg text-muted-foreground md:text-xl">{settings.meta_description}</p>
+            <p className="animate-fade-in text-lg text-muted-foreground md:text-xl">{translation('home.metaDescription')}</p>
           </div>
         </div>
         <div className="absolute inset-x-0 bottom-0 h-px bg-linear-to-r from-transparent via-foreground/20 to-transparent"></div>
@@ -83,29 +83,29 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
             </div>
             <div className="space-y-8 md:col-span-2">
               <div className="card space-y-4 p-6">
-                <h3 className="mb-2 text-lg font-bold">Especialidades</h3>
+                <h3 className="mb-2 text-lg font-bold">{translation('home.specialties')}</h3>
                 <ul className="space-y-2">
                   <li className="flex items-start">
                     <svg className="mr-2 size-5 text-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                       <path d="M14.916 2.404a.75.75 0 01.32 1.012l-5 11a.75.75 0 01-1.342-.004l-3-6.5a.75.75 0 111.364-.63L9.106 11.5l4.798-10.548a.75.75 0 011.012-.32z"></path>
                     </svg>
-                    <span>Arquitetura de Microsserviços</span>
+                    <span>{translation('home.microservices')}</span>
                   </li>
                   <li className="flex items-start">
                     <svg className="mr-2 size-5 text-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                       <path d="M14.916 2.404a.75.75 0 01.32 1.012l-5 11a.75.75 0 01-1.342-.004l-3-6.5a.75.75 0 111.364-.63L9.106 11.5l4.798-10.548a.75.75 0 011.012-.32z"></path>
                     </svg>
-                    <span>Segurança de Aplicações</span>
+                    <span>{translation('home.applicationSecurity')}</span>
                   </li>
                   <li className="flex items-start">
                     <svg className="mr-2 size-5 text-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                       <path d="M14.916 2.404a.75.75 0 01.32 1.012l-5 11a.75.75 0 01-1.342-.004l-3-6.5a.75.75 0 111.364-.63L9.106 11.5l4.798-10.548a.75.75 0 011.012-.32z"></path>
                     </svg>
-                    <span>Cloud Native &amp; Kubernetes</span>
+                    <span>{translation('home.cloudNativeKubernetes')}</span>
                   </li>
                 </ul>
                 <div className="border-t pt-4">
-                  <Link className="btn btn-sm btn-secondary w-full" href="/sobre" prefetch={false}>
+                  <Link className="btn btn-sm btn-secondary w-full" href={`/${translation('navigation.about').toLowerCase()}`} prefetch={false}>
                     {translation('home.learnMore')}
                   </Link>
                 </div>

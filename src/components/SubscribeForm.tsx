@@ -1,5 +1,4 @@
 import { GhostSettings } from '@lib/ghost'
-import { getLang, get } from '@utils/use-lang'
 import { LoaderIcon } from '@components/icons/LoaderIcon'
 import { TranslationKey } from '@lib/i18n/getTranslation'
 

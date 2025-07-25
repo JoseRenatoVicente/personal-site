@@ -1,6 +1,5 @@
 import { ReactNode } from 'react'
 import { DocumentHead } from '@components/DocumentHead'
-import { getLang, get } from '@utils/use-lang'
 import { GhostSettings } from '@lib/ghost'
 import Footer from '@components/Footer'
 import { TranslationKey } from '@lib/i18n/getTranslation'
@@ -25,10 +24,7 @@ interface LayoutProps {
 }
 
 export const Layout = ({ translation, settings, header, children, previewPosts, bodyClass, errorClass }: LayoutProps) => {
-  const lang = settings.lang
-  const text = get(getLang(lang))
   const site = settings
-  const title = text(`SITE_TITLE`, site.title)
   const { siteUrl, memberSubscriptions } = settings.processEnv
 
   const twitterUrl = site.twitter && `https://twitter.com/${site.twitter.replace(/^@/, ``)}`

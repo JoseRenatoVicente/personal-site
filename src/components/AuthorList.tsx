@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 import Image from 'next/image'
-import { getLang, get } from '@utils/use-lang'
 import { AvatarIcon } from '@components/icons/AvatarIcon'
 import { GhostAuthor, GhostSettings } from '@lib/ghost'
 import { LinkedInIcon } from '@icons/LinkedInIcon'
@@ -13,9 +12,7 @@ interface AuthorListProps {
 }
 
 export const AuthorList = ({ settings, authors, isPost }: AuthorListProps) => {
-  const text = get(getLang(settings.lang))
   const { nextImages } = settings.processEnv
-  const { url: cmsUrl } = settings
 
   if (isPost && authors && authors.length > 0) {
     const author = authors[0]

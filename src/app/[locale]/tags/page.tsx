@@ -19,7 +19,7 @@ export default async function TagsPage({ params }: { params: Promise<{ locale: L
   const translation = await getTranslation(locale);
 
   const settings: GhostSettings = await getAllSettings()
-  const tags: GhostTags = await getAllTags()
+  const tags: GhostTags = await getAllTags(locale)
 
   return (
     <>
@@ -28,13 +28,13 @@ export default async function TagsPage({ params }: { params: Promise<{ locale: L
           <div className="container">
             <h1 className="text-gradient mb-8 text-3xl font-bold md:text-5xl">Tags</h1>
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
-              {tags.map((tag) => tag.visibility === 'public' && (
+              {tags.map((tag) =>
                 <Link key={tag.slug} href={`/${locale}/tags/${tag.slug}`} className="card p-6 transition-shadow hover:shadow-lg">
                   <h2 className="mb-2 text-xl font-semibold">{tag.name}</h2>
                   <p className="text-sm text-muted-foreground">{tag.description}</p>
                   <span className="text-xs text-primary">{tag.count?.posts || 0} posts</span>
                 </Link>
-              ))}
+              )}
             </div>
           </div>
         </section>

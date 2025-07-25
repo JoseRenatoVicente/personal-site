@@ -60,39 +60,34 @@ const Footer = ({ settings, translation }: { settings: GhostSettings, translatio
             <ul className="mt-4 space-y-2 text-sm">
               {navigation?.map((navItem, i) => (
                 <li key={i}>
-                  <Link href={navItem.url} className="text-muted-foreground hover:text-foreground" prefetch={false}>
-                    {navItem.label}
+                  <Link href={`/${translation('navigation.' + navItem.label).toLowerCase()}`} className="text-muted-foreground hover:text-foreground" prefetch={false}>
+                    {translation('navigation.' + navItem.label)}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
           <div>
-            <h3 className="text-sm font-medium uppercase tracking-wider">Especialidades</h3>
+            <h3 className="text-sm font-medium uppercase tracking-wider">{translation('home.specialties')}</h3>
             <ul className="mt-4 space-y-2 text-sm">
               <li>
                 <Link href="/posts?tag=arquitetura" className="text-muted-foreground hover:text-foreground">
-                  Arquitetura Backend
-                </Link>
-              </li>
-              <li>
-                <Link href="/posts?tag=devops" className="text-muted-foreground hover:text-foreground">
-                  DevOps & CI/CD
+                  {translation('home.architecture')}
                 </Link>
               </li>
               <li>
                 <Link href="/posts?tag=microservices" className="text-muted-foreground hover:text-foreground">
-                  Microsserviços
+                  {translation('home.microservices')}
                 </Link>
               </li>
               <li>
                 <Link href="/posts?tag=seguranca" className="text-muted-foreground hover:text-foreground">
-                  Segurança
+                  {translation('home.applicationSecurity')}
                 </Link>
               </li>
               <li>
                 <Link href="/posts?tag=cloud" className="text-muted-foreground hover:text-foreground">
-                  Cloud Native
+                  {translation('home.cloudNativeKubernetes')}
                 </Link>
               </li>
             </ul>
@@ -101,7 +96,7 @@ const Footer = ({ settings, translation }: { settings: GhostSettings, translatio
         <div className="mt-8 border-t pt-6 text-sm text-muted-foreground">
           <div className="flex flex-col items-center justify-between space-y-4 md:flex-row md:space-y-0">
             <p>
-              &copy; {currentYear} {brandTitle}. Todos os direitos reservados.
+              &copy; {currentYear} {brandTitle}. {translation('footer.allRightsReserved')}
             </p>
           </div>
         </div>

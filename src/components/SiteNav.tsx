@@ -1,5 +1,4 @@
 import Navigation from '@components/Navigation'
-import { getLang, get } from '@utils/use-lang'
 import { GhostSettings, NavItem, NextImage } from '@lib/ghost'
 import { TranslationKey } from '../lib/i18n/getTranslation'
 
@@ -11,7 +10,6 @@ export interface SiteNavProps {
 }
 
 export const SiteNav = ({ settings, className, postTitle, translation }: SiteNavProps) => {
-  const text = get(getLang(settings.lang))
   const { processEnv } = settings
   const { customNavigation, nextImages, memberSubscriptions } = processEnv
   const config: {
@@ -85,12 +83,12 @@ export const SiteNav = ({ settings, className, postTitle, translation }: SiteNav
       <div className="absolute right-0 top-full z-40 mt-2 w-48 origin-top-right rounded-md border bg-background shadow-lg animate-fade-in hidden peer-checked:block md:hidden">
         <div className="py-4 space-y-1 border-t bg-background shadow-lg">
             <div className="container mx-auto px-4">
-              <Navigation data={navigation} navClass="flex flex-col space-y-4 text-lg" />
+              <Navigation translation={translation} data={navigation} navClass="flex flex-col space-y-4 text-lg" />
             </div>
         </div>
       </div>
       <div className="md:flex md:items-center md:space-x-6 hidden">
-        <Navigation data={navigation} navClass="flex md:items-center md:space-x-6" />
+        <Navigation translation={translation} data={navigation} navClass="flex md:items-center md:space-x-6" />
       </div>
     </nav>
   )

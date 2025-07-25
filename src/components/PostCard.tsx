@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { resolveUrl } from '@utils/routing'
-import { getLang, get } from '@utils/use-lang'
 import { collections } from '@lib/collections'
 import { GhostPostOrPage, GhostSettings } from '@lib/ghost'
 import Image from 'next/image'
@@ -14,7 +13,7 @@ interface PostCardProps {
 
 export const PostCard = ({ settings, post, num, isHome }: PostCardProps) => {
   const { nextImages } = settings.processEnv
-  const text = get(getLang(settings.lang))
+
   const cmsUrl = settings.url
   const collectionPath = collections.getCollectionByNode(post)
   const url = resolveUrl({

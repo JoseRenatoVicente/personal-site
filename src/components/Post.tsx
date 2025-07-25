@@ -6,7 +6,6 @@ import dayjs from 'dayjs'
 import { readingTime as readingTimeHelper } from '@lib/readingTime'
 
 import { resolveUrl } from '@utils/routing'
-import { getLang, get } from '@utils/use-lang'
 
 import { Layout } from '@components/Layout'
 import { HeaderPost } from '@components/HeaderPost'
@@ -56,9 +55,6 @@ export const Post = ({ cmsData }: PostProps) => {
   const { processEnv } = settings
   const { nextImages, toc, memberSubscriptions, commenting } = processEnv
 
-  const lang = settings.lang
-  const text = get(getLang(lang))
-  const readingTime = readingTimeHelper(post).replace(`min read`, text(`MIN_READ`))
   const featImg = post.featureImage
   const postClass = PostClass({
     tags: post.tags,
@@ -150,12 +146,12 @@ export const Post = ({ cmsData }: PostProps) => {
                   </div>
                 )}
 
-                <div className="mt-12 border-t pt-8">
+                {/* <div className="mt-12 border-t pt-8">
                   <h3 className="mb-6 text-xl font-bold">Comentários</h3>
                   <div className="card p-6">
                     <p className="text-center text-muted-foreground">Os comentários estão desabilitados neste artigo.</p>
                   </div>
-                </div>
+                </div> */}
               </div>
 
               <div className="space-y-8">
@@ -181,7 +177,9 @@ export const Post = ({ cmsData }: PostProps) => {
                         <div className="read-next-card-meta">
                           <p>
                             <time className="text-xs text-muted-foreground" dateTime={post.published_at || ''}>
-                              {dayjs(post.published_at || '').format('D MMMM, YYYY')}
+                              {translation.locale === 'en' 
+                                                ? dayjs(post.published_at || '').format('MMMM D, YYYY')
+                                                : dayjs(post.published_at || '').format('D [de] MMMM [de] YYYY')}
                             </time>{' '}
                             – {readingTimeHelper(post).replace(`min read`, text(`MIN_READ`))}
                           </p>

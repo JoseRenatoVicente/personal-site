@@ -16,25 +16,27 @@ export const metadata = getSeoMetadata({
   settings: await getAllSettings(),
 })
 
-export default async function PostsPage({ searchParams }: { searchParams?: Promise<{ locale: Locale, tag?: string; q?: string }> }) {
-  const locale = (await searchParams)?.locale as Locale;
+export default async function PostsPage({ params, searchParams }: { params: Promise<{ locale: string }>, searchParams?: Promise<{ tag?: string; q?: string }> }) {
+  const resolvedParams = await params;
+  const locale = resolvedParams.locale as Locale;
+  
   const translation = await getTranslation(locale);
   
   const settings: GhostSettings = await getAllSettings()
-  const tags = await getAllTags()
+  const tags = await getAllTags(locale)
 
   let tag = null,
     q = ''
   if (searchParams) {
-    const params = await searchParams
-    tag = params.tag || null
-    q = params.q || ''
+    const resolvedSearchParams = await searchParams;
+    tag = resolvedSearchParams.tag || null
+    q = resolvedSearchParams.q || ''
   }
   const selectedTag = tag
   const searchQuery = q
 
   let posts: GhostPostsOrPages
-  posts = await (selectedTag ? getPostsByTag(selectedTag) : getAllPosts({ limit: 6 }));
+  posts = await getAllPosts({ limit: 6, tag:`hash-${locale}` });
 
   if (searchQuery) {
     const q = searchQuery.toLowerCase()
@@ -71,16 +73,16 @@ export default async function PostsPage({ searchParams }: { searchParams?: Promi
                     <Link href={`/${locale}/posts`} className={`badge text-xs ${selectedTag ? 'badge-outline' : 'badge-primary'}`} prefetch={false}>
                        {translation('search.allPosts')}
                     </Link>
-                    {tags.map((tag) => tag.visibility === 'public' && (
+                    {tags.map((tag) =>
                       <Link key={tag.slug} href={`/${locale}/posts/${tag.slug}`} className={`badge text-xs ${selectedTag === tag.slug ? 'badge-primary' : 'badge-outline'}`} prefetch={false}>
                         {tag.name}
                       </Link>
-                    ))}
+                    )}
                   </div>
                 </div>
                 <div className="mb-8">
                   <form method="GET" action="/posts" className="flex gap-2">
-                    <input type="text" name="q" placeholder="Pesquisar artigos..." className="input w-full" defaultValue={searchQuery} />
+                    <input type="text" name="q" placeholder={translation('search.searchPosts')} className="input w-full" defaultValue={searchQuery} />
                     {selectedTag && <input type="hidden" name="tag" value={selectedTag} />}
                     <button type="submit" className="btn btn-primary btn-sm">
                       {translation('search.submit')}
@@ -96,14 +98,14 @@ export default async function PostsPage({ searchParams }: { searchParams?: Promi
                 <div className="card p-6">
                   <h3 className="mb-4 text-lg font-bold">{translation('home.categories')}</h3>
                   <ul className="space-y-2">
-                    {tags.map((tag) => (
+                    {tags.map((tag) =>
                       <li key={tag.slug}>
                         <Link href={`/${locale}/tags/${tag.slug}`} className="flex w-full items-center justify-between text-left transition-colors hover:text-accent">
                           {tag.name}
                           <span className="badge badge-outline text-xs">{tag.count?.posts || 0}</span>
                         </Link>
                       </li>
-                    ))}
+                    )}
                   </ul>
                 </div>
               </div>
