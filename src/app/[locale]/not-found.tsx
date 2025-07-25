@@ -12,7 +12,7 @@ export default async function NotFound() {
   const locale = getMatchingLocale(headersList)
   const translation = await getTranslation(locale);
 
-  let settings = await getAllSettings()
+  const settings = await getAllSettings()
 
   const bodyClass = BodyClass({})
 

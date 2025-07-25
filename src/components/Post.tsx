@@ -181,7 +181,7 @@ export const Post = ({ cmsData }: PostProps) => {
                                                 ? dayjs(post.published_at || '').format('MMMM D, YYYY')
                                                 : dayjs(post.published_at || '').format('D [de] MMMM [de] YYYY')}
                             </time>{' '}
-                            – {readingTimeHelper(post).replace(`min read`, text(`MIN_READ`))}
+                            {/* – {readingTimeHelper(post).replace(`min read`, text(`MIN_READ`))} */}
                           </p>
                         </div>
                       </li>
