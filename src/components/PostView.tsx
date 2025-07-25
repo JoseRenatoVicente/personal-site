@@ -23,7 +23,7 @@ export const PostView = (props: PostViewProps) => {
           <div className="flex flex-col gap-6 md:flex-row">
             <div className="w-full">
               <h3 className="mb-2 text-xl font-bold">
-                <a href={`/${post.slug}`} className="transition-colors hover:text-accent">
+                <a href={`/${props.locale}/${post.slug}`} className="transition-colors hover:text-accent">
                   {post.title}
                 </a>
               </h3>
