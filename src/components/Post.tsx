@@ -137,7 +137,7 @@ export const Post = ({ cmsData }: PostProps) => {
                 {post.tags && post.tags.length > 0 && (
                   <div className="mt-12 border-t pt-8">
                     <div className="flex flex-wrap gap-2">
-                      {post.tags.map((tag) => (
+                      {post.tags.map((tag) => tag.visibility == 'public' && (
                         <Link key={tag.id} className="badge badge-outline transition-colors hover:bg-secondary" href={`/tags/${tag.slug}`}>
                           {tag.name}
                         </Link>
