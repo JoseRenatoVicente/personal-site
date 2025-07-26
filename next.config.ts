@@ -26,6 +26,11 @@ const nextConfig: NextConfig = {
     return Math.random().toString(36).slice(2, 15)
   },
   async headers() {
+    // Se estivermos exportando como estático, não use headers
+    if (process.env.NODE_ENV === 'production' && process.env.IS_EXPORT === 'true') {
+      return []
+    }
+    
     return [
       {
         source: '/(.*)',

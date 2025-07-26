@@ -1,16 +1,20 @@
 import '@styles/globals.css'
 import React from 'react'
 
+export async function generateStaticParams() {
+  const { locales } = await import('@appConfig')
+  return locales.map((locale) => ({ locale }))
+}
+ 
 export default async function RootLayout({
   children,
   params,
-}: {
+}: Readonly<{
   children: React.ReactNode
-  params: { locale: string }
-}) {
-  const locale = (await params).locale
+  params: Promise<{ locale: string }>
+}>) {
   return (
-    <html lang={locale}>
+    <html lang={(await params).locale}>
       <body>{children}</body>
     </html>
   )

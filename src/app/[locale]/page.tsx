@@ -118,3 +118,8 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
     </Layout>
   )
 }
+
+export async function generateStaticParams() {
+  const { locales } = await import('@appConfig')
+  return locales.map((locale) => ({ locale }))
+}

@@ -8,6 +8,7 @@ import { PostView } from '@components/PostView'
 import { Locale } from '@appConfig'
 import { getTranslation } from '@lib/i18n/getTranslation'
 
+export const dynamic = 'error'
 export const revalidate = 60
 
 export const metadata = getSeoMetadata({
@@ -16,7 +17,7 @@ export const metadata = getSeoMetadata({
   settings: await getAllSettings(),
 })
 
-export default async function PostsPage({ params, searchParams }: { params: Promise<{ locale: string }>, searchParams?: Promise<{ tag?: string; q?: string }> }) {
+export default async function PostsPage({ params }: { params: Promise<{ locale: string }> }) {
   const resolvedParams = await params;
   const locale = resolvedParams.locale as Locale;
   
@@ -25,26 +26,11 @@ export default async function PostsPage({ params, searchParams }: { params: Prom
   const settings: GhostSettings = await getAllSettings()
   const tags = await getAllTags(locale)
 
-  let tag = null,
-    q = ''
-  if (searchParams) {
-    const resolvedSearchParams = await searchParams;
-    tag = resolvedSearchParams.tag || null
-    q = resolvedSearchParams.q || ''
-  }
-  const selectedTag = tag
-  const searchQuery = q
-
-  let posts: GhostPostsOrPages
-  posts = await getAllPosts({ limit: 6, tag:`hash-${locale}` });
-
-  if (searchQuery) {
-    const q = searchQuery.toLowerCase()
-    posts = Object.assign(
-      posts.filter((post) => (post.title && post.title.toLowerCase().includes(q)) || (post.excerpt && post.excerpt.toLowerCase().includes(q))),
-      { meta: posts.meta },
-    )
-  }
+  // Na exportação estática, não usamos searchParams
+  const selectedTag = null
+  
+  // Obtenha todos os posts sem busca ou filtro para geração estática
+  const posts = await getAllPosts({ limit: 6, tag:`hash-${locale}` });
 
   return (
     <>
@@ -82,7 +68,7 @@ export default async function PostsPage({ params, searchParams }: { params: Prom
                 </div>
                 <div className="mb-8">
                   <form method="GET" action="/posts" className="flex gap-2">
-                    <input type="text" name="q" placeholder={translation('search.searchPosts')} className="input w-full" defaultValue={searchQuery} />
+                    <input type="text" name="q" placeholder={translation('search.searchPosts')} className="input w-full" />
                     {selectedTag && <input type="hidden" name="tag" value={selectedTag} />}
                     <button type="submit" className="btn btn-primary btn-sm">
                       {translation('search.submit')}
@@ -115,4 +101,9 @@ export default async function PostsPage({ params, searchParams }: { params: Prom
       </Layout>
     </>
   )
+}
+
+export async function generateStaticParams() {
+  const { locales } = await import('@appConfig')
+  return locales.map((locale) => ({ locale }))
 }

@@ -42,3 +42,8 @@ export default async function TagsPage({ params }: { params: Promise<{ locale: L
     </>
   )
 }
+
+export async function generateStaticParams() {
+  const { locales } = await import('@appConfig')
+  return locales.map((locale) => ({ locale }))
+}

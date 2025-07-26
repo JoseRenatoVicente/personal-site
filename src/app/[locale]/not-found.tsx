@@ -4,12 +4,13 @@ import { getAllSettings } from '@lib/ghost'
 import { BodyClass } from '@helpers/BodyClass'
 import Link from 'next/link'
 import { getTranslation } from '@lib/i18n/getTranslation'
-import { headers } from 'next/headers'
-import { getMatchingLocale } from '@lib/i18n/getMatchingLocale'
+import { defaultLocale } from '@appConfig'
+
+export const dynamic = 'error'
 
 export default async function NotFound() {
-  const headersList = await headers();
-  const locale = getMatchingLocale(headersList)
+  // Na exportação estática, use o locale padrão
+  const locale = defaultLocale
   const translation = await getTranslation(locale);
 
   const settings = await getAllSettings()
