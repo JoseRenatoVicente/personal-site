@@ -24,9 +24,9 @@
     "navigation": {
         "home": "Inicio",
         "about": "Acerca de",
-        "posts": "Artículos",
+        "posts": "Posts",
         "contact": "Contacto",
-        "tags": "Etiquetas",
+        "tags": "Tags",
         "newsletter": "Boletín"
     },
     "posts":{

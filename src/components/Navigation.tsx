@@ -15,11 +15,11 @@ const Navigation = ({ data, navClass, translation }: NavigationProps) => {
       const isExternal = navItem.url.match(/^[\s]?http(s?)/gi)
       const className = navItem.label === 'Newsletter' ? 'btn btn-primary btn-sm' : 'text-muted-foreground hover:text-foreground transition-colors'
       return isExternal ? (
-          <Link key={i} href={`/${translation('navigation.' + navItem.label).toLowerCase()}`} className={className} prefetch={false} target="_blank" rel="noopener noreferrer">
+          <Link key={i} href={`/${translation.locale}/${ navItem.label == 'home' ? '' : translation('navigation.' + navItem.label).toLowerCase()}`} className={className} prefetch={false} target="_blank" rel="noopener noreferrer">
              {translation('navigation.' + navItem.label)}
           </Link>
         ) : (
-          <Link key={i} href={`/${translation('navigation.' + navItem.label).toLowerCase()}`} className={className} prefetch={false}>
+          <Link key={i} href={`/${translation.locale}/${ navItem.label == 'home' ? '' : translation('navigation.' + navItem.label).toLowerCase()}`} className={className} prefetch={false}>
             {translation('navigation.' + navItem.label)}
           </Link>
         );

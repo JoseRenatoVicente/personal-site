@@ -60,7 +60,7 @@ const Footer = ({ settings, translation }: { settings: GhostSettings, translatio
             <ul className="mt-4 space-y-2 text-sm">
               {navigation?.map((navItem, i) => (
                 <li key={i}>
-                  <Link href={`/${translation('navigation.' + navItem.label).toLowerCase()}`} className="text-muted-foreground hover:text-foreground" prefetch={false}>
+                  <Link href={`/${translation.locale}/${ navItem.label == 'home' ? '' : translation('navigation.' + navItem.label).toLowerCase()}`} className="text-muted-foreground hover:text-foreground" prefetch={false}>
                     {translation('navigation.' + navItem.label)}
                   </Link>
                 </li>
