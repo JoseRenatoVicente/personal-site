@@ -9,7 +9,18 @@ const nextConfig: NextConfig = {
     reactRemoveProperties: true,
   },
   experimental: {
-    optimizeCss: true
+    optimizeCss: true,
+    // Configuração de tempos de expiração para páginas estáticas
+    staleTimes: { dynamic: 60 * 60 } // 1 hora
+  },
+  staticPageGenerationTimeout: 20, // Aumenta o timeout para geração de páginas estáticas (em segundos)
+  // Configuração de fallback para páginas que não podem ser geradas
+  // Isso é especialmente útil quando o backend está fora
+  onDemandEntries: {
+    // período para manter a renderização de páginas em memória
+    maxInactiveAge: 24 * 60 * 60 * 1000, // 24 horas
+    // número de páginas a manter em memória
+    pagesBufferLength: 100,
   },
   generateBuildId: async () => {
     return Math.random().toString(36).slice(2, 15)
