@@ -25,12 +25,7 @@ const nextConfig: NextConfig = {
   generateBuildId: async () => {
     return Math.random().toString(36).slice(2, 15)
   },
-  async headers() {
-    // Se estivermos exportando como estático, não use headers
-    if (process.env.NODE_ENV === 'production' && process.env.IS_EXPORT === 'true') {
-      return []
-    }
-    
+  async headers() {    
     return [
       {
         source: '/(.*)',
@@ -78,6 +73,10 @@ const nextConfig: NextConfig = {
           {
             key: 'X-DNS-Prefetch-Control',
             value: 'on',
+          },
+          {
+            key: 'Content-Security-Policy',
+            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.google-analytics.com https://cdn.renatovicente.dev; font-src 'self' data:; connect-src 'self' https://www.google-analytics.com; frame-src 'self'; object-src 'none'; base-uri 'self';"
           }
         ],
       },
