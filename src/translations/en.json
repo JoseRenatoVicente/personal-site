@@ -30,7 +30,12 @@
         "newsletter": "Newsletter"
     },
     "posts":{
-        "taggedWith": "Posts Tagged With:"
+        "taggedWith": "Posts Tagged With:",
+        "description": "Articles about software development, system architecture, information security, and more."
+    },
+    "tags": {
+        "title": "Tags",
+        "description": "Explore the tags of the articles."
     },
     "search": {
         "submit": "Filter",

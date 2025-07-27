@@ -3,10 +3,12 @@ import { GhostSettings } from '@lib/ghost'
 import { Author, PostOrPage, Tag } from '@tryghost/content-api'
 import { ISeoImage } from '@components/meta/seoImage'
 import { siteTitleMeta, siteDescriptionMeta, siteIcon } from '@components/meta/siteDefaults'
+import { Locale } from '@appConfig'
 
 interface SEOProps {
+  locale?: Locale
   title?: string
-  description?: string
+  description?: string | null
   sameAs?: string
   settings: GhostSettings
   canonical?: string
@@ -33,7 +35,7 @@ export function getSeoMetadata(props: SEOProps): Metadata {
   const ogImageHeight = seoImage ? seoImage.dimensions.height : 768
   const ogImageAlt = title
   const ogImageType = 'image/png'
-  const ogLocale = settings.locale || 'pt_BR'
+  const ogLocale = props.locale
   const articleAuthor = primary_author?.name
 
   return {

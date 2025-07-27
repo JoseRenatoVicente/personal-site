@@ -6,17 +6,29 @@ import { HeaderIndex } from '@components/HeaderIndex'
 import { Subscribe } from '@components/Subscribe'
 import { PostView } from '@components/PostView'
 import { notFound } from 'next/navigation'
-import { Locale } from '@appConfig'
+import { Locale, locales } from '@appConfig'
 import { getTranslation } from '@lib/i18n/getTranslation'
+import { Metadata } from 'next'
 
 export const revalidate = 60
 
-export const metadata = async () => {
+interface PostsTagPageProps {
+  params?: Promise<{ slug: string[], locale: Locale }>
+}
+
+export async function generateMetadata({ params }: PostsTagPageProps): Promise<Metadata> {
   const settings = await getAllSettings()
+  const resolved = await params
+  const locale = resolved?.locale as Locale;
+  const slug = resolved?.slug[resolved.slug.length - 1];
+  const canonical = `${settings.processEnv.siteUrl}/${locale}/posts/${slug}`
+
   return getSeoMetadata({
+    locale,
     title: settings.title,
-    description: settings.meta_description ?? undefined,
-    settings
+    description: settings.meta_description,
+    settings,
+    canonical
   })
 }
 
@@ -36,10 +48,6 @@ export async function generateStaticParams() {
   }
   
   return routes;
-}
-
-interface PostsTagPageProps {
-  params?: Promise<{ slug: string[], locale: Locale }>
 }
 
 export default async function PostsByTagPage({ params }: PostsTagPageProps) {

@@ -7,15 +7,27 @@ import { Subscribe } from '@components/Subscribe'
 import { PostView } from '@components/PostView'
 import { Locale } from '@appConfig'
 import { getTranslation } from '@lib/i18n/getTranslation'
+import { seoImage } from '@components/meta/seoImage'
+import { Metadata } from 'next'
 
 export const dynamic = 'error'
 export const revalidate = 60
 
-export const metadata = getSeoMetadata({
-  title: 'Artigos',
-  description: 'Navegue por todas as tags do blog',
-  settings: await getAllSettings(),
-})
+export async function generateMetadata({ params }: { params?: Promise<{ slug: string, locale: Locale }> }): Promise<Metadata> {
+  const settings = await getAllSettings()
+  const locale = (await params)?.locale as Locale;
+  const translation = await getTranslation(locale);
+  const canonical = `${settings.processEnv.siteUrl}/${locale}/posts`
+
+  return getSeoMetadata({
+    locale,
+    title: translation('navigation.posts'),
+    description: translation('posts.description'),
+    settings,
+    seoImage: await seoImage({ siteUrl: settings.processEnv.siteUrl }),
+    canonical
+  })
+}
 
 export default async function PostsPage({ params }: { params: Promise<{ locale: string }> }) {
   const resolvedParams = await params;

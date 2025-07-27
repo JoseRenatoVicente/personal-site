@@ -18,16 +18,22 @@ export async function generateMetadata({ params }: TagPageProps) {
   const resolved = await params
   if (!resolved?.slug) notFound()
 
+  const locale = resolved?.locale as Locale;
   const slug = resolved.slug[resolved.slug.length - 1]
+
+
   const tag = await getTagBySlug(slug)
   if (!tag) notFound()
 
   const settings = await getAllSettings()
 
+  const canonical = `${settings.processEnv.siteUrl}/${locale}/tags/${slug}`
+
   return getSeoMetadata({
-    title: tag.name, // título da tag
-    description: tag.description ?? undefined, // null => undefined
+    title: tag.name,
+    description: tag.description,
     settings,
+    canonical
   })
 }
 

@@ -8,18 +8,24 @@ import { HeaderIndex } from '@components/HeaderIndex'
 import { PostCard } from '@components/PostCard'
 import { Subscribe } from '@components/Subscribe'
 import Link from 'next/link'
-import { Locale } from '@appConfig';
+import { Locale, locales } from '@appConfig';
 import { getTranslation } from '@lib/i18n/getTranslation';
+import { Metadata } from 'next'
 
 export const revalidate = 60
- 
-export const metadata = async () => {
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
   const settings = await getAllSettings()
+  const locale = (await params)?.locale as Locale;
+  const canonical = `${settings.processEnv.siteUrl}/${locale}`
+
   return getSeoMetadata({
+    locale,
     title: settings.title,
-    description: settings.meta_description ?? undefined,
+    description: settings.meta_description,
     settings,
     seoImage: await seoImage({ siteUrl: settings.processEnv.siteUrl }),
+    canonical
   })
 }
 
@@ -120,6 +126,5 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
 }
 
 export async function generateStaticParams() {
-  const { locales } = await import('@appConfig')
   return locales.map((locale) => ({ locale }))
 }

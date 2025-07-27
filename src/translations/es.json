@@ -30,7 +30,12 @@
         "newsletter": "Boletín"
     },
     "posts":{
-        "taggedWith": "Artículos con etiqueta:"
+        "taggedWith": "Artículos con etiqueta:",
+        "description": "Artículos sobre desarrollo de software, arquitectura de sistemas, seguridad de la información y más."
+    },
+    "tags": {
+        "title": "Tags",
+        "description": "Explora las etiquetas de los artículos."
     },
     "search": {
         "submit": "Filtrar",

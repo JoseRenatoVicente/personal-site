@@ -5,14 +5,24 @@ import Link from 'next/link'
 import { HeaderIndex } from '@components/HeaderIndex'
 import { Locale } from '@appConfig'
 import { getTranslation } from '@lib/i18n/getTranslation'
+import { Metadata } from 'next'
 
 export const revalidate = 60
 
-export const metadata = getSeoMetadata({
-  title: 'Tags',
-  description: 'Navegue por todas as tags do blog',
-  settings: await getAllSettings(),
-})
+export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
+  const settings = await getAllSettings()
+  const locale = (await params)?.locale as Locale;
+  const translation = await getTranslation(locale);
+  const canonical = `${settings.processEnv.siteUrl}/${locale}/tags`
+
+  return getSeoMetadata({
+    locale,
+    title: translation('tags.title'),
+    description: translation('tags.description'),
+    settings,
+    canonical
+  })
+}
 
 export default async function TagsPage({ params }: { params: Promise<{ locale: Locale }> }) {
   const locale = (await params)?.locale as Locale;

@@ -19,16 +19,23 @@ import { BodyClass } from '@components/helpers/BodyClass'
 import { getSeoMetadata } from '@components/meta/seo'
 import { Locale } from '@appConfig'
 import { getTranslation } from '@lib/i18n/getTranslation'
+import { Metadata } from 'next'
 
 export const revalidate = 60
 
-export const metadata = async () => {
+export async function generateMetadata({ params }: { params?: Promise<{ slug: string, locale: Locale }> }): Promise<Metadata> {
   const settings = await getAllSettings()
+  const locale = (await params)?.locale as Locale;
+  const slug = (await params)?.slug as string;
+  const canonical = `${settings.processEnv.siteUrl}/${locale}/${slug}`
+
   return getSeoMetadata({
+    locale,
     title: settings.title,
-    description: settings.meta_description ?? undefined,
+    description: settings.meta_description,
     settings,
     seoImage: await seoImage({ siteUrl: settings.processEnv.siteUrl }),
+    canonical
   })
 }
 

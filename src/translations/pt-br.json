@@ -30,7 +30,12 @@
         "newsletter": "Newsletter"
     },
     "posts":{
-        "taggedWith": "Artigos da Tag:"
+        "taggedWith": "Artigos da Tag:",
+        "description": "Artigos sobre desenvolvimento de software, arquitetura de sistemas, segurança da informação e mais."
+    },
+    "tags": {
+        "title": "Tags",
+        "description": "Explore as tags dos artigos."
     },
     "search": {
         "submit": "Filtrar",
