@@ -18,6 +18,23 @@
   ::file-selector-button {
     border-color: var(--color-gray-200, currentcolor);
   }
+  
+  /* Corrige o aviso do Lighthouse definindo tamanhos explícitos de fonte para h1 em elementos semânticos */
+  article h1,
+  section h1,
+  aside h1,
+  nav h1 {
+    font-size: 2.25rem; /* text-3xl */
+  }
+  
+  @media (min-width: 768px) {
+    article h1,
+    section h1,
+    aside h1,
+    nav h1 {
+      font-size: 3rem; /* text-5xl */
+    }
+  }
 }
 
 @utility btn {

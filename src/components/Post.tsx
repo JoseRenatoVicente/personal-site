@@ -161,7 +161,7 @@ export const Post = ({ cmsData }: PostProps) => {
                   <ul className="space-y-4 divide-y">
                     {previewPosts?.map((post, i) => (
                       <li className="pt-4" key={i}>
-                        <h4>
+                        <h3>
                           <Link
                             href={resolveUrl({
                               cmsUrl,
@@ -169,11 +169,11 @@ export const Post = ({ cmsData }: PostProps) => {
                               slug: post.slug,
                               url: post.url,
                             })}
-                            className="transition-colors hover:text-accent"
+                            className="transition-colors hover:text-accent animate-fade-in text-gradient font-bold"
                           >
                             {post.title}
                           </Link>
-                        </h4>
+                        </h3>
                         <div className="read-next-card-meta">
                           <p>
                             <time className="text-xs text-muted-foreground" dateTime={post.published_at || ''}>

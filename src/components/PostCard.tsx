@@ -53,7 +53,7 @@ export const PostCard = ({ settings, post, num, isHome }: PostCardProps) => {
       </Link>
       <div className="p-5">
         <h3 className="mb-2 line-clamp-2 text-lg font-bold">
-          <Link href={url} className="transition-colors hover:text-accent" prefetch={false}>
+          <Link href={url} className="transition-colors hover:text-accent animate-fade-in text-gradient font-bold" prefetch={false}>
             {post.title}
           </Link>
         </h3>

@@ -14,7 +14,7 @@ const Footer = ({ settings, translation }: { settings: GhostSettings, translatio
       <div className="container py-8 md:py-12">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           <div className="md:col-span-2">
-            <Link href={`/${translation.locale}`} className="text-lg font-bold">
+            <Link href={`/${translation.locale}`} className="text-lg animate-fade-in text-gradient font-bold">
               <span className="text-gradient">&lt;/&gt;</span> {brandTitle}
             </Link>
             <p className="mt-2 text-sm text-muted-foreground">

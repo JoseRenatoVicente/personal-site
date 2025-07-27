@@ -7,9 +7,9 @@ export const Subscribe = async ({ translation }: { translation: TranslationKey }
 
   return (
     <section className="rounded-lg border bg-card p-6">
-      <h3 className="mb-2 text-lg font-bold">
+      <h2 className="mb-2 text-lg font-bold">
        {translation('subscribe.title')}
-      </h3>
+      </h2>
       <p className="mb-4 text-sm text-muted-foreground">{translation('subscribe.description')}</p>
       <SubscribeForm {...{ translation }} />
     </section>

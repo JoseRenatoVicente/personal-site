@@ -15,7 +15,7 @@ export const HeaderBase = ({ settings, translation }: HeaderBaseProps) => {
   return (
     <header className={`sticky top-0 z-40 w-full bg-background/95 shadow-xs backdrop-blur-sm transition-all duration-200 supports-backdrop-filter:bg-background/60`}>
       <div className="container flex h-16 items-center justify-between py-4">
-        <Link href={`/${translation.locale}`} className="text-lg font-bold">
+        <Link href={`/${translation.locale}`} className="text-lg animate-fade-in text-gradient font-bold">
           <span className="text-gradient">&lt;/&gt;</span> {brandTitle}
         </Link>
 

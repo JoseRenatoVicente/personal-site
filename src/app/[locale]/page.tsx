@@ -61,7 +61,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
               <div className="space-y-6">
                 <div className="flex items-center justify-between">
                   <h2 className="text-2xl font-bold">{translation('home.featured')}</h2>
-                  <Link className="btn btn-sm btn-outline" href={`/${locale}/posts`} prefetch={false}>
+                  <Link className="btn btn-sm btn-outline animate-fade-in text-gradient font-bold" href={`/${locale}/posts`} prefetch={false}>
                     {translation('home.viewAll')}
                   </Link>
                 </div>
@@ -72,7 +72,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
               <div className="space-y-6">
                 <div className="flex items-center justify-between">
                   <h2 className="text-2xl font-bold">{translation('home.recentPosts')}</h2>
-                  <Link className="btn btn-sm btn-outline" href={`/${locale}/posts`} prefetch={false}>
+                  <Link className="btn btn-sm btn-outline animate-fade-in text-gradient font-bold" href={`/${locale}/posts`} prefetch={false}>
                     {translation('home.viewAll')}
                   </Link>
                 </div>
