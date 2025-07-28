@@ -1,4 +1,3 @@
-import React from 'react'
 import Link from 'next/link'
 import { NavItem } from '@lib/ghost'
 import { TranslationKey } from '../lib/i18n/getTranslation'

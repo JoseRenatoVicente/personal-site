@@ -9,8 +9,7 @@ interface HeaderBaseProps {
 }
 
 export const HeaderBase = ({ settings, translation }: HeaderBaseProps) => {
-  const site = settings
-  const brandTitle = site.title
+  const brandTitle = settings.title
 
   return (
     <header className={`sticky top-0 z-40 w-full bg-background/95 shadow-xs backdrop-blur-sm transition-all duration-200 supports-backdrop-filter:bg-background/60`}>

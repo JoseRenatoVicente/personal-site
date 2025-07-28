@@ -4,15 +4,6 @@ import { GhostSettings } from '@lib/ghost'
 import Footer from '@components/Footer'
 import { TranslationKey } from '@lib/i18n/getTranslation'
 
-/**
- * Main layout component
- *
- * The Layout component wraps around each page and template.
- * It also provides the header, footer as well as the main
- * styles, and meta data for each page.
- *
- */
-
 interface LayoutProps {
   translation: TranslationKey
   settings: GhostSettings
@@ -24,12 +15,6 @@ interface LayoutProps {
 }
 
 export const Layout = ({ translation, settings, header, children, previewPosts, bodyClass, errorClass }: LayoutProps) => {
-  const site = settings
-  const { siteUrl, memberSubscriptions } = settings.processEnv
-
-  const twitterUrl = site.twitter && `https://twitter.com/${site.twitter.replace(/^@/, ``)}`
-  const facebookUrl = site.facebook && `https://www.facebook.com/${site.facebook.replace(/^\//, '')}`
-
   errorClass = errorClass || ``
 
   return (

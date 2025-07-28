@@ -11,7 +11,7 @@ export interface SiteNavProps {
 
 export const SiteNav = ({ settings, className, postTitle, translation }: SiteNavProps) => {
   const { processEnv } = settings
-  const { customNavigation, nextImages, memberSubscriptions } = processEnv
+  const { customNavigation } = processEnv
   const config: {
     overwriteNavigation: NavItem[]
     addNavigation: NavItem[]
@@ -19,11 +19,8 @@ export const SiteNav = ({ settings, className, postTitle, translation }: SiteNav
     overwriteNavigation: customNavigation || [],
     addNavigation: customNavigation || [],
   }
-  const site = settings
-  const siteUrl = settings.processEnv.siteUrl
-  const secondaryNav = site.secondary_navigation && site.secondary_navigation.length > 0
-
-  const navigation = site.navigation
+  
+  const navigation = settings.navigation
 
   // overwrite navigation if specified in options
   const labels = navigation?.map((item) => item.label)
