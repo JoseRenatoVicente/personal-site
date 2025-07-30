@@ -1,7 +1,6 @@
 import { defaultLocale, locales, Locale } from '@appConfig';
 import { match } from '@formatjs/intl-localematcher';
 import Negotiator from 'negotiator';
-import { NextRequest } from 'next/server';
 
 /**
  * Determines the best matching locale based on the user's preferred languages.

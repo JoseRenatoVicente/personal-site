@@ -5,7 +5,7 @@ import { PostView } from '@components/PostView'
 import { getSeoMetadata } from '@components/meta/seo'
 import { getTagBySlug, getAllTags, getAllSettings, getPostsByTag } from '@lib/ghost'
 import { BodyClass } from '@components/helpers/BodyClass'
-import { Locale } from '@appConfig'
+import { Locale, locales } from '@appConfig'
 import { getTranslation } from '@lib/i18n/getTranslation'
 
 export const revalidate = 60
@@ -74,9 +74,7 @@ export default async function TagPage({ params }: TagPageProps) {
   )
 }
 
-export async function generateStaticParams() {
-  const { locales } = await import('@appConfig');
-  
+export async function generateStaticParams() {  
   const routes: { locale: string; slug: string[] }[] = [];
   
   for (const locale of locales) {

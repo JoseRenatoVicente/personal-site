@@ -17,7 +17,7 @@ import { seoImage } from '@components/meta/seoImage'
 import { processEnv } from '@lib/processEnv'
 import { BodyClass } from '@components/helpers/BodyClass'
 import { getSeoMetadata } from '@components/meta/seo'
-import { Locale } from '@appConfig'
+import { defaultLocale, Locale, locales } from '@appConfig'
 import { getTranslation } from '@lib/i18n/getTranslation'
 import { Metadata } from 'next'
 
@@ -138,7 +138,6 @@ export async function generateStaticParams() {
   ])
   
   const routes: { locale: string; slug: string[] }[] = [];
-  const { locales, defaultLocale } = await import('@appConfig');
   
   const getContentLocale = (item: GhostPostOrPage): string => {
     if (!item.tags || item.tags.length === 0) return defaultLocale;

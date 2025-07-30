@@ -1,4 +1,4 @@
-import cheerio from 'cheerio'
+import { load } from 'cheerio';
 import RSS from 'rss'
 
 import { GhostPostOrPage, GhostPostsOrPages, GhostSettings } from '@lib/ghost'
@@ -14,9 +14,9 @@ interface FeedProps {
 export const generateRSSFeed = ({ posts, settings }: FeedProps) => {
   const { siteUrl } = settings.processEnv
   const feedOptions = {
-    title: siteTitleMeta,
-    description: siteDescriptionMeta,
-    generator: `Jamify Blog Starter 2.0`,
+    title: settings.title,
+    description: settings.description,
+    generator: `${settings.title} 2.0`,
     feed_url: resolve(siteUrl, 'rss/'),
     site_url: resolve(siteUrl, ''),
     image_url: resolve(siteUrl, siteIcon),
@@ -49,7 +49,7 @@ const generateItem = ({ post, settings }: ItemProps) => {
 
   // ToDo:
   // const transformedHtml = post.htmlAst
-  const htmlContent = cheerio.load(html || '', {
+  const htmlContent = load(html || '', {
     decodeEntities: false,
     xmlMode: true,
   })

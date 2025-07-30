@@ -33,8 +33,6 @@ export async function generateMetadata({ params }: PostsTagPageProps): Promise<M
 }
 
 export async function generateStaticParams() {
-  const { locales } = await import('@appConfig');
-  
   const routes: { locale: string; slug: string[] }[] = [];
   
   for (const locale of locales) {
