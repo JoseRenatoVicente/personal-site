@@ -9,7 +9,6 @@ import { defaultLocale } from '@appConfig'
 export const dynamic = 'error'
 
 export default async function NotFound() {
-  // Na exportação estática, use o locale padrão
   const locale = defaultLocale
   const translation = await getTranslation(locale);
 

@@ -14,7 +14,7 @@ interface PostViewProps {
 }
 
 export const PostView = (props: PostViewProps) => {
-  dayjs.locale(props.locale || 'pt-br')
+  dayjs.locale(props.locale || 'en')
   
   return (
     <>

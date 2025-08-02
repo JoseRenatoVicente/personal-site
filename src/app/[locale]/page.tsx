@@ -11,6 +11,7 @@ import Link from 'next/link'
 import { Locale, locales } from '@appConfig';
 import { getTranslation } from '@lib/i18n/getTranslation';
 import { Metadata } from 'next'
+import { notFound } from 'next/navigation'
 
 export const revalidate = 60
 
@@ -31,6 +32,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: L
 
 export default async function HomePage({ params }: { params: Promise<{ locale: Locale }> }) {
   const locale = (await params)?.locale as Locale;
+
+  if (!locales.includes(locale)) {
+    notFound()
+  }
+
   const translation = await getTranslation(locale);
 
   const settings: GhostSettings = await getAllSettings()
