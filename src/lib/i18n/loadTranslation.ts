@@ -1,14 +1,15 @@
-import { defaultLocale, Locale } from '@appConfig';
+import { defaultLocale, Locale, locales } from '@appConfig';
 
 // Define um tipo mais específico para os arquivos de tradução
 type TranslationContent = Record<string, string | Record<string, string | Record<string, string>>>;
 
-// Import translation files manually from @/translations path as modules
-const translations: Record<Locale, () => Promise<TranslationContent>> = {
-  'es': () => import('@translations/es.json').then((module) => module.default),
-  'pt-br': () => import('@translations/pt-br.json').then((module) => module.default),
-  'en': () => import('@translations/en.json').then((module) => module.default)
-};
+// Cria o objeto de traduções dinamicamente com base no array de locales
+const translations: Record<Locale, () => Promise<TranslationContent>> = Object.fromEntries(
+  locales.map(locale => [
+    locale,
+    () => import(`@translations/${locale}.json`).then((module) => module.default)
+  ])
+) as Record<Locale, () => Promise<TranslationContent>>;
 
 // Create a simpler type for translation objects to avoid deep type recursion
 export type TranslationObject = TranslationContent;

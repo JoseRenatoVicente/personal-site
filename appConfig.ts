@@ -60,7 +60,7 @@ export const maxNumberOfPages: number = 20
 
 
 export const defaultLocale: string = 'en'
-export const locales: string[] = ['pt-br', 'en', 'es']
+export const locales: string[] = ['pt', 'en', 'es']
 
 // Exports a type from the i18nConfig, can represent any locale in locales array.
 export type Locale = (typeof locales)[number];

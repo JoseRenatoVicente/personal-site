@@ -12,12 +12,6 @@ interface StaticPage {
     alternateLinks?: string;
 }
 
-// Mapeamento fixo para os caminhos de tags em cada idioma
-const tagsPathByLocale: Record<string, string> = {
-    'en': 'tags',
-    'es': 'etiquetas',
-    'pt-br': 'tags'
-};
 
 export async function GET() {
     const siteUrl = processEnv.siteUrl
@@ -27,7 +21,7 @@ export async function GET() {
 
     // Obter tags para cada idioma
     for (const locale of locales) {
-        const tagsPath = tagsPathByLocale[locale] || 'tags';
+        const tagsPath = 'tags';
         
         // Obtenha todas as tags para este idioma
         const tags = await getAllTags(locale);
@@ -59,7 +53,7 @@ export async function GET() {
                     return `        <xhtml:link rel="alternate" hreflang="${loc}" href="${page.url}" />`;
                 }
 
-                const tagsPath = tagsPathByLocale[loc] || 'tags';
+                const tagsPath = 'tags';
                 
                 // Verificar se existe uma tag com o mesmo slug em outro idioma
                 const locTags = await getAllTags(loc);

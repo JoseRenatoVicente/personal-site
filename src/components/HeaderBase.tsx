@@ -2,6 +2,7 @@ import { GhostSettings } from '@lib/ghost'
 import { SiteNav } from '@components/SiteNav'
 import Link from 'next/link'
 import { TranslationKey } from '@lib/i18n/getTranslation'
+import { LanguageSwitcherServer } from './LanguageSwitcherServer'
 
 interface HeaderBaseProps {
   translation: TranslationKey
@@ -18,7 +19,10 @@ export const HeaderBase = ({ settings, translation }: HeaderBaseProps) => {
           <span className="text-gradient">&lt;/&gt;</span> {brandTitle}
         </Link>
 
-        <SiteNav {...{ translation, settings }} className="relative z-50" postTitle={brandTitle} />
+        <div className="flex items-center space-x-2">
+          <SiteNav {...{ translation, settings }} className="relative z-50" postTitle={brandTitle} />
+          <LanguageSwitcherServer currentLocale={translation.locale} pathname={`/${translation.locale}`} />
+        </div>
       </div>
     </header>
   )

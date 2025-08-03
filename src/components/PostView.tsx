@@ -5,6 +5,7 @@ import 'dayjs/locale/es'
 
 
 import { GhostPostsOrPages, GhostSettings } from '@lib/ghost'
+import { defaultLocale } from '@appConfig'
 
 interface PostViewProps {
   locale: string
@@ -14,7 +15,7 @@ interface PostViewProps {
 }
 
 export const PostView = (props: PostViewProps) => {
-  dayjs.locale(props.locale || 'en')
+  dayjs.locale(props.locale || defaultLocale)
   
   return (
     <>
@@ -28,7 +29,7 @@ export const PostView = (props: PostViewProps) => {
                 </a>
               </h3>
               <time className="mb-2 block text-sm text-muted-foreground" dateTime={post.published_at || ''}>
-                {props.locale === 'en' 
+                {props.locale ===  defaultLocale
                   ? dayjs(post.published_at || '').format('MMMM D, YYYY')
                   : dayjs(post.published_at || '').format('D [de] MMMM [de] YYYY')}&nbsp;
               </time>

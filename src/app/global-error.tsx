@@ -1,8 +1,10 @@
 "use client"
 
+import { defaultLocale } from "@appConfig"
+
 export default function GlobalError() {
   return (
-    <html lang="en">
+    <html lang={defaultLocale}>
       <head>
         <title>Error 500 - Something went wrong</title>
         <meta charSet="utf-8" />

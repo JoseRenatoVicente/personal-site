@@ -12,13 +12,6 @@ interface StaticPage {
     alternateLinks?: string;
 }
 
-// Mapeamento fixo para os caminhos de posts em cada idioma
-const postsPathByLocale: Record<string, string> = {
-    'en': 'posts',
-    'es': 'articulos',
-    'pt-br': 'artigos'
-};
-
 export async function GET() {
     const siteUrl = processEnv.siteUrl
     const currentDate = new Date().toISOString()
@@ -27,14 +20,13 @@ export async function GET() {
 
     // Obter posts para cada idioma
     for (const locale of locales) {
-        const postsPath = postsPathByLocale[locale] || 'posts';
         
         // Obtenha todos os posts para este idioma
         const posts = await getAllPosts({ tag: `hash-${locale}` });
         
         // Adicionar cada post ao array de páginas
         for (const post of posts) {
-            const url = `${siteUrl}/${locale}/${postsPath}/${post.slug}/`;
+            const url = `${siteUrl}/${locale}/${post.slug}/`;
             
             postPages.push({
                 url,
@@ -56,7 +48,7 @@ export async function GET() {
                     return `        <xhtml:link rel="alternate" hreflang="${loc}" href="${page.url}" />`;
                 }
 
-                const postsPath = postsPathByLocale[loc] || 'posts';
+                const postsPath = 'posts';
                 
                 // Verificar se existe um post com o mesmo slug em outro idioma
                 const locPosts = await getAllPosts({ tag: `hash-${loc}` });
