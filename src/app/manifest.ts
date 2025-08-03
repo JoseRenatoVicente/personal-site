@@ -1,20 +1,34 @@
 import type { MetadataRoute } from 'next'
- 
-export default function manifest(): MetadataRoute.Manifest {
+import { getAllSettings } from '../lib/ghost'
+
+export default async function manifest(): Promise<MetadataRoute.Manifest> {
+
+  const settings = await getAllSettings()
+
   return {
-    name: 'Next.js App',
-    short_name: 'Next.js App',
-    description: 'Next.js App',
-    start_url: '/',
+    name: settings.title,
+    short_name: settings.title,
+    description: settings.meta_description || 'Renato Vicente personal website',
+    start_url: '/en',
     display: 'standalone',
-    background_color: '#fff',
-    theme_color: '#fff',
+    background_color: '#ffffff',
+    theme_color: '#15171A',
     icons: [
       {
         src: '/favicon.ico',
         sizes: 'any',
         type: 'image/x-icon',
       },
+      {
+        src: '/favicon.png',
+        sizes: '192x192',
+        type: 'image/png',
+      },
+      {
+        src: '/ghost-icon.png',
+        sizes: '512x512',
+        type: 'image/png',
+      }
     ],
   }
 }
