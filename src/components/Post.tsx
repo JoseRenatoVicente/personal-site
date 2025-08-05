@@ -20,7 +20,7 @@ import { collections } from '@lib/collections'
 import { ISeoImage } from '@components/meta/seoImage'
 
 import { IToC } from '@lib/toc'
-import { TableOfContentsItem } from '@components/toc/TableOfContents'
+import { TableOfContents, TableOfContentsItem } from '@components/toc/TableOfContents'
 
 import React from 'react'
 import { TranslationKey } from '@lib/i18n/getTranslation'
@@ -109,7 +109,7 @@ export const Post = ({ cmsData }: PostProps) => {
               </figure>
             )
           ))}
-        {/* 
+        
               <section className="post-full-content">
                 {toc.enable && !!post.toc && (
                   <TableOfContents
@@ -117,14 +117,13 @@ export const Post = ({ cmsData }: PostProps) => {
                       toc: transformToC(post.toc),
                       url: resolveUrl({ cmsUrl, collectionPath, slug, url }),
                       maxDepth: toc.maxDepth,
-                      lang,
                     }}
                   />
                 )}
 
 
 
-              </section> */}
+              </section>
 
         <section className="section">
           <div className="container">
