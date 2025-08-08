@@ -7,7 +7,7 @@ type TranslationContent = Record<string, string | Record<string, string | Record
 const translations: Record<Locale, () => Promise<TranslationContent>> = Object.fromEntries(
   locales.map(locale => [
     locale,
-    () => import(`@translations/${locale}.json`).then((module) => module.default)
+    () => import(`src/translations/${locale}.json`).then((module) => module.default)
   ])
 ) as Record<Locale, () => Promise<TranslationContent>>;
 

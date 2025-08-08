@@ -19,16 +19,12 @@ export async function GET() {
 
     const tagPages: StaticPage[] = [];
 
-    // Obter tags para cada idioma
     for (const locale of locales) {
         const tagsPath = 'tags';
         
-        // Obtenha todas as tags para este idioma
         const tags = await getAllTags(locale);
         
-        // Adicionar cada tag ao array de páginas
         for (const tag of tags) {
-            // Ignorar tags internas como 'hash-*'
             if (tag.slug.startsWith('hash-')) continue;
             
             const url = `${siteUrl}/${locale}/${tagsPath}/${tag.slug}/`;
@@ -47,7 +43,6 @@ export async function GET() {
         const pagesWithLinks: StaticPage[] = [];
         
         for (const page of tagPages) {
-            // Para cada tag, verificar se existem tags correspondentes em outros idiomas
             const alternateLinks = await Promise.all(locales.map(async loc => {
                 if (page.locale === loc) {
                     return `        <xhtml:link rel="alternate" hreflang="${loc}" href="${page.url}" />`;
@@ -55,7 +50,6 @@ export async function GET() {
 
                 const tagsPath = 'tags';
                 
-                // Verificar se existe uma tag com o mesmo slug em outro idioma
                 const locTags = await getAllTags(loc);
                 const matchingTag = locTags.find(tag => tag.slug === page.slug);
                 
